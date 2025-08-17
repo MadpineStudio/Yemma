@@ -1,0 +1,160 @@
+#pragma kernel CSGrassBlade
+#include "CSUtils.hlsl"
+
+struct SourceVertex {
+    float3 positionOS;
+    float2 uv;         
+};
+
+struct DrawVertex {
+    float3 positionWS; 
+    float2 uv;         
+};
+
+struct DrawTriangle {
+    float3 normalWS;   
+    DrawVertex vertices[3]; 
+};
+
+StructuredBuffer<float3> _MeshVertexBuffer; 
+StructuredBuffer<float2> _MeshUVBuffer;     
+StructuredBuffer<float3> _MeshNormalBuffer;
+
+
+AppendStructuredBuffer<DrawTriangle> _DrawTriangles; 
+RWStructuredBuffer<float3> _QuadCenterBuffer; 
+
+// new uvs
+RWStructuredBuffer<float2> _Grass_UVTex; 
+// vertex color
+StructuredBuffer<float3> _MeshColorBuffer;
+
+Texture2D _GrassRegion;
+SamplerState sampler_GrassRegion;
+float Scale;
+
+cbuffer GrassData {
+    int _NumQuads;          
+    float4x4 _LocalToWorld; 
+}
+
+float3 GetNormalFromTriangle(float3 a, float3 b, float3 c) {
+    return normalize(cross(b - a, c - a));
+}
+
+DrawVertex TransformToWorldSpace(SourceVertex v) {
+    DrawVertex o;
+    o.positionWS = mul(_LocalToWorld, float4(v.positionOS, 1)).xyz;
+    o.uv = v.uv;
+    return o;
+}
+void SetupAndOutputTriangle(DrawVertex a, DrawVertex b, DrawVertex c)
+{
+    DrawTriangle tri;
+    tri.normalWS = GetNormalFromTriangle(a.positionWS, b.positionWS, c.positionWS);
+    tri.vertices[0] = a;
+    tri.vertices[1] = b;
+    tri.vertices[2] = c;
+    _DrawTriangles.Append(tri);
+}
+
+float2 GetRandomGrassUV(float2 baseUV, int quadIndex, int vertexInQuad)
+{
+    // Semente única por quad (mesma para todos os vértices do mesmo quad)
+    float randomSeed = frac(sin(quadIndex * 12.9898) * 43758.5453);
+    
+    // Seleciona um dos 4 sprites horizontalmente (0 a 3)
+    int spriteIndex = floor(randomSeed * 4.0);
+    float xOffset = spriteIndex * 0.25f; // Cada sprite ocupa 25% da textura
+    
+    // Mapeia vértices do quad para a região do sprite selecionado
+    float2 uv;
+    if (vertexInQuad == 0) uv = float2(0.0, 0.0);
+    if (vertexInQuad == 1) uv = float2(1.0, 0.0);
+    if (vertexInQuad == 2) uv = float2(0.0, 1.0);
+    if (vertexInQuad == 3) uv = float2(1.0, 1.0);
+    
+    return float2((uv.x * 0.25) + xOffset, uv.y);
+}
+float2 GetRandomGrassUV(float2 baseUV, int quadIndex, int vertexInQuad, float3 vertexColor)
+{
+    // Semente única por quad (mesma para todos os vértices do mesmo quad)
+    float randomSeed = frac(sin(quadIndex * 12.9898) * 43758.5453);
+    
+    // Determina o tipo de sprite baseado no vertex color
+    int spriteIndex;
+    
+    // Vermelho (R > 0.5) - usa sprite 2 (flor)
+    if (vertexColor.r > 0.5) {
+        spriteIndex = 2;
+    }
+    // Verde (G > 0.5) - usa sprite 3 (flor)
+    else if (vertexColor.g > 0.5) {
+        spriteIndex = 3;
+    }
+    // Preto ou outras cores - usa grama (0 ou 1)
+    else {
+        // Escolhe aleatoriamente entre 0 e 1 para grama
+        spriteIndex = floor(randomSeed * 2.0); // 0 ou 1
+    }
+    
+    float xOffset = spriteIndex * 0.25f; // Cada sprite ocupa 25% da textura
+    
+    // Mapeia vértices do quad para a região do sprite selecionado
+    float2 uv;
+    if (vertexInQuad == 0) uv = float2(0.0, 0.0);
+    if (vertexInQuad == 1) uv = float2(1.0, 0.0);
+    if (vertexInQuad == 2) uv = float2(0.0, 1.0);
+    if (vertexInQuad == 3) uv = float2(1.0, 1.0);
+    
+    return float2((uv.x * 0.25) + xOffset, uv.y);
+}
+[numthreads(128, 1, 1)]
+void CSGrassBlade(uint3 id : SV_DispatchThreadID)
+{
+    int index = id.x + id.y * _NumQuads;
+    if (index >= _NumQuads) return;
+
+    float randomAngle = Rand((float)index * 140.3) * 360; 
+    float3x3 rotationMatrix = CalculaNovaRotacaoMatrix(float3(0,1,0), randomAngle  * 3.1415 / 180.);
+    // float3x3 rotationMatrix = CalculaNovaRotacaoMatrix(float3(0,1,0), 0  * 3.1415 / 180.);
+
+    float s = Scale; 
+    float height = 0;
+
+    float3 vertexColor = _MeshColorBuffer[index];
+
+    // Gera UVs aleatórias consistentes por quad
+    float2 uv0 = GetRandomGrassUV(float2(0, 0), index, 0, vertexColor);
+    float2 uv1 = GetRandomGrassUV(float2(1, 0), index, 1, vertexColor);
+    float2 uv2 = GetRandomGrassUV(float2(0, 1), index, 2, vertexColor);
+    float2 uv3 = GetRandomGrassUV(float2(1, 1), index, 3, vertexColor);
+
+    // Armazena no buffer
+    _Grass_UVTex[index * 4 + 0] = 1.-uv0;
+    _Grass_UVTex[index * 4 + 1] = 1.0-uv1;
+    _Grass_UVTex[index * 4 + 2] = 1.-uv2;
+    _Grass_UVTex[index * 4 + 3] = 1.-uv3;
+    
+    float3 quadCenter = _MeshVertexBuffer[index].xyz;
+    //
+    // SourceVertex v0 = { mul(rotationMatrix, float3(0, 0, 0)) + quadCenter, float2(0, 0) };
+    // SourceVertex v1 = { mul(rotationMatrix, float3(s, 0, 0)) + quadCenter, float2(1, 0) };
+    // SourceVertex v2 = { mul(rotationMatrix, float3(0, s+ height, 0)) + quadCenter, float2(0, 1) };
+    // SourceVertex v3 = { mul(rotationMatrix, float3(s, s+ height, 0)) + quadCenter, float2(1, 1) };
+    
+    SourceVertex v0 = { mul(rotationMatrix, float3(0, 0, 0)) + quadCenter, uv0};
+    SourceVertex v1 = { mul(rotationMatrix, float3(s, 0, 0)) + quadCenter, uv1 };
+    SourceVertex v2 = { mul(rotationMatrix, float3(0, s+ height, 0)) + quadCenter, uv2 };
+    SourceVertex v3 = { mul(rotationMatrix, float3(s, s+ height, 0)) + quadCenter, uv3 };
+    
+    DrawVertex wv0 = TransformToWorldSpace(v0);
+    DrawVertex wv1 = TransformToWorldSpace(v1);
+    DrawVertex wv2 = TransformToWorldSpace(v2);
+    DrawVertex wv3 = TransformToWorldSpace(v3);
+
+    SetupAndOutputTriangle(wv0, wv1, wv2);
+    SetupAndOutputTriangle(wv1, wv3, wv2);
+}
+
+

@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7593234040419003665
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2700239257838460791}
+  - component: {fileID: 88626444723066075}
+  m_Layer: 0
+  m_Name: P_ChainCPU
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2700239257838460791
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7593234040419003665}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -13.70552, y: 37.1, z: 6.5030212}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &88626444723066075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7593234040419003665}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00648f9e98c19b046a360f48ad845130, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chain:
+    boneLength: 0.55
+    stiffness: 0.405
+    gravity: {x: 0, y: -19.81, z: 0}
+    damping: 0.999
+    boneCount: 10
+    solverIterations: 200
+    maxMovementPerStep: 2
+    timeScale: 2
+  drawGizmos: 1
+  fixedColor: {r: 1, g: 0, b: 0, a: 1}
+  dynamicColor: {r: 0, g: 1, b: 1, a: 1}
+  gizmoSize: 0.1

@@ -1,0 +1,24 @@
+#pragma kernel ClothStep
+
+RWStructuredBuffer<float3> positions;
+RWStructuredBuffer<float3> previousPositions;
+RWStructuredBuffer<float> invMasses;
+float3 gravity;
+float deltaTime;
+float damping;
+
+[numthreads(64,1,1)]
+void ClothStep (uint3 id : SV_DispatchThreadID)
+{
+    uint idx = id.x;
+    
+    // Verlet integration
+    float3 velocity = (positions[idx] - previousPositions[idx]) * damping;
+    previousPositions[idx] = positions[idx];
+    
+    // Apply gravity
+    if (invMasses[idx] > 0)
+    {
+        positions[idx] += velocity + gravity * deltaTime * deltaTime;
+    }
+}

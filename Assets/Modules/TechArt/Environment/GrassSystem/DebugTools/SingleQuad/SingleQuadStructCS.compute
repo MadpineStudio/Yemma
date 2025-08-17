@@ -1,0 +1,71 @@
+#pragma kernel CSGrassBlade
+
+struct SourceVertex {
+    float3 positionOS; 
+    float2 uv;       
+};
+
+struct DrawVertex {
+    float3 positionWS; 
+    float2 uv;      
+};
+
+struct DrawTriangle {
+    float3 normalWS; 
+    DrawVertex vertices[4]; 
+};
+
+StructuredBuffer<float3> _MeshVertexBuffer; 
+AppendStructuredBuffer<DrawTriangle> _DrawTriangles;
+
+cbuffer GrassData {
+    int _NumQuads;         
+    float4x4 _LocalToWorld; 
+};
+
+float3 GetNormalFromTriangle(float3 a, float3 b, float3 c) {
+    return normalize(cross(b - a, c - a));
+}
+float3 GetNormalFromQuad(float3 a, float3 b, float3 c, float3 d)
+{
+    float3 n1 = cross(b - a, c - a); float3 n2 = cross(c - a, d - a);
+    return normalize(n1 + n2);
+}
+
+DrawVertex TransformToWorldSpace(SourceVertex v) {
+    DrawVertex o;
+    o.positionWS = mul(_LocalToWorld, float4(v.positionOS, 1)).xyz;
+    o.uv = v.uv;
+    return o;
+}
+
+void SetupAndOutputTriangle(DrawVertex a, DrawVertex b, DrawVertex c, DrawVertex d) {
+    DrawTriangle tri;
+    tri.normalWS = GetNormalFromQuad(a.positionWS, b.positionWS, c.positionWS, d.positionWS);
+    tri.vertices[0] = a;
+    tri.vertices[1] = b;
+    tri.vertices[2] = c;
+    tri.vertices[3] = d;
+    _DrawTriangles.Append(tri);
+}
+[numthreads(128, 1, 1)]
+void CSGrassBlade(uint3 id : SV_DispatchThreadID)
+{
+    int index = id.x + id.y * _NumQuads;
+    if (index >= _NumQuads) return;
+
+    SourceVertex v0 = { float3(0, 0, 0) , float2(0, 0) };
+    SourceVertex v1 = {  float3(1, 0, 0), float2(1, 0) };
+    SourceVertex v2 = {  float3(0, 1, 0), float2(0, 1) };
+    SourceVertex v3 = {  float3(1, 1, 0), float2(1, 1) };
+
+    DrawVertex wv0 = TransformToWorldSpace(v0);
+    DrawVertex wv1 = TransformToWorldSpace(v1);
+    DrawVertex wv2 = TransformToWorldSpace(v2);
+    DrawVertex wv3 = TransformToWorldSpace(v3);
+
+    SetupAndOutputTriangle(wv0, wv1, wv2, wv3);
+    // SetupAndOutputTriangle(wv1, wv3, wv2, wv0);
+}
+
+

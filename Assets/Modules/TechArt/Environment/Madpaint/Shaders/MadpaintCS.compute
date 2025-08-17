@@ -1,0 +1,24 @@
+#pragma kernel CSMain
+
+struct VertexData {
+    float3 position;
+    float4 color;
+};
+
+RWStructuredBuffer<VertexData> vertexBuffer;
+float3 brushWorldPos;
+float brushSize;
+float brushStrength;
+float4 brushColor;
+
+[numthreads(64,1,1)]
+void CSMain (uint id : SV_DispatchThreadID) {
+    if(id >= vertexBuffer.Length) return;
+    VertexData v = vertexBuffer[id];
+    float dist = distance(v.position, brushWorldPos);
+    if(dist < brushSize) {
+        float strength = saturate(1.0 - (dist / brushSize)) * brushStrength;
+        v.color = lerp(v.color, brushColor, strength);
+        vertexBuffer[id] = v;
+    }
+}

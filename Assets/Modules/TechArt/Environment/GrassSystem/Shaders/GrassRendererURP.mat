@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: GrassRendererURP
+  m_Shader: {fileID: 4800000, guid: 08ba4171aee038e42ad7162b7e7377bd, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _GrassGroundMask:
+        m_Texture: {fileID: 2800000, guid: 25228b85899028c4494bac75c830666d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _GrassMask:
+        m_Texture: {fileID: 2800000, guid: db6b08b29f0d29c49a93a6ef8363ae0a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _GrassMaskDisplacement:
+        m_Texture: {fileID: 8400000, guid: 95fb63eed1a62884bac7bf4d8f6bb7f6, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _InputMask:
+        m_Texture: {fileID: 2800000, guid: 478f88d0651aa5b4f987fddbcd7d2f3c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: ff94b9d3c1f0b0e46a758b4d4284d69a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _WindTex:
+        m_Texture: {fileID: 2800000, guid: dc9b987493b8ed04185ca5725ee07aaa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _BaseOffsetY: 0.3
+    - _Cutoff: 0.5
+    - _GrassScale: 0.29
+    - _Intensity: 0.02
+    - _WindScale: 0.15
+    - _WindSpeed: 1
+    - _WindStrength: 1.43
+    - _grassDisplaceIntensity: 0.3
+    - _grassDisplaceScale: 0.1
+    - _grassOffset: -0.43
+    - _grassScale: 0.05
+    - _shadowOcclusion: 2.19
+    - _shadowOcclusionHeight: 0.09
+    m_Colors:
+    - _Color: {r: 0.37862644, g: 0.9056604, b: 0.23068698, a: 1}
+    - _DarkenColor: {r: 0, g: 0, b: 0, a: 1}
+    - _LightColor: {r: 0.40784317, g: 0.78823537, b: 0.227451, a: 1}
+    - _ShadowColor: {r: 0.07119967, g: 0.3018868, b: 0.2716133, a: 1}
+    - _WindColor: {r: 1, g: 1, b: 1, a: 0}
+    - _WindVelocity: {r: 0.4, g: 0.15, b: 0, a: 0}
+    - _grassOffset: {r: 0.5, g: 0.5, b: 0, a: 0}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

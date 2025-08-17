@@ -1,0 +1,17 @@
+#pragma kernel CSPhysics
+
+struct Bone
+{
+    float3 Pos;
+};
+
+RWStructuredBuffer<Bone> _bonesBuffer;
+int _boneCount;
+float _deltaTime;
+
+[numthreads(64,1,1)]
+void CSPhysics (uint3 id : SV_DispatchThreadID)
+{
+    // if(id.x > _boneCount) return;
+    _bonesBuffer[id.x].Pos += float3(0, -9.8, 0) * _deltaTime;
+}

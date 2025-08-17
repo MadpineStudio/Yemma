@@ -1,0 +1,26 @@
+// Assets/VolumetricFog/Shaders/VolumetricFog.compute
+#pragma kernel FillVolume
+
+RWTexture3D<float> _DensityVolume;
+Texture3D<float> _NoiseTexture;
+
+float _Density;
+float _NoiseStrength;
+float3 _VolumeSize;
+float3 _VolumeOffset;
+
+[numthreads(8, 8, 8)]
+void FillVolume (uint3 id : SV_DispatchThreadID)
+{
+    // Calcular posição no volume
+    float3 volumePos = id.xyz / (float3)_DensityVolume.Size;
+    
+    // Amostrar ruído 3D
+    float noise = _NoiseTexture[uint3(
+        id.x % _NoiseTexture.width,
+        id.y % _NoiseTexture.height,
+        id.z % _NoiseTexture.depth)].r;
+    
+    // Calcular densidade final
+    _DensityVolume[id.xyz] = _Density * (1.0 + noise * _NoiseStrength);
+}

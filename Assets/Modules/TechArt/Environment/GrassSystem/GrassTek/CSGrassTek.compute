@@ -1,0 +1,43 @@
+#pragma kernel UpdateMask
+
+float _DecayRate;
+float _TimeDelta;
+float _FadeExponent;
+float3 _PlayerTransform; // xz: posição atual, y: (opcional) rotação ou direção do movimento
+float3 _PlayerVelocity; // Direção do movimento do jogador (normalizada)
+
+RWTexture2D<float4> _GrassMaskBuffer; // xyz: direção, w: intensidade
+Texture2D<float> _InputMask;
+
+[numthreads(8,8,1)]
+void UpdateMask(uint3 id : SV_DispatchThreadID)
+{
+    // Converter coordenadas do buffer para world space
+    float2 uv = float2(id.xy) / float2(1024.0f, 1024.0f);
+    float2 worldPos = (uv - 0.5f) * 5.0f; // Ajuste conforme sua escala
+    
+    // Calcular vetor direção deste pixel para o jogador (world space)
+    float2 dirToPlayer = _PlayerTransform.xz - worldPos;
+    float distanceToPlayer = length(dirToPlayer);
+    
+    // Normalizar a direção (opcional: você pode querer manter a magnitude para efeitos de distância)
+    float2 dirNormalized = (distanceToPlayer > 0) ? dirToPlayer / distanceToPlayer : float2(0, 0);
+    
+    // Usar a direção do movimento do jogador (_PlayerVelocity) em vez da posição
+    // Se _PlayerVelocity estiver disponível, caso contrário usa dirToPlayer
+    float2 effectDirection = (length(_PlayerVelocity.xz) > 0) ? normalize(_PlayerVelocity.xz) : dirNormalized;
+    
+    // Processar intensidade
+    float inputVal = _InputMask[id.xy];
+    float4 currentData = _GrassMaskBuffer[id.xy];
+    
+    // Manter a maior intensidade entre input e buffer
+    float intensity = max(inputVal, currentData.w);
+    
+    // Aplicar decaimento suave
+    float decayFactor = pow(_DecayRate * _TimeDelta, _FadeExponent);
+    intensity = max(0, intensity - decayFactor);
+    
+    // Armazenar com: xy = direção do efeito, z = não usado, w = intensidade
+    _GrassMaskBuffer[id.xy] = float4(effectDirection, 0, intensity);
+}

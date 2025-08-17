@@ -1,0 +1,133 @@
+#pragma kernel CSGrassBlade
+
+struct SourceVertex {
+    float3 positionOS; 
+    float2 uv;       
+};
+
+struct DrawVertex {
+    float3 positionWS; 
+    float2 uv;      
+};
+
+//  26 floats
+struct DrawTriangle {
+    float3 normalWS;                // 3 floats
+    float3 normalAlignToSurface;    // 3 floats
+    DrawVertex vertices[4];         // 20 floats == 4 vertices x 5 floats do DrawVertex (uv + position)
+};
+
+StructuredBuffer<float3> _MeshVertexBuffer; 
+StructuredBuffer<float3> _MeshVertexNormalsBuffer;
+StructuredBuffer<float4> _VertexPaintData;
+AppendStructuredBuffer<DrawTriangle> _DrawTriangles;
+
+//input only
+cbuffer GrassData {
+    int _NumQuads;
+    float _Time;
+    float4x4 _LocalToWorld; 
+};
+
+float3 GetNormalFromTriangle(float3 a, float3 b, float3 c) {
+    return normalize(cross(b - a, c - a));
+}
+float3 GetNormalFromQuad(float3 a, float3 b, float3 c, float3 d)
+{
+    float3 n1 = cross(b - a, c - a); float3 n2 = cross(c - a, d - a);
+    return normalize(n1 + n2);
+}
+
+DrawVertex TransformToWorldSpace(SourceVertex v) {
+    DrawVertex o;
+    o.positionWS = mul(_LocalToWorld, float4(v.positionOS, 1)).xyz;
+    o.uv = v.uv;
+    return o;
+}
+
+void SetupAndOutputTriangle(DrawVertex a, DrawVertex b, DrawVertex c, DrawVertex d, float3 normalAlignToSurface)
+{
+    DrawTriangle tri;
+    tri.normalWS = GetNormalFromQuad(a.positionWS, b.positionWS, c.positionWS, d.positionWS);
+    tri.normalAlignToSurface = normalAlignToSurface;
+    
+    tri.vertices[0] = a;
+    tri.vertices[1] = b;
+    tri.vertices[2] = c;
+    tri.vertices[3] = d;
+    _DrawTriangles.Append(tri);
+}
+
+// Função de randomização simples (pode ser substituída por uma mais complexa)
+float Rand(float seed)
+{
+    return frac(sin(seed) * 43758.5453);
+}
+// Função para criar uma matriz de rotação 3x3 a partir de um eixo e um ângulo
+float3x3 RotationMatrixAxisAngle(float3 axis, float angle)
+{
+    float c = cos(angle); // Cosseno do ângulo
+    float s = sin(angle); // Seno do ângulo
+    float t = 1.0 - c;    // 1 - cosseno
+
+    // Normaliza o eixo
+    axis = normalize(axis);
+
+    // Componentes do eixo
+    float x = axis.x;
+    float y = axis.y;
+    float z = axis.z;
+
+    // Matriz de rotação
+    return float3x3(
+        t * x * x + c,      t * x * y - s * z,  t * x * z + s * y,
+        t * x * y + s * z,  t * y * y + c,      t * y * z - s * x,
+        t * x * z - s * y,  t * y * z + s * x,  t * z * z + c
+    );
+}
+// Cria uma matriz de rotação para alinhar a grama com a normal da superfície
+float3x3 CreateRotationMatrix(float3 normal, float randomAngle) {
+    float3 up = float3(0, 1, 0);
+    float3 axis = normalize(cross(up, normal));
+    float angle = acos(dot(up, normal));
+    return RotationMatrixAxisAngle(axis, angle + randomAngle);
+}
+
+
+[numthreads(128, 1, 1)]
+void CSGrassBlade(uint3 id : SV_DispatchThreadID)
+{
+    int index = id.x + id.y * _NumQuads;
+    if (index >= _NumQuads) return;
+    
+    if( _VertexPaintData[index].y > .9 &&  _VertexPaintData[index].x > .1 &&  _VertexPaintData[index].z > .1) return;
+    
+    float r = Rand(index);
+    float r1 = Rand(index * _Time);
+
+    // float3 offset = _MeshVertexBuffer[index] + float3(r * .5, 0 ,r1 * .5);
+    float s = 1;
+
+    float3 offset = _MeshVertexBuffer[index] - float3(s * .5, 0 ,0 );
+    // float s = .3 * clamp(r.x, .8, 1);
+    float3x3 surfaceAlignRotation = CreateRotationMatrix(_MeshVertexNormalsBuffer[index], 0);
+    
+    float3 pos0 = mul(surfaceAlignRotation, float3(0, 0, 0)) + offset;
+    float3 pos1 = mul(surfaceAlignRotation, float3(s, 0, 0)) + offset;
+    float3 pos2 = mul(surfaceAlignRotation, float3(0, s, 0)) + offset;
+    float3 pos3 = mul(surfaceAlignRotation, float3(s, s, 0)) + offset;
+    
+    SourceVertex v0 = {  pos0 , float2(0, 0) };
+    SourceVertex v1 = {  pos1 , float2(1, 0) };
+    SourceVertex v2 = {  pos2 , float2(0, 1) };
+    SourceVertex v3 = {  pos3 , float2(1, 1) };
+
+    DrawVertex wv0 = TransformToWorldSpace(v0);
+    DrawVertex wv1 = TransformToWorldSpace(v1);
+    DrawVertex wv2 = TransformToWorldSpace(v2);
+    DrawVertex wv3 = TransformToWorldSpace(v3);
+
+    SetupAndOutputTriangle(wv0, wv1, wv3, wv2, _MeshVertexNormalsBuffer[index]);
+}
+
+

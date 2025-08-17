@@ -1,0 +1,95 @@
+#pragma kernel UpdatePhysics
+#pragma kernel SolveConstraints
+
+struct Bone
+{
+    float3 position;
+    float3 previousPosition;
+    float3 velocity;
+    float3 initialOffset;
+    float mass;
+    int isFixed;
+};
+
+RWStructuredBuffer<Bone> Bones;
+int boneCount;
+float boneLength;
+float damping;
+float fixedDeltaTime;
+float stiffness;
+float stiffnessFalloff;
+float inertia;
+float equilibriumThreshold;
+float3 gravity;
+
+[numthreads(64,1,1)]
+void UpdatePhysics (uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= boneCount) return;
+    
+    Bone bone = Bones[id.x];
+    
+    if (bone.isFixed == 1) return;
+    
+    // Cálculo de velocidade com inércia
+    float3 velocity = (bone.position - bone.previousPosition) / fixedDeltaTime;
+    velocity *= damping * saturate(1.0 - inertia * 0.3);
+    
+    // Aplica gravidade considerando massa
+    float effectiveMass = bone.mass * (1.0 + inertia);
+    velocity += gravity * fixedDeltaTime / effectiveMass;
+    
+    // Armazena velocidade para verificação de equilíbrio
+    bone.velocity = velocity;
+    
+    // Atualiza posições
+    bone.previousPosition = bone.position;
+    bone.position += velocity * fixedDeltaTime;
+    
+    Bones[id.x] = bone;
+}
+
+[numthreads(64,1,1)]
+void SolveConstraints (uint3 id : SV_DispatchThreadID)
+{
+    uint i = id.x + 1;
+    if (i >= boneCount) return;
+    
+    Bone boneA = Bones[i-1];
+    Bone boneB = Bones[i];
+    
+    float3 delta = boneB.position - boneA.position;
+    float distance = length(delta);
+    float diff = distance - boneLength;
+    
+    if (abs(diff) > equilibriumThreshold)
+    {
+        float3 correction = delta * (diff / max(distance, 0.0001f));
+        
+        // Aplica stiffness com decaimento progressivo
+        float stiffnessFactor = stiffness * pow(stiffnessFalloff, (float)i);
+        correction *= stiffnessFactor * fixedDeltaTime;
+        
+        // Distribui correção baseado em massa
+        float massSum = boneA.mass + boneB.mass;
+        float ratioA = boneB.mass / massSum;
+        float ratioB = boneA.mass / massSum;
+        
+        if (boneA.isFixed == 0 && boneB.isFixed == 0)
+        {
+            boneA.position += correction * ratioA;
+            boneB.position -= correction * ratioB;
+        }
+        else if (boneA.isFixed == 0)
+        {
+            boneA.position += correction;
+        }
+        else if (boneB.isFixed == 0)
+        {
+            boneB.position -= correction;
+        }
+        
+        Bones[i-1] = boneA;
+        Bones[i] = boneB;
+    }
+}

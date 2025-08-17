@@ -1,0 +1,58 @@
+#pragma kernel UpdateMask
+
+// Parâmetros
+float _EffectRadius;
+float _EffectIntensity;
+float _DecayRate;
+float _TimeDelta;
+
+// Dados do jogador
+float3 _PlayerPosition;    // World position
+float3 _PlayerVelocity;    // Velocidade (para direção)
+
+// Buffer de saída
+RWTexture2D<float4> _GrassMaskBuffer;  // xy = direção, z = intensidade, w = tempo
+
+[numthreads(8, 8, 1)]
+void UpdateMask(uint3 id : SV_DispatchThreadID) {
+    // Converte UV para world space (ajuste a escala conforme seu jogo)
+    float2 uv = float2(id.xy) / 1024.0;
+    float2 worldPos = (uv - 0.5) * 20.0; // Exemplo: 20m x 20m de área
+
+    // Calcula a direção e distância até o jogador
+    float2 dirToPlayer = _PlayerPosition.xz - worldPos;
+    float distance = length(dirToPlayer);
+
+    // Se estiver fora do raio, não faz nada
+    if (distance > _EffectRadius) {
+        return;
+    }
+
+    // Calcula a intensidade (mais forte perto do jogador)
+    float falloff = 1.0 - saturate(distance / _EffectRadius);
+    float intensity = falloff * _EffectIntensity;
+
+    // Define a direção do displacement:
+    // - Se o jogador estiver se movendo, usa a direção da velocidade.
+    // - Se estiver parado, usa a direção radial (para fora).
+    float2 displacementDir = normalize(_PlayerVelocity.xz);
+    if (length(displacementDir) < 0.1) {
+        displacementDir = normalize(dirToPlayer); // Fallback: direção radial
+    }
+
+    // Lê o valor atual do buffer
+    float4 currentData = _GrassMaskBuffer[id.xy];
+    float currentIntensity = currentData.z;
+
+    // Atualiza apenas se a nova intensidade for maior
+    if (intensity > currentIntensity) {
+        currentData.xy = displacementDir;
+        currentData.z = intensity;
+    }
+
+    // Aplica decaimento
+    currentData.z = max(0, currentData.z - _DecayRate * _TimeDelta);
+
+    // Escreve no buffer
+    _GrassMaskBuffer[id.xy] = currentData;
+}

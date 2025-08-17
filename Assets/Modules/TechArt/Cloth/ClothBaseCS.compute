@@ -1,0 +1,29 @@
+// File: GravityShader.compute
+#pragma kernel ApplyGravity
+
+struct Vertex {
+    float3 position;
+};
+
+struct Velocity {
+    float3 value;
+};
+
+RWStructuredBuffer<Vertex> vertices;
+RWStructuredBuffer<Velocity> velocities;
+
+float3 gravity;
+float deltaTime;
+
+[numthreads(64, 1, 1)]
+void ApplyGravity (uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= vertices.Length)
+        return;
+    
+    // Apply gravity to velocity
+    velocities[id.x].value += gravity * deltaTime;
+    
+    // Update position based on velocity
+    vertices[id.x].position += velocities[id.x].value * deltaTime;
+}
