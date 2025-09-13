@@ -12,6 +12,7 @@ namespace Yemma
     {
         [Header("Movement System")]
         [SerializeField] private YemmaMovementController movementController;
+        [SerializeField] private YemmaInteractorController interactorController;
         [SerializeField] private InputManager inputManager;
         
         [Header("Debug")]
@@ -59,7 +60,11 @@ namespace Yemma
 
             if (inputManager == null)
                 inputManager = GetComponent<InputManager>();
-
+            if (interactorController == null)
+            {
+                interactorController = GetComponent<YemmaInteractorController>();
+            }
+                interactorController.AssingController(inputManager); 
             if (movementController == null || inputManager == null)
             {
                 Debug.LogError("YemmaController precisa dos componentes YemmaMovementController e InputManager!");
