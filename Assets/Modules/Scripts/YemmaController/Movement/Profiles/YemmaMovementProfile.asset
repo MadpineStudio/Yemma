@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54aea2ae011fb56459c359560fb5ea5a, type: 3}
+  m_Name: YemmaMovementProfile
+  m_EditorClassIdentifier: Assembly-CSharp::Yemma.Movement.Data.YemmaMovementProfile
+  maxVelocity: 12.2
+  acceleration: 10
+  deceleration: 30
+  velocityPower: 0.733
+  rotationSpeed: 7.3
+  terrainAlignmentSpeed: 20
+  tiltAmount: 6
+  tiltSpeed: 3.11
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  groundCheckDistance: 0.797
+  groundCheckOffset: {x: 0, y: 0.2, z: 0}
+  frictionMultiplier: 1
+  airDrag: 2
+  additionalGravity: 0
+  enableGroundDamping: 1
+  desiredGroundDistance: 0.1
+  springForce: 300
+  springDamping: 20
+  maxDampingForce: 50
+  dampingTolerance: 0.05
+  movementInputThreshold: 0.01
+  minimumWalkSpeed: 0.1
+  inputResponseCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  slopeSpeedMultiplier: 0.8
+  maxWalkableAngle: 45
+  showDebugRays: 1
+  debugRayColor: {r: 0, g: 1, b: 0, a: 1}
+  showDampingDebug: 1
+  dampingDebugColor: {r: 0, g: 1, b: 1, a: 1}
