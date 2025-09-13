@@ -57,8 +57,9 @@ namespace Yemma.Movement.StateMachine.States
             if (horizontalVelocity.magnitude > controller.MovementProfile.WalkSpeedThreshold)
             {
                 // Aplica força de desaceleração
-                Vector3 decelerationForce = -horizontalVelocity.normalized * controller.MovementProfile.deceleration;
+                Vector3 decelerationForce = -horizontalVelocity * controller.MovementProfile.deceleration;
                 controller.Rigidbody.AddForce(decelerationForce, ForceMode.Acceleration);
+
             }
             else
             {
