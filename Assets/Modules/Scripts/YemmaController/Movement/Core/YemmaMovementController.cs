@@ -7,6 +7,7 @@ namespace Yemma.Movement.Core
     /// Controlador principal de movimentação do Yemma
     /// Centraliza todas as funcionalidades de movimento e física
     /// </summary>
+    
     public class YemmaMovementController : MonoBehaviour
     {
         [Header("Movement Profile")]
@@ -15,29 +16,33 @@ namespace Yemma.Movement.Core
         [Header("Physics Components")]
         [SerializeField] private Rigidbody playerRigidbody;
         [SerializeField] private Transform yemmaTransform;
+        [SerializeField] private Animator yemmaAnimator;
 
         // Propriedades públicas
         public YemmaMovementProfile MovementProfile => movementProfile;
         public PhysicalProfile PhysicalProfile => null; // Backward compatibility - será removido gradualmente
         public Rigidbody Rigidbody => playerRigidbody;
         public Transform Transform => yemmaTransform;
+        public Animator Animator => yemmaAnimator;
         public Vector3 Velocity => playerRigidbody.linearVelocity;
 
         // Sistema de física de movimento
         private YemmaMovementPhysics movementPhysics;
+        public YemmaAnimationController animationController;
 
-    // Direção de movimento estável (evita flick quando input ~ 0)
-    private Vector3 stableMovementDirection = Vector3.forward;
-    // Tempo para decair a direção estável quando realmente para
-    private float stableDirectionDecayTime = 0.35f;
-    private float lastNonZeroInputTime;
-    private float minInputThreshold => movementProfile != null ? movementProfile.InputThreshold : 0.01f;
-    private float minSpeedThreshold = 0.05f; // velocidade horizontal mínima para atualizar direção pela velocidade
+        // Direção de movimento estável (evita flick quando input ~ 0)
+        private Vector3 stableMovementDirection = Vector3.forward;
+        // Tempo para decair a direção estável quando realmente para
+        private float stableDirectionDecayTime = 0.35f;
+        private float lastNonZeroInputTime;
+        private float minInputThreshold => movementProfile != null ? movementProfile.InputThreshold : 0.01f;
+        private float minSpeedThreshold = 0.05f; // velocidade horizontal mínima para atualizar direção pela velocidade
 
         private void Awake()
         {
             InitializeComponents();
             movementPhysics = new YemmaMovementPhysics(this);
+            animationController = new YemmaAnimationController(this);
         }
 
         private void InitializeComponents()
@@ -179,6 +184,10 @@ namespace Yemma.Movement.Core
             return horizontalVelocity.magnitude;
         }
 
+        public void ChangeAnimation(YemmaAnimationController.YemmaAnimations newState, float blendTime = 0.2f)
+        {
+            this.animationController.ChangeState(newState, blendTime);
+        }
         // Debug Gizmos
         private void OnDrawGizmosSelected()
         {

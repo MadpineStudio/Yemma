@@ -19,7 +19,9 @@ namespace Yemma.Movement.StateMachine.States
         public override void Enter()
         {
             base.Enter();
-            
+            // this.controller.Animator.ChangeState(YemmaAnimationController.YemmaAnimations.Run_00, .02f);
+            controller.ChangeAnimation(YemmaAnimationController.YemmaAnimations.Run_00);
+
             // Pode adicionar animação de walk aqui
             // controller.PlayAnimation("Walk");
         }

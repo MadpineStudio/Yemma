@@ -29,8 +29,8 @@ MonoBehaviour:
   airDrag: 2
   additionalGravity: 0
   enableGroundDamping: 1
-  desiredGroundDistance: 0.1
-  springForce: 300
+  desiredGroundDistance: 0.233
+  springForce: 85
   springDamping: 20
   maxDampingForce: 50
   dampingTolerance: 0.05
