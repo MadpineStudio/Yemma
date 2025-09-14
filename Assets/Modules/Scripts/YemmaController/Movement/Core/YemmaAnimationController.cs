@@ -6,13 +6,15 @@ namespace Yemma.Movement.Core
     /// Controlador de animações do Yemma.
     /// </summary>
     
-    public class YemmaAnimationController : MonoBehaviour
+    public class YemmaAnimationController
     {
 
-        public enum YemmaAnimations{
-            Idle_01,
-            Run_00,
+        public enum YemmaAnimations
+        {
+            Idle,
+            CollectWalk,
             Run,
+            Jump
         }
 
         private YemmaMovementController controller;

@@ -10,9 +10,6 @@ namespace Yemma.Movement.Core
     
     public class YemmaMovementController : MonoBehaviour
     {
-        [Header("Movement Profile")]
-        [SerializeField] private YemmaMovementProfile movementProfile;
-        
         [Header("Physics Components")]
         [SerializeField] private Rigidbody playerRigidbody;
         [SerializeField] private Transform yemmaTransform;
@@ -29,6 +26,12 @@ namespace Yemma.Movement.Core
         // Sistema de física de movimento
         private YemmaMovementPhysics movementPhysics;
         public YemmaAnimationController animationController;
+        
+        // Manager de profiles de animação
+        private YemmaAnimationProfileManager profileManager;
+        
+        // Movement profile atual (gerenciado internamente pelo ProfileSet)
+        private YemmaMovementProfile movementProfile;
 
         // Direção de movimento estável (evita flick quando input ~ 0)
         private Vector3 stableMovementDirection = Vector3.forward;
@@ -40,9 +43,18 @@ namespace Yemma.Movement.Core
 
         private void Awake()
         {
+            // Primeiro busca o manager de profiles
+            profileManager = GetComponent<YemmaAnimationProfileManager>();
+            
             InitializeComponents();
             movementPhysics = new YemmaMovementPhysics(this);
             animationController = new YemmaAnimationController(this);
+            
+            // Inicializa o manager de profiles se encontrado
+            if (profileManager != null)
+            {
+                profileManager.Initialize(this);
+            }
         }
 
         private void InitializeComponents()
@@ -53,16 +65,12 @@ namespace Yemma.Movement.Core
             if (yemmaTransform == null)
                 yemmaTransform = transform;
 
-            if (movementProfile == null)
+            // O movementProfile será definido pelo ProfileManager
+            // Cria um temporário apenas se não houver ProfileManager
+            if (profileManager == null)
             {
-                Debug.LogError("YemmaMovementProfile não foi atribuído ao YemmaMovementController!");
-                // Cria um perfil temporário para evitar erros
+                Debug.LogWarning("YemmaAnimationProfileManager não encontrado! Criando profile temporário.");
                 movementProfile = CreateDefaultProfile();
-            }
-            else
-            {
-                // Valida o perfil
-                movementProfile.ValidateProfile();
             }
         }
 
@@ -186,7 +194,56 @@ namespace Yemma.Movement.Core
 
         public void ChangeAnimation(YemmaAnimationController.YemmaAnimations newState, float blendTime = 0.2f)
         {
-            this.animationController.ChangeState(newState, blendTime);
+            // Usa o profile manager se disponível
+            if (profileManager != null)
+            {
+                profileManager.ChangeToState(newState);
+            }
+            else
+            {
+                // Fallback para o sistema antigo
+                this.animationController.ChangeState(newState, blendTime);
+            }
+        }
+        
+        /// <summary>
+        /// Troca o movement profile em runtime (usado pelo ProfileManager)
+        /// </summary>
+        public void SetMovementProfile(YemmaMovementProfile newProfile)
+        {
+            if (newProfile != null)
+            {
+                movementProfile = newProfile;
+                movementProfile.ValidateProfile();
+            }
+            else
+            {
+                Debug.LogWarning("Tentativa de definir MovementProfile nulo!");
+            }
+        }
+        
+        /// <summary>
+        /// Verifica se pode receber input baseado no profile atual
+        /// </summary>
+        public bool CanReceiveMovementInput()
+        {
+            if (profileManager != null)
+            {
+                return profileManager.CanReceiveInput();
+            }
+            return true;
+        }
+        
+        /// <summary>
+        /// Obtém o estado atual da animação
+        /// </summary>
+        public YemmaAnimationController.YemmaAnimations GetCurrentAnimationState()
+        {
+            if (profileManager != null)
+            {
+                return profileManager.GetCurrentState();
+            }
+            return YemmaAnimationController.YemmaAnimations.Idle;
         }
         // Debug Gizmos
         private void OnDrawGizmosSelected()

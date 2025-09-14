@@ -20,7 +20,7 @@ namespace Yemma.Movement.StateMachine.States
         {
             base.Enter();
             // this.controller.Animator.ChangeState(YemmaAnimationController.YemmaAnimations.Run_00, .02f);
-            controller.ChangeAnimation(YemmaAnimationController.YemmaAnimations.Run_00);
+            controller.ChangeAnimation(YemmaAnimationController.YemmaAnimations.Run);
 
             // Pode adicionar animação de walk aqui
             // controller.PlayAnimation("Walk");

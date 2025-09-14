@@ -1066,6 +1066,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0.00000390116
       objectReference: {fileID: 0}
+    - target: {fileID: 2635838890573529250, guid: a15a778c52ba8554daaba8240222b2bb, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3571519473784151409, guid: a15a778c52ba8554daaba8240222b2bb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -67.87003
@@ -1238,6 +1242,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a15a778c52ba8554daaba8240222b2bb, type: 3}
       insertIndex: -1
       addedObject: {fileID: 867666434}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a15a778c52ba8554daaba8240222b2bb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 867666435}
   m_SourcePrefab: {fileID: 100100000, guid: a15a778c52ba8554daaba8240222b2bb, type: 3}
 --- !u!1 &856244660 stripped
 GameObject:
@@ -1294,7 +1301,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22118bf7d49af084d8fe6759a1b293ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Yemma.Movement.Core.YemmaMovementController
-  movementProfile: {fileID: 11400000, guid: 7fba8d55016864144a4a1b98d524f129, type: 2}
   playerRigidbody: {fileID: 867666432}
   yemmaTransform: {fileID: 867666430}
   yemmaAnimator: {fileID: 856244661}
@@ -1399,6 +1405,19 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 512
+--- !u!114 &867666435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 856244660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdb8ee3c840868f48ba2027af36b74d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Yemma.Movement.Core.YemmaAnimationProfileManager
+  profileSet: {fileID: 11400000, guid: b3514c2ceb4877b4a886f8af38144e3d, type: 2}
 --- !u!1 &1227616395
 GameObject:
   m_ObjectHideFlags: 0
