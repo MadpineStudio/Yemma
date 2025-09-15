@@ -11,6 +11,7 @@ namespace Yemma.Movement.Core
 
     public class YemmaInteractorController : MonoBehaviour
     {
+        private GameObject currentPickedItem;
 
         private YemmaMovementController controller;
         private InputManager inputManager;
@@ -20,7 +21,9 @@ namespace Yemma.Movement.Core
             this.controller = controller;
             this.inputManager = inputManager;
         }
-        public void AssingController( InputManager inputManager) {
+        public void AssingController(YemmaMovementController controller, InputManager inputManager)
+        {
+            this.controller = controller;
             this.inputManager = inputManager;
             
             // Se o GameObject está ativo, subscreve os eventos agora
@@ -74,8 +77,28 @@ namespace Yemma.Movement.Core
 
         void Interact(InputAction.CallbackContext ctxt)
         {
-            if (currentClosest != null) currentClosest.GetComponent<InteractableBehaviour>().ToggleActivation();
+            InteractableBehaviour itemInteracted;
+
+            if (currentClosest != null)
+            {
+                itemInteracted = currentClosest.GetComponent<InteractableBehaviour>();
+
+                if (itemInteracted.isPickable)
+                {
+                    
+                    currentPickedItem = itemInteracted.gameObject;
+                }
+                else
+                {
+                    itemInteracted.ToggleActivation();
+                }
+            }
         }
-       
+
+        public void ActivateInteraction()
+        {
+
+        }
+
     }
 }

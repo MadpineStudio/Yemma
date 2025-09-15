@@ -64,7 +64,7 @@ namespace Yemma
             {
                 interactorController = GetComponent<YemmaInteractorController>();
             }
-                interactorController.AssingController(inputManager); 
+                interactorController.AssingController(movementController ,inputManager); 
             if (movementController == null || inputManager == null)
             {
                 Debug.LogError("YemmaController precisa dos componentes YemmaMovementController e InputManager!");

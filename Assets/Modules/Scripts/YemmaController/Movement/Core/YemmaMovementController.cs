@@ -55,6 +55,7 @@ namespace Yemma.Movement.Core
         public Vector3 Velocity => playerRigidbody.linearVelocity;
         public InputManager InputManager => inputManager;
 
+        public bool pickItem = false;
         // Sistema de física de movimento
         private YemmaMovementPhysics movementPhysics;
         public YemmaAnimationController animationController;

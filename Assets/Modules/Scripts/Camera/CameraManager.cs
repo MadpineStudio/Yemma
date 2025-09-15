@@ -16,4 +16,9 @@ public class CameraManager : MonoBehaviour
 {
     public List<CameraObject> cameras;
 
+
+    void Start()
+    {
+        cameras.Find(camera => camera.id == 0).camera.Prioritize();
+    }
 }

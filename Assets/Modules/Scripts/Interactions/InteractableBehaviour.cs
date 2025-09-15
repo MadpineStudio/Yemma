@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class InteractableBehaviour : MonoBehaviour
 {
+    public bool isPickable;
+
+    
     protected bool canToggle;
     protected bool activated;
     protected bool hasChangend;
