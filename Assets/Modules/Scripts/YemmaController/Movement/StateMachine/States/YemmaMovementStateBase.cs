@@ -88,5 +88,21 @@ namespace Yemma.Movement.StateMachine.States
         {
             return controller.GetHorizontalSpeed();
         }
+        
+        /// <summary>
+        /// Verifica se há input de jump
+        /// </summary>
+        protected bool GetJumpInput()
+        {
+            return inputManager.inputActions.YemmaKeyboard.Jump.WasPressedThisFrame();
+        }
+        
+        /// <summary>
+        /// Verifica se o botão de jump foi solto
+        /// </summary>
+        protected bool GetJumpRelease()
+        {
+            return inputManager.inputActions.YemmaKeyboard.Jump.WasReleasedThisFrame();
+        }
     }
 }

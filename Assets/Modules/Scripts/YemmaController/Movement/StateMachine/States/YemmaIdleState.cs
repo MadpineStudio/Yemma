@@ -28,10 +28,31 @@ namespace Yemma.Movement.StateMachine.States
         {
             base.UpdateLogic();
             
+            // Transição para PrepareJump se há input de jump
+            if (GetJumpInput() && IsGrounded())
+            {
+                TransitionToPrepareJump();
+                return;
+            }
+            
+            // Transição para Crouch se detecta obstáculo
+            if (controller.ShouldCrouch() && IsGrounded())
+            {
+                TransitionToCrouch();
+                return;
+            }
+            
             // Transição para Walk se há input de movimento
             if (HasMovementInput() && IsGrounded())
             {
                 TransitionToWalk();
+                return;
+            }
+            
+            // Transição para Fall se não está no chão
+            if (!IsGrounded())
+            {
+                TransitionToFall();
             }
         }
 
@@ -75,6 +96,42 @@ namespace Yemma.Movement.StateMachine.States
         {
             var walkState = new YemmaWalkState(controller, inputManager, stateMachine);
             stateMachine.ChangeState(walkState);
+        }
+        
+        /// <summary>
+        /// Transição para o estado de PrepareJump
+        /// </summary>
+        private void TransitionToPrepareJump()
+        {
+            var prepareJumpState = new YemmaPrepareJumpState(controller, inputManager, stateMachine);
+            stateMachine.ChangeState(prepareJumpState);
+        }
+        
+        /// <summary>
+        /// Transição para o estado de Jump (mantido para compatibilidade)
+        /// </summary>
+        private void TransitionToJump()
+        {
+            var jumpState = new YemmaJumpState(controller, inputManager, stateMachine);
+            stateMachine.ChangeState(jumpState);
+        }
+        
+        /// <summary>
+        /// Transição para o estado de Fall
+        /// </summary>
+        private void TransitionToFall()
+        {
+            var fallState = new YemmaFallState(controller, inputManager, stateMachine);
+            stateMachine.ChangeState(fallState);
+        }
+        
+        /// <summary>
+        /// Transição para o estado de Crouch
+        /// </summary>
+        private void TransitionToCrouch()
+        {
+            var crouchState = new YemmaCrouchState(controller, inputManager, stateMachine);
+            stateMachine.ChangeState(crouchState);
         }
     }
 }

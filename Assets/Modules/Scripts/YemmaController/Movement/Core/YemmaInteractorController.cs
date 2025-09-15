@@ -22,6 +22,12 @@ namespace Yemma.Movement.Core
         }
         public void AssingController( InputManager inputManager) {
             this.inputManager = inputManager;
+            
+            // Se o GameObject está ativo, subscreve os eventos agora
+            if (gameObject.activeInHierarchy && inputManager != null && inputManager.inputActions != null)
+            {
+                inputManager.inputActions.YemmaKeyboard.Interact.performed += Interact;
+            }
         }
         [SerializeField] private Transform yemmaBody;
         [SerializeField] private LayerMask layerMask;
@@ -30,11 +36,17 @@ namespace Yemma.Movement.Core
 
         void OnEnable()
         {
-            inputManager.inputActions.YemmaKeyboard.Interact.performed += Interact;
+            if (inputManager != null && inputManager.inputActions != null)
+            {
+                inputManager.inputActions.YemmaKeyboard.Interact.performed += Interact;
+            }
         }
         void OnDisable()
         {
-            inputManager.inputActions.YemmaKeyboard.Interact.performed -= Interact;
+            if (inputManager != null && inputManager.inputActions != null)
+            {
+                inputManager.inputActions.YemmaKeyboard.Interact.performed -= Interact;
+            }
         }
         void Update()
         {
@@ -57,7 +69,6 @@ namespace Yemma.Movement.Core
                 }
 
             });
-            if (currentClosest != null) Debug.Log(currentClosest.gameObject.name);
 
         }
 

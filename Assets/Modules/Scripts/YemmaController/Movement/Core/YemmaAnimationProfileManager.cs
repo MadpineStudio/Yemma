@@ -33,13 +33,17 @@ namespace Yemma.Movement.Core
         {
             configMap = new Dictionary<YemmaAnimationController.YemmaAnimations, YemmaAnimationProfileSet.AnimationStateConfig>();
             
-            if (profileSet?.animationStates != null)
+            if (profileSet != null)
             {
-                foreach (var config in profileSet.animationStates)
+                // Agora usa o método GetStateConfig para cada tipo de animação
+                var allAnimationTypes = System.Enum.GetValues(typeof(YemmaAnimationController.YemmaAnimations));
+                
+                foreach (YemmaAnimationController.YemmaAnimations animType in allAnimationTypes)
                 {
+                    var config = profileSet.GetStateConfig(animType);
                     if (config != null)
                     {
-                        configMap[config.animationType] = config;
+                        configMap[animType] = config;
                     }
                 }
             }
@@ -59,8 +63,9 @@ namespace Yemma.Movement.Core
                 return false;
             }
             
-            ApplyStateConfig(config);
+            // Define o novo estado ANTES de aplicar a configuração
             currentState = newState;
+            ApplyStateConfig(config);
             return true;
         }
         
@@ -77,10 +82,10 @@ namespace Yemma.Movement.Core
                 controller.SetMovementProfile(originalProfile);
             }
             
-            // Executa animação
+            // Executa animação usando o currentState ao invés de config.animationType
             if (controller.Animator != null)
             {
-                controller.Animator.CrossFade("Bake-" + config.animationType.ToString(), config.blendTime);
+                controller.Animator.CrossFade("Bake-" + currentState.ToString(), config.blendTime);
             }
         }
         

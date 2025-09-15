@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54aea2ae011fb56459c359560fb5ea5a, type: 3}
   m_Name: YemmaMovementProfile_Walk
   m_EditorClassIdentifier: Assembly-CSharp::Yemma.Movement.Data.YemmaMovementProfile
-  maxVelocity: 12.2
-  acceleration: 10
-  deceleration: 30
+  maxVelocity: 2.62
+  acceleration: 11.2
+  deceleration: 29.8
   velocityPower: 0.733
   rotationSpeed: 7.3
   terrainAlignmentSpeed: 20

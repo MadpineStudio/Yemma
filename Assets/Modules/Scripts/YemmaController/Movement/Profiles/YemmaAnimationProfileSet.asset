@@ -12,19 +12,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29ee6a7ade796984da25363fecd63c7b, type: 3}
   m_Name: YemmaAnimationProfileSet
   m_EditorClassIdentifier: Assembly-CSharp::Yemma.Movement.Data.YemmaAnimationProfileSet
-  animationStates:
-  - animationType: 0
+  idleConfig:
     blendTime: 0.2
     movementProfile: {fileID: 11400000, guid: 7fba8d55016864144a4a1b98d524f129, type: 2}
     allowInput: 1
     canBeInterrupted: 1
-  - animationType: 2
+  collectWalkConfig:
+    blendTime: 0.2
+    movementProfile: {fileID: 11400000, guid: 3bff77432bc90b646b2bc5e37375c46f, type: 2}
+    allowInput: 1
+    canBeInterrupted: 1
+  runConfig:
     blendTime: 0.2
     movementProfile: {fileID: 11400000, guid: 6de36b443ae82e642a4986030dc0175a, type: 2}
     allowInput: 1
     canBeInterrupted: 1
-  - animationType: 1
+  jumpConfig:
+    blendTime: 0.2
+    movementProfile: {fileID: 11400000, guid: b3c67bf63ce4793439941b4328bc4ee2, type: 2}
+    allowInput: 1
+    canBeInterrupted: 1
+  jumpPrepareConfig:
+    blendTime: 0.2
+    movementProfile: {fileID: 11400000, guid: b3c67bf63ce4793439941b4328bc4ee2, type: 2}
+    allowInput: 1
+    canBeInterrupted: 1
+  fallConfig:
+    blendTime: 0.2
+    movementProfile: {fileID: 11400000, guid: b3c67bf63ce4793439941b4328bc4ee2, type: 2}
+    allowInput: 1
+    canBeInterrupted: 1
+  walkSimpleConfig:
+    blendTime: 0.2
+    movementProfile: {fileID: 11400000, guid: cb51a33a95d8bf64fa8be670524c22fd, type: 2}
+    allowInput: 1
+    canBeInterrupted: 1
+  walkCrouchConfig:
     blendTime: 0.2
     movementProfile: {fileID: 11400000, guid: 3bff77432bc90b646b2bc5e37375c46f, type: 2}
+    allowInput: 1
+    canBeInterrupted: 1
+  crouchConfig:
+    blendTime: 0.2
+    movementProfile: {fileID: 11400000, guid: cb51a33a95d8bf64fa8be670524c22fd, type: 2}
+    allowInput: 1
+    canBeInterrupted: 1
+  landingConfig:
+    blendTime: 0.03
+    movementProfile: {fileID: 11400000, guid: b3c67bf63ce4793439941b4328bc4ee2, type: 2}
+    allowInput: 1
+    canBeInterrupted: 1
+  edgeHangConfig:
+    blendTime: 0.2
+    movementProfile: {fileID: 11400000, guid: 7fba8d55016864144a4a1b98d524f129, type: 2}
+    allowInput: 1
+    canBeInterrupted: 1
+  edgeClimbConfig:
+    blendTime: 0.2
+    movementProfile: {fileID: 11400000, guid: 7fba8d55016864144a4a1b98d524f129, type: 2}
     allowInput: 1
     canBeInterrupted: 1

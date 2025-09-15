@@ -14,6 +14,37 @@ namespace Yemma.Movement.Core
         [SerializeField] private Rigidbody playerRigidbody;
         [SerializeField] private Transform yemmaTransform;
         [SerializeField] private Animator yemmaAnimator;
+        [SerializeField] private InputManager inputManager;
+
+        [Header("Colliders")]
+        [SerializeField] private CapsuleCollider normalCollider;
+        [SerializeField] private CapsuleCollider crouchCollider;
+        
+        [Header("Crouch Detection")]
+        [SerializeField] private float crouchDetectionDistance;
+        [SerializeField] private float crouchDetectionHeight;
+        [SerializeField] private float standUpDetectionHeight;
+        [SerializeField] private LayerMask crouchDetectionLayers;
+        
+        [Header("Head Sphere Detection")]
+        [SerializeField] private Vector3 headSphereOffset = Vector3.zero;
+        [SerializeField] private float headSphereRadius = 0.3f;
+        
+        [Header("Edge Detection")]
+        [SerializeField] private float edgeDetectionDistance = 1.5f;
+        [SerializeField] private float edgeDetectionHeight = 1.8f;
+        [SerializeField] private float edgeHeightTolerance = 0.3f;
+        [SerializeField] private LayerMask edgeDetectionLayers = -1;
+        
+        [Header("Crouch Debug")]
+        [SerializeField] private bool showCrouchDebugGizmos = true;
+        
+        [Header("Edge Debug")]
+        [SerializeField] private bool showEdgeDebugGizmos = true;
+        
+        // Estado do botão de crouch para controle de toggle
+        private bool lastInteractButtonState = false;
+        private bool crouchToggled = false;
 
         // Propriedades públicas
         public YemmaMovementProfile MovementProfile => movementProfile;
@@ -22,6 +53,7 @@ namespace Yemma.Movement.Core
         public Transform Transform => yemmaTransform;
         public Animator Animator => yemmaAnimator;
         public Vector3 Velocity => playerRigidbody.linearVelocity;
+        public InputManager InputManager => inputManager;
 
         // Sistema de física de movimento
         private YemmaMovementPhysics movementPhysics;
@@ -85,6 +117,85 @@ namespace Yemma.Movement.Core
         }
 
         /// <summary>
+        /// Configura o InputManager para o sistema de crouch
+        /// </summary>
+        public void SetInputManager(InputManager manager)
+        {
+            inputManager = manager;
+        }
+
+        /// <summary>
+        /// Verifica se o botão de interação foi pressionado (toggle)
+        /// </summary>
+        public bool WasInteractButtonPressed()
+        {
+            if (inputManager == null) return false;
+            
+            bool currentButtonState = inputManager.inputActions.YemmaKeyboard.Interact.IsPressed();
+            bool wasPressed = currentButtonState && !lastInteractButtonState;
+            lastInteractButtonState = currentButtonState;
+            
+            if (wasPressed)
+            {
+                crouchToggled = !crouchToggled;
+            }
+            
+            return wasPressed;
+        }
+
+        /// <summary>
+        /// Retorna se o crouch está ativo via toggle
+        /// </summary>
+        public bool IsCrouchToggled()
+        {
+            return crouchToggled;
+        }
+
+        /// <summary>
+        /// Força o estado do toggle de crouch
+        /// </summary>
+        public void SetCrouchToggle(bool active)
+        {
+            crouchToggled = active;
+        }
+
+        /// <summary>
+        /// Detecta se há uma edge/quina que pode ser escalada
+        /// </summary>
+        public bool CanGrabEdge(out Vector3 edgePosition, out Vector3 edgeNormal)
+        {
+            edgePosition = Vector3.zero;
+            edgeNormal = Vector3.zero;
+            
+            Vector3 forwardDirection = yemmaTransform.forward;
+            Vector3 rayStart = yemmaTransform.position + Vector3.up * edgeDetectionHeight;
+            
+            // Raycast horizontal para detectar parede
+            if (Physics.Raycast(rayStart, forwardDirection, out RaycastHit wallHit, edgeDetectionDistance, edgeDetectionLayers))
+            {
+                // Raycast para baixo a partir da parede para encontrar a edge
+                Vector3 edgeSearchStart = wallHit.point + Vector3.up * edgeHeightTolerance;
+                
+                if (Physics.Raycast(edgeSearchStart, Vector3.down, out RaycastHit edgeHit, edgeHeightTolerance * 2f, edgeDetectionLayers))
+                {
+                    edgePosition = edgeHit.point;
+                    edgeNormal = wallHit.normal;
+                    return true;
+                }
+            }
+            
+            return false;
+        }
+
+        /// <summary>
+        /// Verifica se está na posição correta para agarrar uma edge
+        /// </summary>
+        public bool IsInEdgeGrabRange()
+        {
+            return CanGrabEdge(out _, out _);
+        }
+
+        /// <summary>
         /// Verifica se o player está no chão
         /// </summary>
         public bool IsGrounded()
@@ -95,6 +206,53 @@ namespace Yemma.Movement.Core
                 movementProfile.groundCheckDistance, 
                 movementProfile.groundLayers
             );
+        }
+
+        /// <summary>
+        /// Verifica se há obstáculo à frente que força agachamento E se o botão de ação foi pressionado
+        /// </summary>
+        public bool ShouldCrouch()
+        {
+            // Atualiza o estado do botão
+            WasInteractButtonPressed();
+            
+            // Se não tem InputManager, não agacha
+            if (inputManager == null) return false;
+                
+            // Só agacha se o toggle está ativo E há obstáculos
+            return crouchToggled && HasCrouchObstacles();
+        }
+
+        /// <summary>
+        /// Verifica se há obstáculos que justificam estar agachado
+        /// </summary>
+        public bool HasCrouchObstacles()
+        {
+            // Raycast para frente (detecta obstáculos baixos à frente)
+            Vector3 backOffset = -yemmaTransform.forward * 0.3f;
+            Vector3 forwardRayStart = yemmaTransform.position + Vector3.up * crouchDetectionHeight + backOffset;
+            Vector3 forwardRayDirection = yemmaTransform.forward;
+            float totalForwardDistance = crouchDetectionDistance + 0.3f;
+            bool hasObstacleForward = Physics.Raycast(forwardRayStart, forwardRayDirection, totalForwardDistance, crouchDetectionLayers);
+            
+            // CheckSphere na altura da cabeça para detectar se está em espaço baixo
+            Vector3 baseHeadPosition = yemmaTransform.position + Vector3.up * crouchDetectionHeight;
+            Vector3 headPosition = baseHeadPosition + headSphereOffset;
+            bool hasObstacleAtHead = Physics.CheckSphere(headPosition, headSphereRadius, crouchDetectionLayers);
+            
+            // Há obstáculo se há obstáculo à frente OU se a cabeça está tocando algo
+            return hasObstacleForward || hasObstacleAtHead;
+        }
+
+        /// <summary>
+        /// Verifica se pode sair do agachamento (sem obstáculo acima)
+        /// </summary>
+        public bool CanStandUp()
+        {
+            Vector3 rayStart = yemmaTransform.position + Vector3.up * 0.5f; // Altura agachado
+            Vector3 rayDirection = Vector3.up;
+            
+            return !Physics.Raycast(rayStart, rayDirection, standUpDetectionHeight, crouchDetectionLayers);
         }
 
         /// <summary>
@@ -207,6 +365,40 @@ namespace Yemma.Movement.Core
         }
         
         /// <summary>
+        /// Define a velocidade da animação atual
+        /// </summary>
+        public void SetAnimationSpeed(float speed)
+        {
+            if (yemmaAnimator != null)
+            {
+                yemmaAnimator.speed = speed;
+            }
+        }
+        
+        /// <summary>
+        /// Alterna entre collider normal e collider de crouch
+        /// </summary>
+        public void SetCrouchCollider(bool useCrouchCollider)
+        {
+            if (normalCollider != null && crouchCollider != null)
+            {
+                normalCollider.enabled = !useCrouchCollider;
+                crouchCollider.enabled = useCrouchCollider;
+            }
+        }
+        
+        /// <summary>
+        /// Configura os parâmetros de detecção de crouch
+        /// </summary>
+        public void SetCrouchDetectionSettings(float detectionDistance, float detectionHeight, float standUpHeight, LayerMask layers)
+        {
+            crouchDetectionDistance = detectionDistance;
+            crouchDetectionHeight = detectionHeight;
+            standUpDetectionHeight = standUpHeight;
+            crouchDetectionLayers = layers;
+        }
+        
+        /// <summary>
         /// Troca o movement profile em runtime (usado pelo ProfileManager)
         /// </summary>
         public void SetMovementProfile(YemmaMovementProfile newProfile)
@@ -248,6 +440,8 @@ namespace Yemma.Movement.Core
         // Debug Gizmos
         private void OnDrawGizmosSelected()
         {
+            if (!showCrouchDebugGizmos) return;
+            
             if (yemmaTransform == null || movementProfile == null) return;
 
             if (movementProfile.IsDebugEnabled)
@@ -259,6 +453,35 @@ namespace Yemma.Movement.Core
                 
                 Gizmos.DrawLine(rayStart, rayEnd);
                 Gizmos.DrawWireSphere(rayEnd, 0.1f);
+
+                // Desenha raycasts de crouch
+                if (Application.isPlaying)
+                {
+                    // Testa cada detecção individualmente para debug
+                    Vector3 backOffset = -yemmaTransform.forward * 0.3f;
+                    Vector3 crouchRayStart = yemmaTransform.position + Vector3.up * crouchDetectionHeight + backOffset;
+                    Vector3 crouchRayEnd = crouchRayStart + yemmaTransform.forward * (crouchDetectionDistance + 0.3f);
+                    bool forwardHit = Physics.Raycast(crouchRayStart, yemmaTransform.forward, crouchDetectionDistance + 0.3f, crouchDetectionLayers);
+                    
+                    Vector3 headPosition = yemmaTransform.position + Vector3.up * crouchDetectionHeight + headSphereOffset;
+                    bool sphereHit = Physics.CheckSphere(headPosition, headSphereRadius, crouchDetectionLayers);
+                    
+                    // Raycast para detectar obstáculo à frente (ShouldCrouch - Forward)
+                    Gizmos.color = forwardHit ? Color.red : Color.yellow;
+                    Gizmos.DrawLine(crouchRayStart, crouchRayEnd);
+                    Gizmos.DrawWireCube(crouchRayEnd, Vector3.one * 0.1f);
+                    
+                    // CheckSphere na altura da cabeça (ShouldCrouch - Head Detection)
+                    Gizmos.color = sphereHit ? Color.red : Color.cyan;
+                    Gizmos.DrawWireSphere(headPosition, headSphereRadius);
+
+                    // Raycast para detectar se pode levantar (CanStandUp)
+                    Vector3 standRayStart = yemmaTransform.position + Vector3.up * 0.5f;
+                    Vector3 standRayEnd = standRayStart + Vector3.up * standUpDetectionHeight;
+                    Gizmos.color = CanStandUp() ? Color.green : Color.red;
+                    Gizmos.DrawLine(standRayStart, standRayEnd);
+                    Gizmos.DrawWireCube(standRayEnd, Vector3.one * 0.1f);
+                }
 
                 // Desenha informações de velocidade
                 if (Application.isPlaying)
@@ -305,6 +528,53 @@ namespace Yemma.Movement.Core
                     // Desenha normal do terreno
                     Gizmos.color = Color.yellow;
                     Gizmos.DrawRay(dampingInfo.groundPoint, dampingInfo.groundNormal * 0.3f);
+                }
+            }
+            
+            // Debug do sistema de edge detection
+            if (showEdgeDebugGizmos && Application.isPlaying)
+            {
+                Vector3 forwardDirection = yemmaTransform.forward;
+                Vector3 rayStart = yemmaTransform.position + Vector3.up * edgeDetectionHeight;
+                
+                // Raycast horizontal para detectar parede
+                bool wallHit = Physics.Raycast(rayStart, forwardDirection, out RaycastHit wallHitInfo, edgeDetectionDistance, edgeDetectionLayers);
+                
+                // Desenha raycast horizontal
+                Gizmos.color = wallHit ? Color.magenta : Color.gray;
+                Gizmos.DrawLine(rayStart, rayStart + forwardDirection * edgeDetectionDistance);
+                Gizmos.DrawWireSphere(rayStart, 0.05f);
+                
+                if (wallHit)
+                {
+                    // Desenha ponto de impacto na parede
+                    Gizmos.color = Color.magenta;
+                    Gizmos.DrawWireSphere(wallHitInfo.point, 0.1f);
+                    
+                    // Raycast para baixo a partir da parede para encontrar a edge
+                    Vector3 edgeSearchStart = wallHitInfo.point + Vector3.up * edgeHeightTolerance;
+                    bool edgeFound = Physics.Raycast(edgeSearchStart, Vector3.down, out RaycastHit edgeHitInfo, edgeHeightTolerance * 2f, edgeDetectionLayers);
+                    
+                    // Desenha busca pela edge
+                    Gizmos.color = edgeFound ? Color.green : Color.red;
+                    Gizmos.DrawLine(edgeSearchStart, edgeSearchStart + Vector3.down * (edgeHeightTolerance * 2f));
+                    
+                    if (edgeFound)
+                    {
+                        // Desenha a edge encontrada
+                        Gizmos.color = Color.green;
+                        Gizmos.DrawWireSphere(edgeHitInfo.point, 0.15f);
+                        
+                        // Desenha a posição onde o player ficaria pendurado
+                        Vector3 hangPosition = edgeHitInfo.point - wallHitInfo.normal * 0.3f;
+                        hangPosition.y = edgeHitInfo.point.y - 1.2f;
+                        Gizmos.color = Color.white;
+                        Gizmos.DrawWireCube(hangPosition, Vector3.one * 0.2f);
+                        
+                        // Desenha linha conectando edge e posição de hang
+                        Gizmos.color = Color.white;
+                        Gizmos.DrawLine(edgeHitInfo.point, hangPosition);
+                    }
                 }
             }
         }

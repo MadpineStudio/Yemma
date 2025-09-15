@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54aea2ae011fb56459c359560fb5ea5a, type: 3}
   m_Name: YemmaMovementProfile_Run
   m_EditorClassIdentifier: Assembly-CSharp::Yemma.Movement.Data.YemmaMovementProfile
-  maxVelocity: 12.2
-  acceleration: 10
+  maxVelocity: 11.26
+  acceleration: 15.3
   deceleration: 30
   velocityPower: 0.733
   rotationSpeed: 7.3

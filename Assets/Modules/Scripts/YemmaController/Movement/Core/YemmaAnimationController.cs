@@ -14,7 +14,15 @@ namespace Yemma.Movement.Core
             Idle,
             CollectWalk,
             Run,
-            Jump
+            Jump,
+            JumpPrepare,
+            Fall,
+            WalkSimple,
+            WalkCrouch,
+            Crouch,
+            Landing,
+            EdgeHang,
+            EdgeClimb
         }
 
         private YemmaMovementController controller;

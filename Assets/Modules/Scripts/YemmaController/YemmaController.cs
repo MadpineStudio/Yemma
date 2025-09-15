@@ -69,6 +69,9 @@ namespace Yemma
             {
                 Debug.LogError("YemmaController precisa dos componentes YemmaMovementController e InputManager!");
             }
+            
+            // Configura o InputManager no MovementController para o sistema de crouch
+            movementController.SetInputManager(inputManager);
         }
 
         /// <summary>
@@ -97,5 +100,15 @@ namespace Yemma
         /// Obtém a velocidade atual do player
         /// </summary>
         public Vector3 CurrentVelocity => movementController.Velocity;
+        
+        /// <summary>
+        /// Verifica se deve agachar (obstáculo detectado à frente)
+        /// </summary>
+        public bool ShouldCrouch => movementController.ShouldCrouch();
+        
+        /// <summary>
+        /// Verifica se pode levantar (espaço livre acima)
+        /// </summary>
+        public bool CanStandUp => movementController.CanStandUp();
     }
 }
