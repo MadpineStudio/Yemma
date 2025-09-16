@@ -11,13 +11,16 @@ namespace CoreMechanics.Mechanics
         [SerializeField] private LayerMask layersDeteccao = -1;
         [SerializeField] private Transform lightPathTransform;
         [SerializeField] private float velocidadeAlinhamento = 2f;
+        [SerializeField] private Transform modelo3D; // Referência ao modelo 3D filho
+        [SerializeField] private float anguloMaximoDesalinhamento = 30f; // Ângulo máximo antes de perder alinhamento
         
         private bool playerNaArea = false;
         private Vector3 inputAtual;
         private Vector3 inputSuavizado;
         private Monolito monolitoDetectado;
         private bool estaAlinhando = false;
-        private Yemma.YemmaController playerController; // Referência ao controller do player
+        private Yemma.YemmaController playerController;
+        private bool modelo3DTravado = false; // Referência ao controller do player
 
         private void OnTriggerEnter(Collider other)
         {
@@ -52,11 +55,47 @@ namespace CoreMechanics.Mechanics
             
             ExecutarRaycast();
             
-            // Se alinhado e não há input, trava rotação como LookAt
-            if (!estaAlinhando && monolitoDetectado != null && inputAtual.magnitude <= 0.01f && playerNaArea && playerController != null && playerController.IsInInteractionMode)
+            // Controla travamento visual do modelo 3D
+            ControlarModelo3D();
+        }
+        
+        private void ControlarModelo3D()
+        {
+            if (modelo3D == null || monolitoDetectado == null) 
+            {
+                modelo3DTravado = false;
+                return;
+            }
+            
+            // Se alinhado e sem input, trava modelo 3D no alvo
+            if (!estaAlinhando && inputAtual.magnitude <= 0.01f && playerNaArea && playerController != null && playerController.IsInInteractionMode)
             {
                 Vector3 direcaoAlvo = (monolitoDetectado.transform.position - transform.position).normalized;
-                transform.rotation = Quaternion.LookRotation(direcaoAlvo);
+                modelo3D.rotation = Quaternion.LookRotation(direcaoAlvo);
+                modelo3DTravado = true;
+            }
+            // Se travado, verifica se pai rotacionou muito para destravar
+            else if (modelo3DTravado)
+            {
+                Vector3 direcaoAlvo = (monolitoDetectado.transform.position - transform.position).normalized;
+                Quaternion rotacaoAlvo = Quaternion.LookRotation(direcaoAlvo);
+                float anguloDesalinhamento = Quaternion.Angle(transform.rotation, rotacaoAlvo);
+                
+                if (anguloDesalinhamento > anguloMaximoDesalinhamento)
+                {
+                    modelo3DTravado = false; // Destrava modelo 3D
+                }
+                else
+                {
+                    // Mantém travado no alvo
+                    modelo3D.rotation = rotacaoAlvo;
+                }
+            }
+            
+            // Se não travado, modelo 3D segue rotação do pai
+            if (!modelo3DTravado)
+            {
+                modelo3D.rotation = transform.rotation;
             }
         }
 
@@ -64,6 +103,7 @@ namespace CoreMechanics.Mechanics
         {
             Vector3 novoInput = Vector3.zero;
             
+            // Input por teclado
             if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
             {
                 novoInput.y = -1f;
@@ -81,6 +121,18 @@ namespace CoreMechanics.Mechanics
             {
                 novoInput.x = 1f;
             }
+            
+            // Input por joystick (stick esquerdo)
+            float joystickX = Input.GetAxis("Horizontal");
+            float joystickY = Input.GetAxis("Vertical");
+            
+            // Adiciona input do joystick ao input do teclado
+            novoInput.y += joystickX;
+            novoInput.x += -joystickY; // Inverte Y para ficar natural
+            
+            // Clamp para não passar de -1 a 1
+            novoInput.x = Mathf.Clamp(novoInput.x, -1f, 1f);
+            novoInput.y = Mathf.Clamp(novoInput.y, -1f, 1f);
             
             inputAtual = novoInput;
             
