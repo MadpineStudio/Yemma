@@ -17,12 +17,14 @@ namespace CoreMechanics.Mechanics
         private Vector3 inputSuavizado;
         private Monolito monolitoDetectado;
         private bool estaAlinhando = false;
+        private Yemma.YemmaController playerController; // Referência ao controller do player
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
             {
                 playerNaArea = true;
+                playerController = other.GetComponent<Yemma.YemmaController>();
             }
         }
         
@@ -32,12 +34,13 @@ namespace CoreMechanics.Mechanics
             {
                 playerNaArea = false;
                 estaAlinhando = false;
+                playerController = null;
             }
         }
 
         void Update()
         {
-            if (playerNaArea)
+            if (playerNaArea && playerController != null && playerController.IsInInteractionMode)
             {
                 DragRotation();
                 VerificarAlinhamentoAutomatico();
@@ -50,7 +53,7 @@ namespace CoreMechanics.Mechanics
             ExecutarRaycast();
             
             // Se alinhado e não há input, trava rotação como LookAt
-            if (!estaAlinhando && monolitoDetectado != null && inputAtual.magnitude <= 0.01f && playerNaArea)
+            if (!estaAlinhando && monolitoDetectado != null && inputAtual.magnitude <= 0.01f && playerNaArea && playerController != null && playerController.IsInInteractionMode)
             {
                 Vector3 direcaoAlvo = (monolitoDetectado.transform.position - transform.position).normalized;
                 transform.rotation = Quaternion.LookRotation(direcaoAlvo);
