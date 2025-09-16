@@ -9,10 +9,16 @@ namespace CoreMechanics.Mechanics
         [SerializeField] private float suavidadeRotacao = 5f;
         [SerializeField] private float distanciaRaycast = 10f;
         [SerializeField] private LayerMask layersDeteccao = -1;
-        [SerializeField] private Transform lightPathTransform;
+        [SerializeField] private LineRenderer lineRenderer;
         [SerializeField] private float velocidadeAlinhamento = 2f;
         [SerializeField] private Transform modelo3D; // Referência ao modelo 3D filho
         [SerializeField] private float anguloMaximoDesalinhamento = 30f; // Ângulo máximo antes de perder alinhamento
+        
+        [Header("Rotação Controlada")]
+        [SerializeField] private float incrementoRotacao = 15f; // Graus por passo
+        [SerializeField] private float tempoEntrePasso = 0.3f; // Tempo mínimo entre rotações
+        [SerializeField] private float limitePitch = 60f; // Limite para rotação X (cima/baixo)
+        [SerializeField] private float limiteYaw = 180f; // Limite para rotação Y (esquerda/direita)
         
         private bool playerNaArea = false;
         private Vector3 inputAtual;
@@ -21,6 +27,11 @@ namespace CoreMechanics.Mechanics
         private bool estaAlinhando = false;
         private Yemma.YemmaController playerController;
         private bool modelo3DTravado = false; // Referência ao controller do player
+        
+        // Variáveis para rotação controlada
+        private float ultimoTempoRotacao = 0f;
+        private bool inputProcessado = false;
+        private Vector3 angulosAtuais; // Para rastrear ângulos acumulados
 
         private void OnTriggerEnter(Collider other)
         {
@@ -41,6 +52,12 @@ namespace CoreMechanics.Mechanics
             }
         }
 
+        void Start()
+        {
+            // Inicializa os ângulos atuais com a rotação inicial
+            angulosAtuais = transform.eulerAngles;
+        }
+
         void Update()
         {
             if (playerNaArea && playerController != null && playerController.IsInInteractionMode)
@@ -54,6 +71,9 @@ namespace CoreMechanics.Mechanics
             }
             
             ExecutarRaycast();
+            
+            // Atualiza o line renderer
+            AtualizarLineRenderer();
             
             // Controla travamento visual do modelo 3D
             ControlarModelo3D();
@@ -101,61 +121,117 @@ namespace CoreMechanics.Mechanics
 
         private void DragRotation()
         {
-            Vector3 novoInput = Vector3.zero;
+            // Verifica se passou tempo suficiente desde a última rotação
+            if (Time.time - ultimoTempoRotacao < tempoEntrePasso)
+                return;
             
-            // Input por teclado
-            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+            bool inputDetectado = false;
+            Vector3 rotacaoDesejada = Vector3.zero;
+            
+            // Input por teclado - apenas uma direção por vez
+            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                novoInput.y = -1f;
+                rotacaoDesejada.y = -incrementoRotacao;
+                inputDetectado = true;
             }
-            else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+            else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
             {
-                novoInput.y = 1f;
+                rotacaoDesejada.y = incrementoRotacao;
+                inputDetectado = true;
+            }
+            else if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                rotacaoDesejada.x = -incrementoRotacao;
+                inputDetectado = true;
+            }
+            else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                rotacaoDesejada.x = incrementoRotacao;
+                inputDetectado = true;
             }
             
-            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
-            {
-                novoInput.x = -1f;
-            }
-            else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
-            {
-                novoInput.x = 1f;
-            }
-            
-            // Input por joystick (stick esquerdo)
+            // Input por joystick - apenas quando passa de um threshold
             float joystickX = Input.GetAxis("Horizontal");
             float joystickY = Input.GetAxis("Vertical");
             
-            // Adiciona input do joystick ao input do teclado
-            novoInput.y += joystickX;
-            novoInput.x += -joystickY; // Inverte Y para ficar natural
-            
-            // Clamp para não passar de -1 a 1
-            novoInput.x = Mathf.Clamp(novoInput.x, -1f, 1f);
-            novoInput.y = Mathf.Clamp(novoInput.y, -1f, 1f);
-            
-            inputAtual = novoInput;
-            
-            // Para o alinhamento automático se há input
-            if (inputAtual.magnitude > 0.01f)
+            if (!inputProcessado)
             {
-                estaAlinhando = false;
+                if (Mathf.Abs(joystickX) > 0.7f)
+                {
+                    rotacaoDesejada.y = joystickX > 0 ? incrementoRotacao : -incrementoRotacao;
+                    inputDetectado = true;
+                    inputProcessado = true;
+                }
+                else if (Mathf.Abs(joystickY) > 0.7f)
+                {
+                    rotacaoDesejada.x = joystickY > 0 ? -incrementoRotacao : incrementoRotacao;
+                    inputDetectado = true;
+                    inputProcessado = true;
+                }
             }
             
-            // Suaviza o input para transições mais fluidas
-            inputSuavizado = Vector3.Lerp(inputSuavizado, inputAtual, suavidadeRotacao * Time.deltaTime);
-            
-            // Se há input, rotaciona
-            if (inputSuavizado.magnitude > 0.01f)
+            // Reset flag quando joystick volta ao centro
+            if (Mathf.Abs(joystickX) < 0.3f && Mathf.Abs(joystickY) < 0.3f)
             {
-                Vector3 rotacao = new Vector3(
-                    inputSuavizado.x * velocidadeRotacao * Time.deltaTime,
-                    inputSuavizado.y * velocidadeRotacao * Time.deltaTime,
-                    0f
-                );
+                inputProcessado = false;
+            }
+            
+            // Se há input válido, aplica rotação
+            if (inputDetectado)
+            {
+                // Calcula novos ângulos
+                Vector3 novosAngulos = angulosAtuais + rotacaoDesejada;
                 
-                transform.Rotate(rotacao);
+                // Normaliza ângulos
+                novosAngulos.x = NormalizarAngulo(novosAngulos.x);
+                novosAngulos.y = NormalizarAngulo(novosAngulos.y);
+                
+                // Aplica limites
+                novosAngulos.x = Mathf.Clamp(novosAngulos.x, -limitePitch, limitePitch);
+                novosAngulos.y = Mathf.Clamp(novosAngulos.y, -limiteYaw, limiteYaw);
+                
+                // Atualiza ângulos atuais
+                angulosAtuais = novosAngulos;
+                
+                // Aplica rotação suavemente
+                StartCoroutine(RotacionarSuavemente(novosAngulos));
+                
+                // Para o alinhamento automático
+                estaAlinhando = false;
+                
+                // Atualiza tempo da última rotação
+                ultimoTempoRotacao = Time.time;
             }
+        }
+        
+        private float NormalizarAngulo(float angulo)
+        {
+            while (angulo > 180f) angulo -= 360f;
+            while (angulo < -180f) angulo += 360f;
+            return angulo;
+        }
+        
+        private System.Collections.IEnumerator RotacionarSuavemente(Vector3 angulosAlvo)
+        {
+            Quaternion rotacaoInicial = transform.rotation;
+            Quaternion rotacaoAlvo = Quaternion.Euler(angulosAlvo);
+            
+            float tempo = 0f;
+            float duracao = 0.2f; // Duração da rotação suave
+            
+            while (tempo < duracao)
+            {
+                tempo += Time.deltaTime;
+                float t = tempo / duracao;
+                
+                // Curve para suavizar movimento
+                t = Mathf.SmoothStep(0f, 1f, t);
+                
+                transform.rotation = Quaternion.Lerp(rotacaoInicial, rotacaoAlvo, t);
+                yield return null;
+            }
+            
+            transform.rotation = rotacaoAlvo;
         }
         
         private void VerificarAlinhamentoAutomatico()
@@ -221,6 +297,23 @@ namespace CoreMechanics.Mechanics
             else
             {
                 monolitoDetectado = null;
+            }
+        }
+        
+        private void AtualizarLineRenderer()
+        {
+            if (lineRenderer == null) return;
+            
+            if (monolitoDetectado != null)
+            {
+                lineRenderer.enabled = true;
+                lineRenderer.positionCount = 2;
+                lineRenderer.SetPosition(0, transform.position);
+                lineRenderer.SetPosition(1, monolitoDetectado.transform.position);
+            }
+            else
+            {
+                lineRenderer.enabled = false;
             }
         }
         
