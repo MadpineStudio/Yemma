@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using Yemma.Movement.Core;
 using Yemma.Movement.StateMachine;
 using Yemma.Movement.StateMachine.States;
@@ -14,12 +15,29 @@ namespace Yemma
         [SerializeField] private YemmaMovementController movementController;
         [SerializeField] private YemmaInteractorController interactorController;
         [SerializeField] private InputManager inputManager;
+        [SerializeField] private YemmaInteractionSystem interactionSystem;
+        
+        [Header("Interaction System")]
+        [SerializeField] private bool isInInteractionMode = false;
+        [SerializeField] private bool blockInputsInInteractionMode = true;
+        [SerializeField] private bool blockMovementInInteractionMode = true;
+        
+        [Header("Interaction Events")]
+        public UnityEvent OnEnterInteractionMode;
+        public UnityEvent OnExitInteractionMode;
+        public UnityEvent<IInteractable> OnInteractWithObject;
         
         [Header("Debug")]
         [SerializeField] private bool enableStateDebugging = false;
+        [SerializeField] private bool debugInteractionMode = true;
 
         // State Machine
         private YemmaMovementStateMachine movementStateMachine;
+        
+        // Interaction Mode Properties
+        public bool IsInInteractionMode => isInInteractionMode;
+        public bool ShouldBlockInputs => isInInteractionMode && blockInputsInInteractionMode;
+        public bool ShouldBlockMovement => isInInteractionMode && blockMovementInInteractionMode;
 
         private void Awake()
         {
@@ -33,20 +51,30 @@ namespace Yemma
 
         private void Update()
         {
-            // Atualiza state machine
-            movementStateMachine.HandleInput();
-            movementStateMachine.UpdateLogic();
+            // Só atualiza state machine se não estiver no modo de interação ou se permitir inputs
+            if (!ShouldBlockInputs)
+            {
+                movementStateMachine.HandleInput();
+            }
+            
+            if (!ShouldBlockMovement)
+            {
+                movementStateMachine.UpdateLogic();
+            }
         }
 
         private void FixedUpdate()
         {
-            // Atualiza física da state machine
-            movementStateMachine.UpdatePhysics();
-            
-            // Aplica sistema de amortecimento do solo
-            if (movementController != null)
+            // Só atualiza física se não estiver bloqueando movimento
+            if (!ShouldBlockMovement)
             {
-                movementController.ApplyGroundDamping();
+                movementStateMachine.UpdatePhysics();
+                
+                // Aplica sistema de amortecimento do solo
+                if (movementController != null)
+                {
+                    movementController.ApplyGroundDamping();
+                }
             }
         }
 
@@ -60,6 +88,10 @@ namespace Yemma
 
             if (inputManager == null)
                 inputManager = GetComponent<InputManager>();
+                
+            if (interactionSystem == null)
+                interactionSystem = GetComponent<YemmaInteractionSystem>();
+                
             if (interactorController == null)
             {
                 interactorController = GetComponent<YemmaInteractorController>();
@@ -72,6 +104,9 @@ namespace Yemma
             
             // Configura o InputManager no MovementController para o sistema de crouch
             movementController.SetInputManager(inputManager);
+            
+            // Configura eventos do sistema de interação
+            SetupInteractionEvents();
         }
 
         /// <summary>
@@ -110,5 +145,137 @@ namespace Yemma
         /// Verifica se pode levantar (espaço livre acima)
         /// </summary>
         public bool CanStandUp => movementController.CanStandUp();
+        
+        // === INTERACTION MODE SYSTEM ===
+        
+        /// <summary>
+        /// Ativa o modo de interação, bloqueando inputs e movimento
+        /// </summary>
+        public void EnterInteractionMode()
+        {
+            if (!isInInteractionMode)
+            {
+                isInInteractionMode = true;
+                
+                // Dispara evento
+                OnEnterInteractionMode?.Invoke();
+                
+                if (debugInteractionMode)
+                {
+                    Debug.Log("YemmaController: Entrando no modo de interação");
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Desativa o modo de interação, restaurando inputs e movimento
+        /// </summary>
+        public void ExitInteractionMode()
+        {
+            if (isInInteractionMode)
+            {
+                isInInteractionMode = false;
+                
+                // Dispara evento
+                OnExitInteractionMode?.Invoke();
+                
+                if (debugInteractionMode)
+                {
+                    Debug.Log("YemmaController: Saindo do modo de interação");
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Alterna entre modo de interação ativo/inativo
+        /// </summary>
+        public void ToggleInteractionMode()
+        {
+            if (isInInteractionMode)
+            {
+                ExitInteractionMode();
+            }
+            else
+            {
+                EnterInteractionMode();
+            }
+        }
+        
+        /// <summary>
+        /// Define o modo de interação diretamente
+        /// </summary>
+        /// <param name="active">Se true, ativa o modo; se false, desativa</param>
+        public void SetInteractionMode(bool active)
+        {
+            if (active)
+            {
+                EnterInteractionMode();
+            }
+            else
+            {
+                ExitInteractionMode();
+            }
+        }
+        
+        /// <summary>
+        /// Configura as opções de bloqueio do modo de interação
+        /// </summary>
+        /// <param name="blockInputs">Se deve bloquear inputs</param>
+        /// <param name="blockMovement">Se deve bloquear movimento</param>
+        public void ConfigureInteractionMode(bool blockInputs, bool blockMovement)
+        {
+            blockInputsInInteractionMode = blockInputs;
+            blockMovementInInteractionMode = blockMovement;
+            
+            if (debugInteractionMode)
+            {
+                Debug.Log($"YemmaController: Configuração do modo de interação - Inputs: {blockInputs}, Movimento: {blockMovement}");
+            }
+        }
+        
+        /// <summary>
+        /// Configura os eventos do sistema de interação
+        /// </summary>
+        private void SetupInteractionEvents()
+        {
+            if (interactionSystem != null)
+            {
+                // Se inscreve nos eventos do sistema de interação
+                interactionSystem.OnInteraction.AddListener(HandleObjectInteraction);
+            }
+        }
+        
+        /// <summary>
+        /// Manipula a interação com objetos
+        /// </summary>
+        /// <param name="interactable">Objeto com o qual foi interagido</param>
+        private void HandleObjectInteraction(IInteractable interactable)
+        {
+            // Dispara evento personalizado
+            OnInteractWithObject?.Invoke(interactable);
+            
+            if (debugInteractionMode)
+            {
+                Debug.Log($"YemmaController: Interação com objeto: {interactable.InteractionPrompt}");
+            }
+        }
+        
+        /// <summary>
+        /// Força uma interação com um objeto específico (para uso externo)
+        /// </summary>
+        /// <param name="interactable">Objeto para interagir</param>
+        public void ForceInteraction(IInteractable interactable)
+        {
+            if (interactable != null && interactable.CanInteract)
+            {
+                HandleObjectInteraction(interactable);
+                interactable.OnInteract(this);
+            }
+        }
+        
+        // Propriedades públicas para o sistema de interação
+        public YemmaInteractionSystem InteractionSystem => interactionSystem;
+        public bool HasCurrentInteractable => interactionSystem != null && interactionSystem.HasInteractable;
+        public IInteractable CurrentInteractable => interactionSystem?.CurrentInteractable;
     }
 }
