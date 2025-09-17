@@ -58,7 +58,11 @@ namespace Yemma.Movement.Data
         [Tooltip("Multiplicador de força de atrito")]
         [Range(0f, 2f)]
         public float frictionMultiplier = 1f;
-        
+
+        [Tooltip("Força aplicada no rigidbody ao executar um pulo")]
+        [Range(0f, 100f)]
+        public float jumpForce = 10f;
+
         [Tooltip("Drag aplicado quando não há input")]
         [Range(0f, 10f)]
         public float airDrag = 2f;

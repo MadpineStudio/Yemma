@@ -26,6 +26,7 @@ MonoBehaviour:
   groundCheckDistance: 0.797
   groundCheckOffset: {x: 0, y: 0.2, z: 0}
   frictionMultiplier: 1
+  jumpForce: 10
   airDrag: 2
   additionalGravity: 0
   enableGroundDamping: 1

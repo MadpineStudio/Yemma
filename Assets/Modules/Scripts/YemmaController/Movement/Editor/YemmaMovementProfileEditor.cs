@@ -22,6 +22,7 @@ namespace Yemma.Movement.Editor
         private SerializedProperty groundLayersProp;
         private SerializedProperty groundCheckDistanceProp;
         private SerializedProperty groundCheckOffsetProp;
+        private SerializedProperty jumpForceProp;
         private SerializedProperty frictionMultiplierProp;
         private SerializedProperty airDragProp;
         private SerializedProperty additionalGravityProp;
@@ -72,6 +73,7 @@ namespace Yemma.Movement.Editor
             groundCheckOffsetProp = serializedObject.FindProperty("groundCheckOffset");
 
             // Physics
+            jumpForceProp = serializedObject.FindProperty("jumpForce");
             frictionMultiplierProp = serializedObject.FindProperty("frictionMultiplier");
             airDragProp = serializedObject.FindProperty("airDrag");
             additionalGravityProp = serializedObject.FindProperty("additionalGravity");
@@ -179,6 +181,7 @@ namespace Yemma.Movement.Editor
             showPhysicsSettings = EditorGUILayout.BeginFoldoutHeaderGroup(showPhysicsSettings, "Physics");
             if (showPhysicsSettings)
             {
+                EditorGUILayout.PropertyField(jumpForceProp);
                 EditorGUILayout.PropertyField(frictionMultiplierProp);
                 EditorGUILayout.PropertyField(airDragProp);
                 EditorGUILayout.PropertyField(additionalGravityProp);
@@ -295,6 +298,7 @@ namespace Yemma.Movement.Editor
             groundLayersProp.intValue = 1;
             groundCheckDistanceProp.floatValue = 0.4f;
             groundCheckOffsetProp.vector3Value = Vector3.up * 0.2f;
+            jumpForceProp.floatValue = 10f;
             frictionMultiplierProp.floatValue = 1f;
             airDragProp.floatValue = 2f;
             additionalGravityProp.floatValue = 0f;

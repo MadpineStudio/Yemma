@@ -125,7 +125,7 @@ Material:
     - _GradientSoftness: 0.1
     - _GradientStart: 0.1
     - _Intensity: 1
-    - _LineLength: 10.194494
+    - _LineLength: 1
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
@@ -153,11 +153,11 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EdgeColor: {r: 1, g: 0, b: 0.9770727, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _EndPoint: {r: 9.51, g: 1.85, b: 6.22, a: 0}
+    - _EndPoint: {r: 0, g: 0, b: 1, a: 0}
     - _LaserColor: {r: 0, g: 0.27091646, b: 1, a: 1}
     - _MidleColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 0, g: 0.87322855, b: 1, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _StartPoint: {r: 12.68, g: 1.43, b: 15.9, a: 0}
+    - _StartPoint: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

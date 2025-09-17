@@ -59,7 +59,7 @@ MonoBehaviour:
     canBeInterrupted: 1
   landingConfig:
     blendTime: 0.03
-    movementProfile: {fileID: 11400000, guid: b3c67bf63ce4793439941b4328bc4ee2, type: 2}
+    movementProfile: {fileID: 11400000, guid: 1db89aae93c61314cb37f6b1b1f302c6, type: 2}
     allowInput: 1
     canBeInterrupted: 1
   edgeHangConfig:

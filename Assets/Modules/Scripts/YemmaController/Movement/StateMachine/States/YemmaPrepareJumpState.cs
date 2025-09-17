@@ -24,12 +24,12 @@ namespace Yemma.Movement.StateMachine.States
             controller.ChangeAnimation(YemmaAnimationController.YemmaAnimations.JumpPrepare);
             prepareTimer = 0f;
             
-            // Para o movimento horizontal para garantir pulo consistente
-            Vector3 velocity = controller.Velocity;
-            velocity.x = 0f;
-            velocity.z = 0f;
-            // Mantém velocity.y para não interferir na física vertical
-            controller.Rigidbody.linearVelocity = velocity;
+            // // Para o movimento horizontal para garantir pulo consistente
+            // Vector3 velocity = controller.Velocity;
+            // velocity.x = 0f;
+            // velocity.z = 0f;
+            // // Mantém velocity.y para não interferir na física vertical
+            // controller.Rigidbody.linearVelocity = velocity;
         }
 
         public override void UpdateLogic()

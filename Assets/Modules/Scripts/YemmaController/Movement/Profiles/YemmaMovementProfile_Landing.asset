@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 54aea2ae011fb56459c359560fb5ea5a, type: 3}
-  m_Name: YemmaMovementProfile_WalkSimple
+  m_Name: YemmaMovementProfile_Landing
   m_EditorClassIdentifier: Assembly-CSharp::Yemma.Movement.Data.YemmaMovementProfile
-  maxVelocity: 3.75
-  acceleration: 5.5
+  maxVelocity: 12.2
+  acceleration: 10
   deceleration: 30
-  velocityPower: 0.714
+  velocityPower: 0.733
   rotationSpeed: 7.3
   terrainAlignmentSpeed: 20
   tiltAmount: 6
@@ -30,8 +30,8 @@ MonoBehaviour:
   airDrag: 2
   additionalGravity: 0
   enableGroundDamping: 1
-  desiredGroundDistance: 0.233
-  springForce: 85
+  desiredGroundDistance: 0.1
+  springForce: 232
   springDamping: 20
   maxDampingForce: 50
   dampingTolerance: 0.05

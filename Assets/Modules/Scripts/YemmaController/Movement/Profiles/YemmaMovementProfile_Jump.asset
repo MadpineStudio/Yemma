@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54aea2ae011fb56459c359560fb5ea5a, type: 3}
   m_Name: YemmaMovementProfile_Jump
   m_EditorClassIdentifier: Assembly-CSharp::Yemma.Movement.Data.YemmaMovementProfile
-  maxVelocity: 14.89
+  maxVelocity: 8.1
   acceleration: 16.7
   deceleration: 30
   velocityPower: 0.714
@@ -26,11 +26,12 @@ MonoBehaviour:
   groundCheckDistance: 0.797
   groundCheckOffset: {x: 0, y: 0.2, z: 0}
   frictionMultiplier: 1
+  jumpForce: 50
   airDrag: 2
   additionalGravity: 0
-  enableGroundDamping: 1
-  desiredGroundDistance: 0.233
-  springForce: 85
+  enableGroundDamping: 0
+  desiredGroundDistance: 0.1
+  springForce: 10
   springDamping: 20
   maxDampingForce: 50
   dampingTolerance: 0.05
