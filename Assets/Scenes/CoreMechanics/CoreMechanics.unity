@@ -1274,7 +1274,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 1ad874182b15de044b27274d154ad4b6, type: 3}
       propertyPath: m_Name
-      value: P_CrystalBase (1)
+      value: P_CrystalBase
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 1ad874182b15de044b27274d154ad4b6, type: 3}
       propertyPath: m_Layer
@@ -2326,7 +2326,7 @@ MonoBehaviour:
   interactionDistance: 3
   interactionLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 2048
   interactionKey: 101
   OnInteraction:
     m_PersistentCalls:
