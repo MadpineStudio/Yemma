@@ -5,6 +5,9 @@ namespace CoreMechanics.Mechanics
 {
     public class Monolito : MonoBehaviour
     {
+        [Header("Crystal Light Path")]
+        [SerializeField] private CrystalLightPathInterpolator crystalLightPath;
+        
         [Header("Objetos Ativados")]
         [SerializeField] private GameObject[] objetosParaAtivar;
         
@@ -20,6 +23,7 @@ namespace CoreMechanics.Mechanics
         [SerializeField] private float velocidadeAlinhamento = 2f;
         [SerializeField] private Transform modelo3D; // Referência ao modelo 3D filho
         [SerializeField] private float anguloMaximoDesalinhamento = 30f; // Ângulo máximo antes de perder alinhamento
+        [SerializeField] private float comprimentoLaserPadrao = 5f; // Comprimento do laser quando não detecta monólito
         
         [Header("Rotação Controlada")]
         [SerializeField] private float incrementoRotacao = 15f; // Graus por passo
@@ -63,6 +67,10 @@ namespace CoreMechanics.Mechanics
         {
             // Inicializa os ângulos atuais com a rotação inicial
             angulosAtuais = transform.eulerAngles;
+            
+            // Busca o componente CrystalLightPathInterpolator se não foi atribuído
+            if (crystalLightPath == null)
+                crystalLightPath = GetComponent<CrystalLightPathInterpolator>();
         }
 
         void Update()
@@ -295,6 +303,10 @@ namespace CoreMechanics.Mechanics
                     {
                         monolitoDetectado = monolitoEncontrado;
                         monolitoDetectado.SerDetectado();
+                        
+                        // Dispara evento de detectado no Crystal Light Path
+                        if (crystalLightPath != null)
+                            crystalLightPath.Detectado();
                     }
                 }
                 else
@@ -302,6 +314,10 @@ namespace CoreMechanics.Mechanics
                     if (monolitoDetectado != null)
                     {
                         monolitoDetectado.SerDesdetectado();
+                        
+                        // Dispara evento de não detectado no Crystal Light Path
+                        if (crystalLightPath != null)
+                            crystalLightPath.NaoDetectado();
                     }
                     monolitoDetectado = null;
                 }
@@ -311,6 +327,10 @@ namespace CoreMechanics.Mechanics
                 if (monolitoDetectado != null)
                 {
                     monolitoDetectado.SerDesdetectado();
+                    
+                    // Dispara evento de não detectado no Crystal Light Path
+                    if (crystalLightPath != null)
+                        crystalLightPath.NaoDetectado();
                 }
                 monolitoDetectado = null;
             }
@@ -320,16 +340,20 @@ namespace CoreMechanics.Mechanics
         {
             if (lineRenderer == null) return;
             
+            lineRenderer.enabled = true;
+            lineRenderer.positionCount = 2;
+            lineRenderer.SetPosition(0, transform.position);
+            
             if (monolitoDetectado != null)
             {
-                lineRenderer.enabled = true;
-                lineRenderer.positionCount = 2;
-                lineRenderer.SetPosition(0, transform.position);
+                // Se detectou outro monólito, vai até ele
                 lineRenderer.SetPosition(1, monolitoDetectado.transform.position);
             }
             else
             {
-                lineRenderer.enabled = false;
+                // Se não detectou, vai na direção do raycast com comprimento padrão
+                Vector3 endPosition = transform.position + transform.forward * comprimentoLaserPadrao;
+                lineRenderer.SetPosition(1, endPosition);
             }
         }
         

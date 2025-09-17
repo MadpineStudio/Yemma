@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Custom_S_CrystalLightPath
+  m_Shader: {fileID: 4800000, guid: a86b67771ebe8c247ad552458b5e98ba, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs: []
+    m_Ints: []
+    m_Floats:
+    - _CoreSize: 0.01
+    - _Dispersion: 0.03
+    - _EndWidth: 0.08
+    - _FadeDistance: 0.5
+    - _FringeSize: 0.03
+    - _HaloSize: 0.07
+    - _Intensity: 1.3
+    - _Jitter: 0.008
+    - _Maximum: 0.95
+    - _Minimum: 0.75
+    - _SparkIntensity: 1.2
+    - _SparkThreshold: 0.82
+    - _Width: 0.06
+    m_Colors:
+    - _BackgroundColor: {r: 0.079999976, g: 0.079999976, b: 0.079999976, a: 1}
+    - _EndPoint: {r: 0, g: 4.3713875, b: 6.6810665, a: 0}
+    - _StartPoint: {r: 0, g: 4.3713875, b: -11.076245, a: 0}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
