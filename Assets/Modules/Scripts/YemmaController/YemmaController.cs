@@ -27,6 +27,12 @@ namespace Yemma
         public UnityEvent OnExitInteractionMode;
         public UnityEvent<IInteractable> OnInteractWithObject;
         
+        [Header("Light Dash Events")]
+        public UnityEvent<Transform, float> OnLightDashActivated;
+        
+        [Header("Dash Configuration")]
+        [SerializeField] private AnimationCurve dashCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
+        
         [Header("Debug")]
         [SerializeField] private bool enableStateDebugging = false;
         [SerializeField] private bool debugInteractionMode = true;
@@ -124,6 +130,7 @@ namespace Yemma
 
         // Propriedades públicas para acesso externo se necessário
         public YemmaMovementController MovementController => movementController;
+        public InputManager InputManager => inputManager;
         public YemmaMovementStateMachine MovementStateMachine => movementStateMachine;
         
         /// <summary>
@@ -243,6 +250,9 @@ namespace Yemma
                 // Se inscreve nos eventos do sistema de interação
                 interactionSystem.OnInteraction.AddListener(HandleObjectInteraction);
             }
+            
+            // Configura o evento de light dash para chamar o método de dash
+            OnLightDashActivated.AddListener(StartLightDash);
         }
         
         /// <summary>
@@ -277,5 +287,31 @@ namespace Yemma
         public YemmaInteractionSystem InteractionSystem => interactionSystem;
         public bool HasCurrentInteractable => interactionSystem != null && interactionSystem.HasInteractable;
         public IInteractable CurrentInteractable => interactionSystem?.CurrentInteractable;
+        
+        // === LIGHT DASH SYSTEM ===
+        
+        public void StartLightDash(Transform dashPoint, float dashSpeed)
+        {
+            if (ShouldBlockMovement) return;
+            
+            // Get the specific LightDashManager that triggered this
+            LightDashManager dashManager = null;
+            LightDashManager[] managers = FindObjectsOfType<LightDashManager>();
+            foreach (var manager in managers)
+            {
+                if (manager.DashPoint == dashPoint)
+                {
+                    dashManager = manager;
+                    break;
+                }
+            }
+            
+            Vector3 controlPoint = dashManager != null ? 
+                dashManager.GetControlPoint(transform.position, dashPoint.position) :
+                (transform.position + dashPoint.position) / 2f + Vector3.up * 2f;
+            
+            var dashState = new YemmaDashState(movementController, inputManager, movementStateMachine, dashPoint, dashSpeed, controlPoint, dashCurve);
+            movementStateMachine.ChangeState(dashState);
+        }
     }
 }
