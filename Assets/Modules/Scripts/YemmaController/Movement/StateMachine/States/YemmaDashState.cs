@@ -35,9 +35,17 @@ namespace Yemma.Movement.StateMachine.States
             dashProgress = 0f;
             dashCompleted = false;
             
-            // Align player instantly to dash direction
+            // Align player instantly to dash direction (only Y rotation)
             Vector3 direction = (endPosition - startPosition).normalized;
-            controller.transform.rotation = Quaternion.LookRotation(direction);
+            direction.y = 0; // Remove vertical component
+            direction = direction.normalized;
+            
+            Vector3 currentEuler = controller.transform.eulerAngles;
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            Vector3 targetEuler = targetRotation.eulerAngles;
+            
+            // Keep X and Z rotation, only change Y
+            controller.transform.rotation = Quaternion.Euler(currentEuler.x, targetEuler.y, currentEuler.z);
             
             // Disable physics during dash
             controller.Rigidbody.isKinematic = true;
