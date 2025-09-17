@@ -1,9 +1,16 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace CoreMechanics.Mechanics
 {
     public class Monolito : MonoBehaviour
     {
+        [Header("Objetos Ativados")]
+        [SerializeField] private GameObject[] objetosParaAtivar;
+        
+        [Header("Eventos")]
+        public UnityEvent OnDetectado;
+        
         [Header("Configurações")]
         [SerializeField] private float velocidadeRotacao = 90f;
         [SerializeField] private float suavidadeRotacao = 5f;
@@ -287,15 +294,24 @@ namespace CoreMechanics.Mechanics
                     if (monolitoDetectado != monolitoEncontrado)
                     {
                         monolitoDetectado = monolitoEncontrado;
+                        monolitoDetectado.SerDetectado();
                     }
                 }
                 else
                 {
+                    if (monolitoDetectado != null)
+                    {
+                        monolitoDetectado.SerDesdetectado();
+                    }
                     monolitoDetectado = null;
                 }
             }
             else
             {
+                if (monolitoDetectado != null)
+                {
+                    monolitoDetectado.SerDesdetectado();
+                }
                 monolitoDetectado = null;
             }
         }
@@ -319,6 +335,39 @@ namespace CoreMechanics.Mechanics
         
         public bool EstaAlinhando => estaAlinhando;
         public bool PlayerNaArea => playerNaArea;
+        
+        private void AtivarObjetos()
+        {
+            foreach (GameObject obj in objetosParaAtivar)
+            {
+                if (obj != null)
+                {
+                    obj.SetActive(true);
+                }
+            }
+        }
+        
+        private void DesativarObjetos()
+        {
+            foreach (GameObject obj in objetosParaAtivar)
+            {
+                if (obj != null)
+                {
+                    obj.SetActive(false);
+                }
+            }
+        }
+        
+        public void SerDetectado()
+        {
+            AtivarObjetos();
+            OnDetectado?.Invoke();
+        }
+        
+        public void SerDesdetectado()
+        {
+            DesativarObjetos();
+        }
         
         private void OnDrawGizmos()
         {
