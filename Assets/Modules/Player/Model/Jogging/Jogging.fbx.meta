@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: bc87dd62a93dd9a449ed65643a5a7b5e
+guid: f55154d1aa4fed7458c1425fa31eee6b
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -17,7 +17,7 @@ ModelImporter:
     removeConstantScaleCurves: 0
     motionNodeName: 
     animationImportErrors: 
-    animationImportWarnings: "\nClip 'Bake-CollectWalking' has import animation warnings
+    animationImportWarnings: "\nClip 'Bake-Jogging' has import animation warnings
       that might lower retargeting quality:\nNote: Activate translation DOF on avatar
       to improve retargeting quality.\n\t'DEF-upper_arm.L' has scale animation that
       will be discarded.\n\t'DEF-forearm.L' has scale animation that will be discarded.\n\t'DEF-hand.L'
@@ -27,8 +27,7 @@ ModelImporter:
       has scale animation that will be discarded.\n\t'DEF-shin.L' has scale animation
       that will be discarded.\n\t'DEF-foot.L' has scale animation that will be discarded.\n\t'DEF-thigh.R'
       has scale animation that will be discarded.\n\t'DEF-shin.R' has scale animation
-      that will be discarded.\n\t'DEF-foot.R' has scale animation that will be discarded.\n\t'DEF-toe.R'
-      has scale animation that will be discarded.\n"
+      that will be discarded.\n\t'DEF-foot.R' has scale animation that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -42,9 +41,9 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Bake-CollectWalking
-      takeName: Bake-CollectWalking
-      internalID: -241254381174760943
+      name: Bake-Jogging
+      takeName: Bake-Jogging
+      internalID: 3226397035662093229
       firstFrame: 0
       lastFrame: 39
       wrapMode: 0

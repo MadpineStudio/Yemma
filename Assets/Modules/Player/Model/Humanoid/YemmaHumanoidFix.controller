@@ -225,7 +225,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Bake-Run
-  m_Speed: 1
+  m_Speed: 1.3
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []
@@ -237,7 +237,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 1788804166208250969, guid: 220c49f6eac1af844821e22278d4b286, type: 3}
+  m_Motion: {fileID: 3226397035662093229, guid: f55154d1aa4fed7458c1425fa31eee6b, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -363,7 +363,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 2420264954325992859, guid: 432c883dc26ddd549810288ae522360f, type: 3}
+  m_Motion: {fileID: -241254381174760943, guid: bc87dd62a93dd9a449ed65643a5a7b5e, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -377,7 +377,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Bake-CollectWalk
-  m_Speed: 1
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []
@@ -389,7 +389,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -2035771154998879774, guid: fefdb2a15dbf2894fa718b58ee3cd1ac, type: 3}
+  m_Motion: {fileID: -241254381174760943, guid: bc87dd62a93dd9a449ed65643a5a7b5e, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
