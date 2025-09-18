@@ -66,6 +66,9 @@ namespace Yemma.Movement.Core
         // Movement profile atual (gerenciado internamente pelo ProfileSet)
         private YemmaMovementProfile movementProfile;
 
+        // Interactable Controller
+        [SerializeField] private YemmaInteractorController interactorController;
+
         // Direção de movimento estável (evita flick quando input ~ 0)
         private Vector3 stableMovementDirection = Vector3.forward;
         // Tempo para decair a direção estável quando realmente para
@@ -350,7 +353,18 @@ namespace Yemma.Movement.Core
             Vector3 horizontalVelocity = new Vector3(Velocity.x, 0, Velocity.z);
             return horizontalVelocity.magnitude;
         }
-
+        public void Interact()
+        {
+            interactorController.Interact();
+        }
+        public bool CanDropItem()
+        {
+            return interactorController.CanDropItem();
+        }
+        public bool HasClosestPickable()
+        {
+            return interactorController.HasPickableClosestItem();
+        }
         public void ChangeAnimation(YemmaAnimationController.YemmaAnimations newState, float blendTime = 0.2f)
         {
             // Usa o profile manager se disponível

@@ -19,9 +19,9 @@ namespace Yemma.Movement.StateMachine.States
         public override void Enter()
         {
             base.Enter();
-            
             // Pode adicionar animação de idle aqui
-            // controller.ChangeAnimation(YemmaAnimationController.YemmaAnimations.Idle_01);
+            controller.Interact();
+            controller.ChangeAnimation(YemmaAnimationController.YemmaAnimations.Collect);
         }
 
         public override void UpdateLogic()

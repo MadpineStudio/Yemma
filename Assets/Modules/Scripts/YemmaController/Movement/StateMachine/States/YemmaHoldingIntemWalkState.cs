@@ -10,7 +10,7 @@ namespace Yemma.Movement.StateMachine.States
     {
         private readonly YemmaMovementStateMachine stateMachine;
 
-        public YemmaHoldingIntemWalkState(YemmaMovementController controller, InputManager inputManager, YemmaMovementStateMachine stateMachine) 
+        public YemmaHoldingIntemWalkState(YemmaMovementController controller, InputManager inputManager, YemmaMovementStateMachine stateMachine)
             : base(controller, inputManager)
         {
             this.stateMachine = stateMachine;
@@ -29,22 +29,27 @@ namespace Yemma.Movement.StateMachine.States
         public override void UpdateLogic()
         {
             base.UpdateLogic();
-            
+
             // Transição para Idle se não há input de movimento
             if (!HasMovementInput() && IsGrounded())
             {
                 TransitionToIdle();
+            }
+            if (GetInteractInput() && IsGrounded() && controller.CanDropItem())
+            {
+                DropItem();
+                return;
             }
         }
 
         public override void UpdatePhysics()
         {
             base.UpdatePhysics();
-            
+
             // Aplica movimento baseado no input
             Vector2 movementInput = GetMovementInput();
             controller.ApplyMovement(movementInput);
-            
+
             // Alinha ao terreno
             controller.AlignToTerrain();
         }
@@ -54,8 +59,14 @@ namespace Yemma.Movement.StateMachine.States
         /// </summary>
         private void TransitionToIdle()
         {
-            var idleState = new YemmaIdleState(controller, inputManager, stateMachine);
+            var idleState = new YemmaHoldingItemIdleState(controller, inputManager, stateMachine);
             stateMachine.ChangeState(idleState);
+        }
+        private void DropItem()
+        {
+            controller.Interact();
+            var walkState = new YemmaWalkState(controller, inputManager, stateMachine);
+            stateMachine.ChangeState(walkState);
         }
     }
 }

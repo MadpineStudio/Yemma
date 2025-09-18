@@ -34,7 +34,11 @@ namespace Yemma.Movement.StateMachine.States
                 TransitionToPrepareJump();
                 return;
             }
-            
+            if (GetInteractInput() && IsGrounded() && controller.HasClosestPickable())
+            {
+                TransitionToPickUpItem();
+                return;
+            }
             // Transição para Crouch se detecta obstáculo
             if (controller.ShouldCrouch() && IsGrounded())
             {
@@ -115,7 +119,11 @@ namespace Yemma.Movement.StateMachine.States
             var jumpState = new YemmaJumpState(controller, inputManager, stateMachine);
             stateMachine.ChangeState(jumpState);
         }
-        
+        private void TransitionToPickUpItem()
+        {
+            var pickupItemState = new YemmaPickingUpItemState(controller, inputManager, stateMachine);
+            stateMachine.ChangeState(pickupItemState);
+        }
         /// <summary>
         /// Transição para o estado de Fall
         /// </summary>

@@ -22,7 +22,9 @@ namespace Yemma.Movement.Core
             Crouch,
             Landing,
             EdgeHang,
-            EdgeClimb
+            EdgeClimb,
+            Collect,
+
         }
 
         private YemmaMovementController controller;

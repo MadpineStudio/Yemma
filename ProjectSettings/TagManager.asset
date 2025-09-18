@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - CameraTrigger
+  - Pickable
+  - PickupPlaceFull
+  - Interactable
   layers:
   - Default
   - TransparentFX

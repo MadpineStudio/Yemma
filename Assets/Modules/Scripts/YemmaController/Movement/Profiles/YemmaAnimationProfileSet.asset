@@ -72,3 +72,8 @@ MonoBehaviour:
     movementProfile: {fileID: 11400000, guid: 7fba8d55016864144a4a1b98d524f129, type: 2}
     allowInput: 1
     canBeInterrupted: 1
+  pickUpItemConfig:
+    blendTime: 0.2
+    movementProfile: {fileID: 11400000, guid: 3bff77432bc90b646b2bc5e37375c46f, type: 2}
+    allowInput: 1
+    canBeInterrupted: 1

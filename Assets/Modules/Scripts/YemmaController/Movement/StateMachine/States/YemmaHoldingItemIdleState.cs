@@ -33,6 +33,11 @@ namespace Yemma.Movement.StateMachine.States
             {
                 TransitionToWalk();
             }
+            if (GetInteractInput() && IsGrounded() && controller.CanDropItem())
+            {
+                DropItem();
+                return;
+            }
         }
 
         public override void UpdatePhysics()
@@ -73,12 +78,15 @@ namespace Yemma.Movement.StateMachine.States
         /// </summary>
         private void TransitionToWalk()
         {
-            var walkState = new YemmaWalkState(controller, inputManager, stateMachine);
+            var walkState = new YemmaHoldingIntemWalkState(controller, inputManager, stateMachine);
             stateMachine.ChangeState(walkState);
         }
-        private void TransitionToHoldItem()
+        private void DropItem()
         {
-            
+            controller.Interact();
+            var idleState = new YemmaIdleState(controller, inputManager, stateMachine);
+            stateMachine.ChangeState(idleState);
         }
+        
     }
 }

@@ -11,8 +11,13 @@ namespace Yemma.Movement.Core
 
     public class YemmaInteractorController : MonoBehaviour
     {
-        private GameObject currentPickedItem;
+        public delegate GameObject InteractableDelegate();
+        public static InteractableDelegate onGetPickedItem;
 
+
+
+        [SerializeField] private Transform yemmaHands;
+        private GameObject currentPickedItem = null;
         private YemmaMovementController controller;
         private InputManager inputManager;
 
@@ -25,31 +30,28 @@ namespace Yemma.Movement.Core
         {
             this.controller = controller;
             this.inputManager = inputManager;
-            
-            // Se o GameObject está ativo, subscreve os eventos agora
-            if (gameObject.activeInHierarchy && inputManager != null && inputManager.inputActions != null)
-            {
-                inputManager.inputActions.YemmaKeyboard.Interact.performed += Interact;
-            }
+
         }
         [SerializeField] private Transform yemmaBody;
         [SerializeField] private LayerMask layerMask;
         Collider currentClosest = null;
         List<Collider> colliders = new();
 
+        void Start()
+        {
+            // if (inputManager != null && inputManager.inputActions != null)
+            inputManager.inputActions.YemmaKeyboard.Interact.performed += ActivateInteraction;
+
+        }
         void OnEnable()
         {
-            if (inputManager != null && inputManager.inputActions != null)
-            {
-                inputManager.inputActions.YemmaKeyboard.Interact.performed += Interact;
-            }
+            onGetPickedItem += GetPickedItem;
         }
         void OnDisable()
         {
-            if (inputManager != null && inputManager.inputActions != null)
-            {
-                inputManager.inputActions.YemmaKeyboard.Interact.performed -= Interact;
-            }
+            // if (inputManager != null && inputManager.inputActions != null)
+            inputManager.inputActions.YemmaKeyboard.Interact.performed -= ActivateInteraction;
+            onGetPickedItem -= GetPickedItem;
         }
         void Update()
         {
@@ -60,44 +62,83 @@ namespace Yemma.Movement.Core
             if (colliders.Count == 0) currentClosest = null;
             colliders.ForEach(collider =>
             {
-                if (currentClosest == null) { currentClosest = collider; }
+                if (currentClosest == null && !collider.CompareTag("PickupPlaceFull")) { currentClosest = collider; }
+
 
                 Vector3 dir = collider.transform.position - yemmaBody.position;
                 dir.y = 0;
                 float dot = Vector3.Dot(new Vector3(yemmaBody.forward.x, 0, yemmaBody.forward.z), dir.normalized);
                 if (dot > oldDot)
                 {
-                    oldDot = dot;
-                    currentClosest = collider;
+                    if (!collider.CompareTag("PickupPlaceFull"))
+                    {
+                        oldDot = dot;
+                        currentClosest = collider;
+                    }
                 }
+                if (currentClosest != null) Debug.Log(currentClosest.name);
 
             });
 
+
+
         }
 
-        void Interact(InputAction.CallbackContext ctxt)
+        public void Interact()
         {
-            InteractableBehaviour itemInteracted;
 
-            if (currentClosest != null)
+            if (currentPickedItem != null && currentClosest == null)
             {
-                itemInteracted = currentClosest.GetComponent<InteractableBehaviour>();
-
-                if (itemInteracted.isPickable)
+                PickItem(false);
+                currentPickedItem = null;
+            }
+            else
+            {
+                InteractableBehaviour itemInteracted;
+                Debug.Log("Interagiu");
+                if (currentClosest != null)
                 {
+                    itemInteracted = currentClosest.GetComponent<InteractableBehaviour>();
                     
-                    currentPickedItem = itemInteracted.gameObject;
-                }
-                else
-                {
-                    itemInteracted.ToggleActivation();
+                    if (itemInteracted.isPickable && currentPickedItem == null)
+                    {
+                        currentPickedItem = itemInteracted.gameObject;
+                        PickItem(true);
+                    }
+                    else
+                    {
+                        itemInteracted.ToggleActivation();
+                    }
                 }
             }
         }
-
-        public void ActivateInteraction()
+        public bool HasPickableClosestItem()
+        {
+            if (currentClosest == null) return false;
+            return currentClosest.GetComponent<InteractableBehaviour>().isPickable;
+        }
+        public bool CanDropItem()
+        {
+            return currentPickedItem != null && ((currentClosest == null) || (currentClosest != null && !currentClosest.GetComponent<InteractableBehaviour>().isPickable));
+        }
+        private void PickItem(bool pick)
+        {
+            Vector3 pivotScale = yemmaHands.localScale;
+            currentPickedItem.GetComponent<Rigidbody>().isKinematic = pick;
+            currentPickedItem.GetComponent<BoxCollider>().enabled = !pick;
+            currentPickedItem.transform.parent = pick ? yemmaHands : null;
+            currentPickedItem.transform.localScale = Vector3.one;
+            currentPickedItem.transform.position = yemmaHands.transform.position;
+        }
+        private GameObject GetPickedItem()
         {
 
+            GameObject item = currentPickedItem;
+            currentPickedItem = null;
+            return item;
+        }
+        public void ActivateInteraction(InputAction.CallbackContext ctxt)
+        {
         }
 
     }
