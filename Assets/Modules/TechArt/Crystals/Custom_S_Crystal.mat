@@ -101,10 +101,11 @@ Material:
     - _EffectColor: {r: 0.17295581, g: 1, b: 0.9693255, a: 1}
     - _GradientColorBottom: {r: 0.39286417, g: 0.5869814, b: 0.654088, a: 1}
     - _GradientColorTop: {r: 1, g: 1, b: 1, a: 1}
-    - _IceTint: {r: 0.63207537, g: 0.6591867, b: 1, a: 1}
+    - _IceTint: {r: 0.33018857, g: 0.507353, b: 1, a: 1}
     - _InnerColor: {r: 0.5, g: 0.5, b: 1, a: 1}
     - _Layer1Color: {r: 1, g: 1, b: 1, a: 1}
     - _Layer2Color: {r: 1, g: 1, b: 1, a: 1}
     - _OuterColor: {r: 0.65723264, g: 0.65723264, b: 1, a: 1}
+    - _ReflectionTint: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
