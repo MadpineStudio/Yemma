@@ -76,15 +76,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 46282f561fe998d4e979b570bfa5fb10, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.33
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 46282f561fe998d4e979b570bfa5fb10, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 3.56
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 46282f561fe998d4e979b570bfa5fb10, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -32.47
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 46282f561fe998d4e979b570bfa5fb10, type: 3}
       propertyPath: m_LocalRotation.w
@@ -440,7 +440,7 @@ MonoBehaviour:
   standUpDetectionHeight: 2.7
   crouchDetectionLayers:
     serializedVersion: 2
-    m_Bits: 2038
+    m_Bits: 64
   headSphereOffset: {x: 0, y: 0, z: 0}
   headSphereRadius: 0.347
   edgeDetectionDistance: 1.5
@@ -450,10 +450,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2038
   showCrouchDebugGizmos: 1
-  showEdgeDebugGizmos: 1
+  showEdgeDebugGizmos: 0
   jumpPadsLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8192
   pickItem: 0
   interactorController: {fileID: 4903310059821472356}
 --- !u!114 &5819208072476008025
@@ -511,7 +511,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  enableStateDebugging: 0
+  enableStateDebugging: 1
   debugInteractionMode: 0
 --- !u!114 &4903310059821472356
 MonoBehaviour:
@@ -526,7 +526,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Yemma.Movement.Core.YemmaInteractorController
   alignPlayerToObject: 0
-  alignmentSpeed: 0
+  alignmentSpeed: 1
   yemmaHands: {fileID: 8068243156875874608}
   yemmaBody: {fileID: 4175780100068406153}
   layerMask:
