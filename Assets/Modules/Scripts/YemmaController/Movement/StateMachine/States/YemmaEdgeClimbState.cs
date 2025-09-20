@@ -12,13 +12,13 @@ namespace Yemma.Movement.StateMachine.States
         private bool climbComplete = false;
         private float climbStartTime;
         private float climbDuration = .75f; // Duração estimada da animação (aumentada)
-        
+
         // Target Matching
         private Vector3 targetPosition;
         private bool hasTargetPosition = false;
         private bool targetMatchingApplied = false; // Flag para aplicar target matching apenas uma vez
 
-        public YemmaEdgeClimbState(YemmaMovementController controller, InputManager inputManager, YemmaMovementStateMachine stateMachine) 
+        public YemmaEdgeClimbState(YemmaMovementController controller, InputManager inputManager, YemmaMovementStateMachine stateMachine)
             : base(controller, inputManager)
         {
             this.stateMachine = stateMachine;
@@ -27,7 +27,7 @@ namespace Yemma.Movement.StateMachine.States
         public override void Enter()
         {
             base.Enter();
-            
+
             // Verificações de segurança
             if (controller == null)
             {
@@ -39,20 +39,20 @@ namespace Yemma.Movement.StateMachine.States
             ResetTargetMatching();
 
             controller.ChangeAnimation(YemmaAnimationController.YemmaAnimations.EdgeClimb);
-            
+
             // Para o movimento manual - root motion vai controlar
             controller.StopMovement();
-            
+
             // DESABILITA FÍSICA E COLISORES durante o climb
             DisablePhysicsAndColliders();
-            
+
             // Calcula posição alvo para target matching
             CalculateTargetPosition();
-            
+
             // Marca o início da escalada
             climbComplete = false;
             climbStartTime = Time.time;
-            
+
             // Habilita root motion
             EnableRootMotion(true);
         }
@@ -61,10 +61,10 @@ namespace Yemma.Movement.StateMachine.States
         {
             // RESET COMPLETO do target matching ao sair
             ResetTargetMatching();
-            
+
             // Reabilita física e colisores
             EnablePhysicsAndColliders();
-            
+
             // Desabilita root motion
             EnableRootMotion(false);
             base.Exit();
@@ -73,7 +73,7 @@ namespace Yemma.Movement.StateMachine.States
         public override void UpdateLogic()
         {
             base.UpdateLogic();
-            
+
             // Verificações de segurança
             if (controller == null)
             {
@@ -86,13 +86,13 @@ namespace Yemma.Movement.StateMachine.States
                 Debug.LogError("[EdgeClimb] Animator is null in UpdateLogic()");
                 return;
             }
-            
+
             // Aplica target matching se temos uma posição alvo
             if (hasTargetPosition && !climbComplete)
             {
                 ApplyTargetMatching();
             }
-            
+
             // Verifica se a animação de climb terminou
             if (!climbComplete && HasClimbFinished())
             {
@@ -104,7 +104,7 @@ namespace Yemma.Movement.StateMachine.States
                 TransitionToIdle();
                 return;
             }
-            
+
             // Failsafe - se passou muito tempo, força transição
             if (Time.time - climbStartTime > climbDuration + 1.0f) // Mais tempo de tolerância
             {
@@ -121,7 +121,7 @@ namespace Yemma.Movement.StateMachine.States
         public override void UpdatePhysics()
         {
             base.UpdatePhysics();
-            
+
             // Root motion controla o movimento, apenas mantém estabilidade
             if (!climbComplete)
             {
@@ -137,7 +137,7 @@ namespace Yemma.Movement.StateMachine.States
             // Primeiro verifica se o tempo máximo foi atingido (failsafe)
             if (Time.time - climbStartTime >= climbDuration)
                 return true;
-            
+
             // Verifica pelo normalized time da animação se ela chegou perto do fim
             if (controller != null && controller.Animator != null)
             {
@@ -148,7 +148,7 @@ namespace Yemma.Movement.StateMachine.States
                     return stateInfo.normalizedTime >= 0.98f;
                 }
             }
-            
+
             return false;
         }
 
@@ -176,14 +176,14 @@ namespace Yemma.Movement.StateMachine.States
             {
                 // Interrompe qualquer target matching em andamento
                 controller.Animator.InterruptMatchTarget(false);
-                
+
                 // Força o animator a parar qualquer operação de matching
                 if (controller.Animator.isMatchingTarget)
                 {
                     controller.Animator.InterruptMatchTarget(true);
                 }
             }
-            
+
             // Reset das variáveis de target matching
             hasTargetPosition = false;
             targetPosition = Vector3.zero;
@@ -227,11 +227,7 @@ namespace Yemma.Movement.StateMachine.States
             // Reabilita colisores
             if (controller != null && controller.Transform != null)
             {
-                Collider[] colliders = controller.Transform.GetComponentsInChildren<Collider>();
-                foreach (Collider col in colliders)
-                {
-                    col.enabled = true;
-                }
+                controller.SetCrouchCollider(false);
             }
         }
 
@@ -270,7 +266,7 @@ namespace Yemma.Movement.StateMachine.States
         {
             // Só aplica uma vez por climb
             if (targetMatchingApplied) return;
-            
+
             // Verificações de segurança
             if (controller == null || controller.Animator == null)
             {
@@ -289,17 +285,17 @@ namespace Yemma.Movement.StateMachine.States
             {
                 // Verifica se estamos na animação de EdgeClimb
                 AnimatorStateInfo stateInfo = controller.Animator.GetCurrentAnimatorStateInfo(0);
-                
+
                 // Aplica quando a animação começar (após 0.1s) até quase o final (0.95)
                 if (stateInfo.IsName("EdgeClimb") && stateInfo.normalizedTime >= 0.1f && stateInfo.normalizedTime < 0.95f)
                 {
                     // Target matching mais tardio para dar tempo da animação completar
                     float startTime = 0.2f;  // Começa mais tarde
                     float endTime = 0.9f;    // Termina mais tarde
-                    
+
                     // Usa apenas posição (sem rotação) para simplicidade
                     MatchTargetWeightMask weightMask = new MatchTargetWeightMask(Vector3.one, 0f);
-                    
+
                     try
                     {
                         controller.Animator.MatchTarget(
@@ -310,7 +306,7 @@ namespace Yemma.Movement.StateMachine.States
                             startTime,
                             endTime
                         );
-                        
+
                         // Marca como aplicado para não repetir
                         targetMatchingApplied = true;
                     }
