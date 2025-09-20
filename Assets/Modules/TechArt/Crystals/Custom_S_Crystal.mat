@@ -23,39 +23,88 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _BackgroundLayer:
+        m_Texture: {fileID: 2800000, guid: 03b0b866c8b7e5840b5a75cd6238444f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 2800000, guid: dfff8aa338b5b1b499fe64b81af23649, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _CrackLayers:
+        m_Texture: {fileID: 2800000, guid: 03b0b866c8b7e5840b5a75cd6238444f, type: 3}
+        m_Scale: {x: 2, y: 2}
+        m_Offset: {x: 0, y: 0}
+    - _DepthTexture:
+        m_Texture: {fileID: 2800000, guid: 75324bb7aa1f8864eaa1f0891de43df3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Layer2Map:
         m_Texture: {fileID: 2800000, guid: e54662abe23f2254898943e8def6a88c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 6d9f460ea11849a4e8889c608917d8de, type: 3}
+        m_Scale: {x: 2, y: 2}
+        m_Offset: {x: 0, y: 0}
+    - _NormalLayer:
+        m_Texture: {fileID: 2800000, guid: cf4214e50fe14d34a9103f5ac27a2019, type: 3}
+        m_Scale: {x: 10, y: 10}
+        m_Offset: {x: 0, y: 0}
+    - _NormalTex:
+        m_Texture: {fileID: 2800000, guid: 7e7987f1eda2a6c46bb19cf4d0eea4e7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 2800000, guid: 4ef79719df8539540abbf55be072fd73, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Roughness:
+        m_Texture: {fileID: 2800000, guid: b9871ff8d2f64a449a08ea4137065169, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _FresnelIntensity: 0.3
-    - _FresnelPower: 2
+    - _ChromaticAberration: 0
+    - _CracksStrength: 1
+    - _Depth: 0.836
+    - _DepthScale: 1.479
+    - _FresnelBias: 1
+    - _FresnelIntensity: 1.034
+    - _FresnelPower: 5
     - _GradientCenter: 0.5
     - _GradientPower: 1
     - _GradientRotation: 0
+    - _Height: 0.5
     - _Layer1SpeedX: 0
     - _Layer1SpeedY: 0
     - _Layer2Depth: 0.5
     - _Layer2SpeedX: 0.1
     - _Layer2SpeedY: 0.1
+    - _LayerDepth: 0.1
+    - _LayerSpacing: 0.0522
+    - _Layers: 10
+    - _Metallic: 0.372
     - _NoiseIntensity: 0.309
     - _NoiseScale: 4.98
+    - _OffsetScale: 0.64
     - _ParallaxLayers: 8
+    - _ParallaxMaxLayers: 20
+    - _ParallaxMinLayers: 5
     - _ParallaxStrength: 0.1
+    - _ReflectionDistortion: 0.0096
+    - _RoughnessStrength: 0.114
+    - _WaveSpeed: 1
     m_Colors:
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 0, g: 0.2883439, b: 1, a: 1}
+    - _CracksStrength: {r: 0, g: 18.53, b: 59.85, a: 9.91}
+    - _EffectColor: {r: 0.17295581, g: 1, b: 0.9693255, a: 1}
     - _GradientColorBottom: {r: 0.39286417, g: 0.5869814, b: 0.654088, a: 1}
     - _GradientColorTop: {r: 1, g: 1, b: 1, a: 1}
+    - _IceTint: {r: 0.63207537, g: 0.6591867, b: 1, a: 1}
+    - _InnerColor: {r: 0.5, g: 0.5, b: 1, a: 1}
     - _Layer1Color: {r: 1, g: 1, b: 1, a: 1}
     - _Layer2Color: {r: 1, g: 1, b: 1, a: 1}
+    - _OuterColor: {r: 0.65723264, g: 0.65723264, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

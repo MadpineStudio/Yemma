@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Custom_S_LightPath
+  m_Shader: {fileID: 4800000, guid: f7c9f39a2c671e64286b8d93cf15908d, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - _ENABLECOLORVARIATION_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _LightMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseTex:
+        m_Texture: {fileID: 2800000, guid: 92b0f7d6ecbfcde4cb213e718f0ec8ee, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _CenterFade: 0.1
+    - _ColorVariationIntensity: 1
+    - _ColorVariationScale: 0.84
+    - _ColorVariationSpeed: 2.61
+    - _EdgeSoftness: 0.3
+    - _EnableColorVariation: 1
+    - _EnableLookAt: 0
+    - _FalloffPower: 1.072
+    - _Intensity: 0.53
+    - _NoiseIntensity: 0.507
+    - _NoiseScale: 0.1
+    - _NoiseSpeed: 0.35
+    - _Ray1Frequency: 21
+    - _Ray1Speed: 0.35
+    - _Ray1Strength: 0.584
+    - _Ray2Frequency: 34
+    - _Ray2Speed: 0.1
+    - _Ray2Strength: 0.4
+    - _Ray3Frequency: 13.8
+    - _Ray3Speed: -1.95
+    - _Ray3Strength: 0.254
+    - _Ray4Frequency: 72
+    - _Ray4Speed: 0.9
+    - _Ray4Strength: 0.07
+    - _Uniformity: 0
+    - _VolumetricIntensity: 0.5
+    m_Colors:
+    - _Color: {r: 5.1379557, g: 7.501825, b: 18.358093, a: 0.7764706}
+    - _ColorTint1: {r: 0.7653395, g: 0.37759572, b: 0.9308176, a: 1}
+    - _ColorTint2: {r: 0.28616333, g: 0.6500803, b: 1, a: 1}
+    - _LightColor: {r: 1, g: 0.8, b: 0.6, a: 1}
+    - _LookAtScale: {r: 1, g: 1, b: 5.4, a: 3.82}
+    - _LookAtTarget: {r: -6.07, g: 5.1, b: 1, a: 0}
+    - _NoiseDirection: {r: 0, g: 1, b: 0, a: 0}
+    - _ScrollSpeed: {r: 0.1, g: 0.05, b: 0, a: 0}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
