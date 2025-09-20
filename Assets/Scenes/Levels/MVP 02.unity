@@ -13021,7 +13021,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1.32
+  m_Radius: 2.42
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &133810490
 MeshRenderer:
@@ -40093,7 +40093,7 @@ Transform:
   m_GameObject: {fileID: 666500999}
   serializedVersion: 2
   m_LocalRotation: {x: 0.000000011769345, y: 0.9629951, z: -0.269519, w: 0.000000042052033}
-  m_LocalPosition: {x: -0.330001, y: 11.448977, z: -115.23915}
+  m_LocalPosition: {x: -0.330001, y: 13.008978, z: -21.209148}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -42476,7 +42476,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1.32
+  m_Radius: 2.42
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &731245382
 MeshRenderer:
@@ -58579,7 +58579,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1.32
+  m_Radius: 2.42
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1055173537
 MeshRenderer:
@@ -67402,7 +67402,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1.32
+  m_Radius: 2.42
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1223685781
 MeshRenderer:
@@ -89385,7 +89385,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 2
+  m_Radius: 2.42
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1683965140
 MeshRenderer:
@@ -103015,11 +103015,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4175780100068406153, guid: 3a0e443ea356f9c4887d5bbd2f47f4ed, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 3.56
       objectReference: {fileID: 0}
     - target: {fileID: 4175780100068406153, guid: 3a0e443ea356f9c4887d5bbd2f47f4ed, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -126.5
+      value: -32.47
       objectReference: {fileID: 0}
     - target: {fileID: 4175780100068406153, guid: 3a0e443ea356f9c4887d5bbd2f47f4ed, type: 3}
       propertyPath: m_LocalRotation.w
@@ -112137,7 +112137,7 @@ MonoBehaviour:
   TargetOffset: {x: 0, y: 0, z: 0}
   TrackerSettings:
     BindingMode: 4
-    PositionDamping: {x: 1, y: 1, z: 1}
+    PositionDamping: {x: 0.2, y: 1, z: 1}
     AngularDampingMode: 0
     RotationDamping: {x: 1, y: 1, z: 1}
     QuaternionDamping: 1
@@ -112237,7 +112237,7 @@ Transform:
   m_GameObject: {fileID: 2004876796}
   serializedVersion: 2
   m_LocalRotation: {x: 0.000000011769345, y: 0.9629951, z: -0.269519, w: 0.000000042052033}
-  m_LocalPosition: {x: -0.330001, y: 11.448977, z: -115.23915}
+  m_LocalPosition: {x: -0.330001, y: 13.008978, z: -21.209148}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -117374,7 +117374,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1.32
+  m_Radius: 2.42
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &2110445075
 MeshRenderer:

@@ -16,7 +16,7 @@ MonoBehaviour:
   acceleration: 15.3
   deceleration: 30
   velocityPower: 0.733
-  rotationSpeed: 7.3
+  rotationSpeed: 11
   terrainAlignmentSpeed: 20
   tiltAmount: 6
   tiltSpeed: 3.11
