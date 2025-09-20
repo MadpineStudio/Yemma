@@ -10,7 +10,7 @@ namespace Yemma.Movement.StateMachine.States
     {
         private readonly YemmaMovementStateMachine stateMachine;
 
-        public YemmaIdleState(YemmaMovementController controller, InputManager inputManager, YemmaMovementStateMachine stateMachine) 
+        public YemmaIdleState(YemmaMovementController controller, InputManager inputManager, YemmaMovementStateMachine stateMachine)
             : base(controller, inputManager)
         {
             this.stateMachine = stateMachine;
@@ -19,7 +19,7 @@ namespace Yemma.Movement.StateMachine.States
         public override void Enter()
         {
             base.Enter();
-            
+
             // Pode adicionar animação de idle aqui
             controller.ChangeAnimation(YemmaAnimationController.YemmaAnimations.Idle);
         }
@@ -27,17 +27,24 @@ namespace Yemma.Movement.StateMachine.States
         public override void UpdateLogic()
         {
             base.UpdateLogic();
-            
+
             // Transição para PrepareJump se há input de jump
             if (GetJumpInput() && IsGrounded())
             {
                 TransitionToPrepareJump();
                 return;
             }
-            if (GetInteractInput() && IsGrounded() && controller.HasClosestPickable())
+            if (GetInteractInput() && IsGrounded())
             {
-                TransitionToPickUpItem();
-                return;
+                if (controller.HasClosestPickable())
+                {
+                    TransitionToPickUpItem();
+                    return;
+                }
+                else
+                {
+                    controller.Interact();
+                }
             }
             // Transição para Crouch se detecta obstáculo
             if (controller.ShouldCrouch() && IsGrounded())
@@ -45,28 +52,42 @@ namespace Yemma.Movement.StateMachine.States
                 TransitionToCrouch();
                 return;
             }
-            
+
             // Transição para Walk se há input de movimento
             if (HasMovementInput() && IsGrounded())
             {
                 TransitionToWalk();
                 return;
             }
-            
+
             // Transição para Fall se não está no chão
             if (!IsGrounded())
             {
                 TransitionToFall();
             }
         }
-
+        public override void HandleInteractionLogic()
+        {
+             if (GetInteractInput() && IsGrounded())
+            {
+                if (controller.HasClosestPickable())
+                {
+                    TransitionToPickUpItem();
+                    return;
+                }
+                else
+                {
+                    controller.Interact();
+                }
+            }
+        }
         public override void UpdatePhysics()
         {
             base.UpdatePhysics();
-            
+
             // Aplica desaceleração gradual
             ApplyDeceleration();
-            
+
             // Alinha ao terreno
             controller.AlignToTerrain();
         }
@@ -101,7 +122,7 @@ namespace Yemma.Movement.StateMachine.States
             var walkState = new YemmaWalkState(controller, inputManager, stateMachine);
             stateMachine.ChangeState(walkState);
         }
-        
+
         /// <summary>
         /// Transição para o estado de PrepareJump
         /// </summary>
@@ -110,7 +131,7 @@ namespace Yemma.Movement.StateMachine.States
             var prepareJumpState = new YemmaPrepareJumpState(controller, inputManager, stateMachine);
             stateMachine.ChangeState(prepareJumpState);
         }
-        
+
         /// <summary>
         /// Transição para o estado de Jump (mantido para compatibilidade)
         /// </summary>
@@ -132,7 +153,7 @@ namespace Yemma.Movement.StateMachine.States
             var fallState = new YemmaFallState(controller, inputManager, stateMachine);
             stateMachine.ChangeState(fallState);
         }
-        
+
         /// <summary>
         /// Transição para o estado de Crouch
         /// </summary>

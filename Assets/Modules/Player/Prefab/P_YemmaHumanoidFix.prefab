@@ -180,7 +180,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 46282f561fe998d4e979b570bfa5fb10, type: 3}
       propertyPath: m_Name
-      value: YemmaHumanoidFix
+      value: P_YemmaHumanoidFix
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 46282f561fe998d4e979b570bfa5fb10, type: 3}
       propertyPath: m_Layer
@@ -316,9 +316,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 46282f561fe998d4e979b570bfa5fb10, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2056938142460216777}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 46282f561fe998d4e979b570bfa5fb10, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7886809379108262652}
   m_SourcePrefab: {fileID: 100100000, guid: 46282f561fe998d4e979b570bfa5fb10, type: 3}
 --- !u!4 &2107209254064364005 stripped
 Transform:
@@ -454,6 +451,9 @@ MonoBehaviour:
     m_Bits: 2038
   showCrouchDebugGizmos: 1
   showEdgeDebugGizmos: 1
+  jumpPadsLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
   pickItem: 0
   interactorController: {fileID: 4903310059821472356}
 --- !u!114 &5819208072476008025
@@ -525,6 +525,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bf51d248215aa74ea5d696f4b96f991, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Yemma.Movement.Core.YemmaInteractorController
+  alignPlayerToObject: 0
+  alignmentSpeed: 0
   yemmaHands: {fileID: 8068243156875874608}
   yemmaBody: {fileID: 4175780100068406153}
   layerMask:
@@ -543,26 +545,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Yemma.Movement.Core.YemmaAnimationProfileManager
   profileSet: {fileID: 11400000, guid: b3514c2ceb4877b4a886f8af38144e3d, type: 2}
---- !u!114 &7886809379108262652
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3654822061115222323}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a30c7f8c227ec2d4fbe4abba7c1453fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Yemma.YemmaInteractionSystem
-  interactionDistance: 3
-  interactionLayers:
-    serializedVersion: 2
-    m_Bits: 2048
-  interactionKey: 101
-  OnInteraction:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!4 &4175780100068406153 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 46282f561fe998d4e979b570bfa5fb10, type: 3}

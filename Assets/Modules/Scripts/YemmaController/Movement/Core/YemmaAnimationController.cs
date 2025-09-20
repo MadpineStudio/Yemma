@@ -24,7 +24,7 @@ namespace Yemma.Movement.Core
             EdgeHang,
             EdgeClimb,
             Collect,
-
+            Dash,
         }
 
         private YemmaMovementController controller;

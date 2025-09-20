@@ -42,6 +42,11 @@ MonoBehaviour:
     movementProfile: {fileID: 11400000, guid: b3c67bf63ce4793439941b4328bc4ee2, type: 2}
     allowInput: 1
     canBeInterrupted: 1
+  dashConfig:
+    blendTime: 0.2
+    movementProfile: {fileID: 11400000, guid: b3c67bf63ce4793439941b4328bc4ee2, type: 2}
+    allowInput: 1
+    canBeInterrupted: 1
   walkSimpleConfig:
     blendTime: 0.2
     movementProfile: {fileID: 11400000, guid: cb51a33a95d8bf64fa8be670524c22fd, type: 2}

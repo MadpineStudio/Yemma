@@ -43,6 +43,8 @@ namespace Yemma.Movement.Data
         [SerializeField, Space(5)]
         private AnimationStateConfig fallConfig = new AnimationStateConfig();
         [SerializeField, Space(5)]
+        private AnimationStateConfig dashConfig = new AnimationStateConfig();
+        [SerializeField, Space(5)]
         private AnimationStateConfig walkSimpleConfig = new AnimationStateConfig();
         [SerializeField, Space(5)]
         private AnimationStateConfig walkCrouchConfig = new AnimationStateConfig();
@@ -75,6 +77,8 @@ namespace Yemma.Movement.Data
                     return jumpPrepareConfig;
                 case YemmaAnimationController.YemmaAnimations.Fall:
                     return fallConfig;
+                case YemmaAnimationController.YemmaAnimations.Dash:
+                    return dashConfig;
                 case YemmaAnimationController.YemmaAnimations.WalkSimple:
                     return walkSimpleConfig;
                 case YemmaAnimationController.YemmaAnimations.WalkCrouch:
@@ -144,6 +148,7 @@ namespace Yemma.Movement.Data
             jumpConfig = new AnimationStateConfig { blendTime = 0.1f, allowInput = false, canBeInterrupted = false };
             jumpPrepareConfig = new AnimationStateConfig { blendTime = 0.05f, allowInput = true, canBeInterrupted = false };
             fallConfig = new AnimationStateConfig { blendTime = 0.3f, allowInput = false, canBeInterrupted = false }; // Aumentado de 0.1f para 0.3f
+            dashConfig = new AnimationStateConfig { blendTime = 0.3f, allowInput = false, canBeInterrupted = false }; // Aumentado de 0.1f para 0.3f
             walkSimpleConfig = new AnimationStateConfig { blendTime = 0.2f, allowInput = true, canBeInterrupted = true };
             walkCrouchConfig = new AnimationStateConfig { blendTime = 0.25f, allowInput = true, canBeInterrupted = true };
             landingConfig = new AnimationStateConfig { blendTime = 0.15f, allowInput = false, canBeInterrupted = true }; // Mudou para interruptível

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Yemma.Movement.Core;
 
@@ -13,16 +15,20 @@ namespace Yemma.Movement.StateMachine.States
         private Vector3 controlPoint;
         private float dashProgress = 0f;
         private bool dashCompleted = false;
+        private bool dash = false;
+        private LayerMask layerMask;
+        private List<Collider> colliders;
+        private GameObject currentClosest = null;
         private AnimationCurve dashCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
 
-        public YemmaDashState(YemmaMovementController controller, InputManager inputManager, YemmaMovementStateMachine stateMachine, Transform target, float speed, Vector3 controlPoint, AnimationCurve curve) 
+        public YemmaDashState(YemmaMovementController controller, InputManager inputManager, YemmaMovementStateMachine stateMachine, Transform target, float speed, Vector3 controlPoint, AnimationCurve curve)
             : base(controller, inputManager)
         {
             this.stateMachine = stateMachine;
             this.dashTarget = target;
             this.dashSpeed = speed;
             this.dashCurve = curve;
-            
+
             // Use the exact control point from LightDashManager
             startPosition = controller.transform.position;
             endPosition = target.position;
@@ -32,77 +38,173 @@ namespace Yemma.Movement.StateMachine.States
         public override void Enter()
         {
             base.Enter();
-            dashProgress = 0f;
+            layerMask = controller.jumpPadsLayerMask;
+            startPosition = Vector3.zero;
+            Jump();
+            // dashProgress = 0f;
+            // dashCompleted = false;
+
+            // // Align player instantly to dash direction (only Y rotation)
+            // Vector3 direction = (endPosition - startPosition).normalized;
+            // direction.y = 0; // Remove vertical component
+            // direction = direction.normalized;
+
+            // Vector3 currentEuler = controller.transform.eulerAngles;
+            // Quaternion targetRotation = Quaternion.LookRotation(direction);
+            // Vector3 targetEuler = targetRotation.eulerAngles;
+
+            // // Keep X and Z rotation, only change Y
+            // controller.transform.rotation = Quaternion.Euler(currentEuler.x, targetEuler.y, currentEuler.z);
+
+            // // Disable physics during dash
+        }
+        public void Jump()
+        {
             dashCompleted = false;
-            
-            // Align player instantly to dash direction (only Y rotation)
-            Vector3 direction = (endPosition - startPosition).normalized;
-            direction.y = 0; // Remove vertical component
-            direction = direction.normalized;
-            
-            Vector3 currentEuler = controller.transform.eulerAngles;
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-            Vector3 targetEuler = targetRotation.eulerAngles;
-            
-            // Keep X and Z rotation, only change Y
-            controller.transform.rotation = Quaternion.Euler(currentEuler.x, targetEuler.y, currentEuler.z);
-            
-            // Disable physics during dash
-            controller.Rigidbody.isKinematic = true;
+            dashProgress = 0;
+            controller.Rigidbody.linearVelocity = Vector3.zero;
+            controller.Rigidbody.AddForce(Vector3.up * 170, ForceMode.Impulse);
+        }
+        public override void HandleInput()
+        {
+            base.HandleInput();
+            Debug.Log(GetJumpInput());
+            if ((GetJumpInput() && currentClosest != null) || dash)
+            {
+                dash = true;
+                if (startPosition == Vector3.zero) startPosition = controller.transform.position;
+                DashTowardsJumpPad();
+            }
         }
 
         public override void UpdateLogic()
         {
             base.UpdateLogic();
-            
-            if (dashCompleted) return;
-            
-            // Update progress based on speed
-            float totalDistance = Vector3.Distance(startPosition, endPosition);
-            float progressIncrement = (dashSpeed * Time.deltaTime) / totalDistance;
-            dashProgress += progressIncrement;
-            
-            if (dashProgress >= 1f)
+
+            // NOVA LÓGICA: Verifica se pode agarrar uma edge durante a queda
+            if (controller.IsInEdgeGrabRange() && controller.Velocity.y <= 0)
             {
-                dashProgress = 1f;
-                dashCompleted = true;
+                TransitionToEdgeHang();
+                return;
             }
-            
-            // Apply curve to progress and calculate position on bezier curve
-            float curvedProgress = dashCurve.Evaluate(dashProgress);
-            Vector3 currentPos = CalculateQuadraticBezier(startPosition, controlPoint, endPosition, curvedProgress);
-            controller.transform.position = currentPos;
-            
-            if (dashCompleted)
+
+            if (!dash) GetClosestJumpPad();
+
+            if (dashCompleted || IsGrounded()) ExitDash();
+
+            // // Update progress based on speed
+            // float totalDistance = Vector3.Distance(startPosition, endPosition);
+            // float progressIncrement = (dashSpeed * Time.deltaTime) / totalDistance;
+            // dashProgress += progressIncrement;
+
+            // if (dashProgress >= 1f)
+            // {
+            //     dashProgress = 1f;
+            //     dashCompleted = true;
+            // }
+
+            // // Apply curve to progress and calculate position on bezier curve
+            // float curvedProgress = dashCurve.Evaluate(dashProgress);
+            // Vector3 currentPos = CalculateQuadraticBezier(startPosition, controlPoint, endPosition, curvedProgress);
+            // Yemmabody.position = currentPos;
+
+            // if (dashCompleted)
+            // {
+            //     ExitDash();
+            // }
+        }
+        public override void UpdatePhysics()
+        {
+            base.UpdatePhysics();
+
+            // Permite movimento horizontal limitado no ar
+            Vector2 movementInput = GetMovementInput();
+            if (movementInput.magnitude > 0.01f)
             {
-                ExitDash();
+                // Movimento aéreo reduzido
+                Vector2 reducedInput = movementInput * 0.6f; // 60% do movimento normal
+                controller.ApplyMovement(reducedInput);
+            }
+
+            // Aplica gravidade adicional mais forte APENAS quando está no ar
+            if (!IsGrounded())
+            {
+                float additionalGravity = 15f; // Gravidade base adicional
+
+                // Se o profile tem gravidade configurada, usa ela, senão usa a padrão
+                if (controller.MovementProfile != null && controller.MovementProfile.additionalGravity > 0f)
+                {
+                    additionalGravity = controller.MovementProfile.additionalGravity;
+                }
+
+                // Aplica gravidade extra mais forte durante o jump (mesma intensidade do Fall)
+                Vector3 extraGravity = Vector3.down * additionalGravity * 1.5f; // 50% mais gravidade que o configurado
+                controller.Rigidbody.AddForce(extraGravity, ForceMode.Acceleration);
             }
         }
-        
-        private Vector3 CalculateQuadraticBezier(Vector3 p0, Vector3 p1, Vector3 p2, float t)
+        private void GetClosestJumpPad()
         {
-            float u = 1 - t;
-            float tt = t * t;
-            float uu = u * u;
-            
-            Vector3 point = uu * p0 + 2 * u * t * p1 + tt * p2;
-            return point;
+            Transform yemmaBody = controller.transform;
+            float oldDot = 0;
+
+            colliders = Physics.OverlapSphere(yemmaBody.position + Vector3.up * 1.33f, 8f, layerMask).ToList();
+
+            if (colliders.Count == 0) currentClosest = null;
+            colliders.ForEach(collider =>
+            {
+                if (currentClosest == null) { currentClosest = collider.gameObject; }
+
+                Vector3 dir = collider.transform.position - yemmaBody.position;
+
+                float dot = Vector3.Dot(new Vector3(yemmaBody.forward.x, 0, yemmaBody.forward.z), dir.normalized);
+                if (dot > oldDot)
+                {
+                    oldDot = dot;
+                    currentClosest = collider.gameObject;
+                }
+                if (currentClosest != null) Debug.Log(currentClosest.name);
+
+            });
+        }
+        private void DashTowardsJumpPad()
+        {
+            if (currentClosest == null) return;
+            controller.Rigidbody.isKinematic = true;
+            Transform yemmaTransform = controller.transform;
+            yemmaTransform.position = Vector3.Lerp(startPosition, currentClosest.transform.position, dashProgress);
+            dashProgress += Time.fixedDeltaTime * 5;
+            if ((currentClosest.transform.position - yemmaTransform.position).magnitude < 0.07f) dashCompleted = true;
         }
 
         private void ExitDash()
         {
             controller.Rigidbody.isKinematic = false;
-            
-            if (IsGrounded())
+            if (dash)
             {
-                var idleState = new YemmaIdleState(controller, inputManager, stateMachine);
-                stateMachine.ChangeState(idleState);
+                dash = false;
+                startPosition = Vector3.zero;
+                Jump();
             }
             else
             {
-                var fallState = new YemmaFallState(controller, inputManager, stateMachine);
-                stateMachine.ChangeState(fallState);
+                if (IsGrounded())
+                {
+                    var idleState = new YemmaIdleState(controller, inputManager, stateMachine);
+                    stateMachine.ChangeState(idleState);
+                }
+                else
+                {
+                    var fallState = new YemmaFallState(controller, inputManager, stateMachine);
+                    stateMachine.ChangeState(fallState);
+                }
             }
+
         }
+        private void TransitionToEdgeHang()
+        {
+            var edgeHangState = new YemmaEdgeHangState(controller, inputManager, stateMachine);
+            stateMachine.ChangeState(edgeHangState);
+        }
+
     }
 }

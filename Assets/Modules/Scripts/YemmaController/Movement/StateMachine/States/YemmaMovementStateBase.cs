@@ -42,6 +42,7 @@ namespace Yemma.Movement.StateMachine.States
         {
             // Base implementation - pode ser sobrescrita
         }
+        public virtual void HandleInteractionLogic() { }
 
         public virtual void UpdatePhysics()
         {
@@ -88,7 +89,7 @@ namespace Yemma.Movement.StateMachine.States
         {
             return controller.GetHorizontalSpeed();
         }
-        
+
         /// <summary>
         /// Verifica se há input de jump
         /// </summary>
@@ -100,7 +101,7 @@ namespace Yemma.Movement.StateMachine.States
         {
             return inputManager.inputActions.YemmaKeyboard.Interact.WasPressedThisFrame();
         }
-        
+
         /// <summary>
         /// Verifica se o botão de jump foi solto
         /// </summary>

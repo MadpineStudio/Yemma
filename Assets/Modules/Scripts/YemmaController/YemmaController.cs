@@ -16,30 +16,32 @@ namespace Yemma
         [SerializeField] private YemmaInteractorController interactorController;
         [SerializeField] private InputManager inputManager;
         [SerializeField] private YemmaInteractionSystem interactionSystem;
-        
+
         [Header("Interaction System")]
         [SerializeField] private bool isInInteractionMode = false;
         [SerializeField] private bool blockInputsInInteractionMode = true;
         [SerializeField] private bool blockMovementInInteractionMode = true;
-        
+
         [Header("Interaction Events")]
         public UnityEvent OnEnterInteractionMode;
         public UnityEvent OnExitInteractionMode;
         public UnityEvent<IInteractable> OnInteractWithObject;
-        
+        public delegate void ExternalInteractionDelegate();
+        public static ExternalInteractionDelegate OnPlayerInteractWithMonolith;
+
         [Header("Light Dash Events")]
         public UnityEvent<Transform, float> OnLightDashActivated;
-        
+
         [Header("Dash Configuration")]
         [SerializeField] private AnimationCurve dashCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
-        
+
         [Header("Debug")]
         [SerializeField] private bool enableStateDebugging = false;
         [SerializeField] private bool debugInteractionMode = true;
 
         // State Machine
         private YemmaMovementStateMachine movementStateMachine;
-        
+
         // Interaction Mode Properties
         public bool IsInInteractionMode => isInInteractionMode;
         public bool ShouldBlockInputs => isInInteractionMode && blockInputsInInteractionMode;
@@ -48,6 +50,14 @@ namespace Yemma
         private void Awake()
         {
             InitializeComponents();
+        }
+        private void OnEnable()
+        {
+            OnPlayerInteractWithMonolith += HandlePlayerInteractionMode;
+        }
+        private void OnDisable()
+        {
+            OnPlayerInteractWithMonolith -= HandlePlayerInteractionMode;
         }
 
         private void Start()
@@ -62,10 +72,13 @@ namespace Yemma
             {
                 movementStateMachine.HandleInput();
             }
-            
             if (!ShouldBlockMovement)
             {
                 movementStateMachine.UpdateLogic();
+            }
+            else
+            {
+                movementStateMachine.HandleInteractionLogic();
             }
         }
 
@@ -75,7 +88,7 @@ namespace Yemma
             if (!ShouldBlockMovement)
             {
                 movementStateMachine.UpdatePhysics();
-                
+
                 // Aplica sistema de amortecimento do solo
                 if (movementController != null)
                 {
@@ -94,27 +107,27 @@ namespace Yemma
 
             if (inputManager == null)
                 inputManager = GetComponent<InputManager>();
-                
+
             if (interactionSystem == null)
                 interactionSystem = GetComponent<YemmaInteractionSystem>();
 
             if (interactorController == null)
             {
                 interactorController = GetComponent<YemmaInteractorController>();
-                interactorController.AssingController(movementController ,inputManager); 
+                interactorController.AssingController(movementController, inputManager);
             }
             else
-            {   
-                interactorController.AssingController(movementController ,inputManager); 
+            {
+                interactorController.AssingController(movementController, inputManager);
             }
             if (movementController == null || inputManager == null)
             {
                 Debug.LogError("YemmaController precisa dos componentes YemmaMovementController e InputManager!");
             }
-            
+
             // Configura o InputManager no MovementController para o sistema de crouch
             movementController.SetInputManager(inputManager);
-            
+
             // Configura eventos do sistema de interação
             SetupInteractionEvents();
         }
@@ -136,48 +149,69 @@ namespace Yemma
         public YemmaMovementController MovementController => movementController;
         public InputManager InputManager => inputManager;
         public YemmaMovementStateMachine MovementStateMachine => movementStateMachine;
-        
+
         /// <summary>
         /// Verifica se o player está no chão
         /// </summary>
         public bool IsGrounded => movementController.IsGrounded();
-        
+
         /// <summary>
         /// Obtém a velocidade atual do player
         /// </summary>
         public Vector3 CurrentVelocity => movementController.Velocity;
-        
+
         /// <summary>
         /// Verifica se deve agachar (obstáculo detectado à frente)
         /// </summary>
         public bool ShouldCrouch => movementController.ShouldCrouch();
-        
+
         /// <summary>
         /// Verifica se pode levantar (espaço livre acima)
         /// </summary>
         public bool CanStandUp => movementController.CanStandUp();
-        
+
         // === INTERACTION MODE SYSTEM ===
-        
+
         /// <summary>
         /// Ativa o modo de interação, bloqueando inputs e movimento
         /// </summary>
+        private void HandlePlayerInteractionMode()
+        {
+            if (IsInInteractionMode)
+            {
+                ExitInteractionMode();
+                return;
+            }
+            // Zera velocidades do player
+
+            if (movementController != null)
+            {
+                movementController.StopMovement();
+            }
+
+            // Alinha player para olhar para o objeto se habilitado
+
+
+            // Ativa o modo de interação do player
+            EnterInteractionMode();
+
+        }
         public void EnterInteractionMode()
         {
             if (!isInInteractionMode)
             {
                 isInInteractionMode = true;
-                
+
                 // Dispara evento
                 OnEnterInteractionMode?.Invoke();
-                
+
                 if (debugInteractionMode)
                 {
                     Debug.Log("YemmaController: Entrando no modo de interação");
                 }
             }
         }
-        
+
         /// <summary>
         /// Desativa o modo de interação, restaurando inputs e movimento
         /// </summary>
@@ -186,17 +220,17 @@ namespace Yemma
             if (isInInteractionMode)
             {
                 isInInteractionMode = false;
-                
+
                 // Dispara evento
                 OnExitInteractionMode?.Invoke();
-                
+
                 if (debugInteractionMode)
                 {
                     Debug.Log("YemmaController: Saindo do modo de interação");
                 }
             }
         }
-        
+
         /// <summary>
         /// Alterna entre modo de interação ativo/inativo
         /// </summary>
@@ -211,7 +245,7 @@ namespace Yemma
                 EnterInteractionMode();
             }
         }
-        
+
         /// <summary>
         /// Define o modo de interação diretamente
         /// </summary>
@@ -227,7 +261,7 @@ namespace Yemma
                 ExitInteractionMode();
             }
         }
-        
+
         /// <summary>
         /// Configura as opções de bloqueio do modo de interação
         /// </summary>
@@ -237,13 +271,13 @@ namespace Yemma
         {
             blockInputsInInteractionMode = blockInputs;
             blockMovementInInteractionMode = blockMovement;
-            
+
             if (debugInteractionMode)
             {
                 Debug.Log($"YemmaController: Configuração do modo de interação - Inputs: {blockInputs}, Movimento: {blockMovement}");
             }
         }
-        
+
         /// <summary>
         /// Configura os eventos do sistema de interação
         /// </summary>
@@ -254,11 +288,11 @@ namespace Yemma
                 // Se inscreve nos eventos do sistema de interação
                 interactionSystem.OnInteraction.AddListener(HandleObjectInteraction);
             }
-            
+
             // Configura o evento de light dash para chamar o método de dash
             OnLightDashActivated.AddListener(StartLightDash);
         }
-        
+
         /// <summary>
         /// Manipula a interação com objetos
         /// </summary>
@@ -267,13 +301,13 @@ namespace Yemma
         {
             // Dispara evento personalizado
             OnInteractWithObject?.Invoke(interactable);
-            
+
             if (debugInteractionMode)
             {
                 Debug.Log($"YemmaController: Interação com objeto: {interactable.InteractionPrompt}");
             }
         }
-        
+
         /// <summary>
         /// Força uma interação com um objeto específico (para uso externo)
         /// </summary>
@@ -286,21 +320,21 @@ namespace Yemma
                 interactable.OnInteract(this);
             }
         }
-        
+
         // Propriedades públicas para o sistema de interação
         public YemmaInteractionSystem InteractionSystem => interactionSystem;
         public bool HasCurrentInteractable => interactionSystem != null && interactionSystem.HasInteractable;
         public IInteractable CurrentInteractable => interactionSystem?.CurrentInteractable;
-        
+
         // === LIGHT DASH SYSTEM ===
-        
+
         public void StartLightDash(Transform dashPoint, float dashSpeed)
         {
             if (ShouldBlockMovement) return;
-            
+
             // Get the specific LightDashManager that triggered this
             LightDashManager dashManager = null;
-            LightDashManager[] managers = FindObjectsOfType<LightDashManager>();
+            LightDashManager[] managers = FindObjectsByType<LightDashManager>(FindObjectsSortMode.None);
             foreach (var manager in managers)
             {
                 if (manager.DashPoint == dashPoint)
@@ -309,13 +343,18 @@ namespace Yemma
                     break;
                 }
             }
-            
-            Vector3 controlPoint = dashManager != null ? 
+
+            Vector3 controlPoint = dashManager != null ?
                 dashManager.GetControlPoint(transform.position, dashPoint.position) :
                 (transform.position + dashPoint.position) / 2f + Vector3.up * 2f;
-            
+
             var dashState = new YemmaDashState(movementController, inputManager, movementStateMachine, dashPoint, dashSpeed, controlPoint, dashCurve);
             movementStateMachine.ChangeState(dashState);
+        }
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(transform.position + Vector3.up * 1.33f, 8);
         }
     }
 }

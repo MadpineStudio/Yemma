@@ -15,7 +15,8 @@ namespace Yemma.Movement.Core
         public static InteractableDelegate onGetPickedItem;
 
 
-
+        [SerializeField] private bool alignPlayerToObject = true;
+        [SerializeField] private float alignmentSpeed = 1f;
         [SerializeField] private Transform yemmaHands;
         private GameObject currentPickedItem = null;
         private YemmaMovementController controller;
@@ -99,7 +100,19 @@ namespace Yemma.Movement.Core
                 if (currentClosest != null)
                 {
                     itemInteracted = currentClosest.GetComponent<InteractableBehaviour>();
-                    
+
+                    if (alignPlayerToObject)
+                    {
+                        Vector3 directionToObject = (itemInteracted.transform.position - transform.position).normalized;
+                        directionToObject.y = 0; // Mantém apenas rotação Y
+
+                        if (directionToObject != Vector3.zero)
+                        {
+                            Quaternion targetRotation = Quaternion.LookRotation(directionToObject);
+                            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, alignmentSpeed * Time.deltaTime);
+                        }
+                    }
+
                     if (itemInteracted.isPickable && currentPickedItem == null)
                     {
                         currentPickedItem = itemInteracted.gameObject;

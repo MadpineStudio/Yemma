@@ -56,7 +56,10 @@ namespace Yemma.Movement.StateMachine
         {
             currentState?.UpdateLogic();
         }
-
+        public void HandleInteractionLogic()
+        {
+            currentState?.HandleInteractionLogic();
+        }
         /// <summary>
         /// Atualiza física do estado atual
         /// </summary>

@@ -9,6 +9,7 @@ namespace Yemma.Movement.Core
         void Exit();
         void HandleInput();
         void UpdateLogic();
+        void HandleInteractionLogic();
         void UpdatePhysics();
     }
 }
