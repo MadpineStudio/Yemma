@@ -143,7 +143,7 @@ namespace Yemma
             controller.Transform.rotation = Quaternion.Slerp(
                 controller.Transform.rotation, 
                 targetRotation, 
-                Profile.rotationSpeed * Time.deltaTime
+                Profile.rotationSpeed * Time.fixedDeltaTime
             );
         }
 
