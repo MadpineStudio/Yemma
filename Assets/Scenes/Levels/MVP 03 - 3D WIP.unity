@@ -55611,6 +55611,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9996f13b09838e48ad2e5a56db45150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoreMechanics.Mechanics.MonolitoInteractable
+  isPickable: 0
   interactionDistance: 1.8
   interactionPrompt: "Pressione E para interagir com o Mon\xF3lito"
   canInteract: 1
@@ -69921,6 +69922,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9996f13b09838e48ad2e5a56db45150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoreMechanics.Mechanics.MonolitoInteractable
+  isPickable: 0
   interactionDistance: 1.8
   interactionPrompt: "Pressione E para interagir com o Mon\xF3lito"
   canInteract: 1
@@ -71481,6 +71483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9996f13b09838e48ad2e5a56db45150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoreMechanics.Mechanics.MonolitoInteractable
+  isPickable: 0
   interactionDistance: 1.8
   interactionPrompt: "Pressione E para interagir com o Mon\xF3lito"
   canInteract: 1
@@ -72595,6 +72598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9996f13b09838e48ad2e5a56db45150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoreMechanics.Mechanics.MonolitoInteractable
+  isPickable: 0
   interactionDistance: 1.8
   interactionPrompt: "Pressione E para interagir com o Mon\xF3lito"
   canInteract: 1
@@ -110649,6 +110653,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9996f13b09838e48ad2e5a56db45150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoreMechanics.Mechanics.MonolitoInteractable
+  isPickable: 0
   interactionDistance: 1.8
   interactionPrompt: "Pressione E para interagir com o Mon\xF3lito"
   canInteract: 1
@@ -111444,6 +111449,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9996f13b09838e48ad2e5a56db45150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoreMechanics.Mechanics.MonolitoInteractable
+  isPickable: 0
   interactionDistance: 1.8
   interactionPrompt: "Pressione E para interagir com o Mon\xF3lito"
   canInteract: 1
@@ -112630,6 +112636,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9996f13b09838e48ad2e5a56db45150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoreMechanics.Mechanics.MonolitoInteractable
+  isPickable: 0
   interactionDistance: 1.8
   interactionPrompt: "Pressione E para interagir com o Mon\xF3lito"
   canInteract: 1
