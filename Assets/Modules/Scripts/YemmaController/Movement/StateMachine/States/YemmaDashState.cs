@@ -71,12 +71,11 @@ namespace Yemma.Movement.StateMachine.States
         {
             base.HandleInput();
             Debug.Log(GetJumpInput());
-            if ((GetJumpInput() && currentClosest != null && dashDelay >= 0.5f) || dash)
+            if (GetJumpInput() && currentClosest != null && dashDelay >= 0.5f)
             {
                 if (!dash) startPosition = controller.transform.position;
                 dash = true;
                 lastJumpedClosest = currentClosest;
-                DashTowardsJumpPad();
             }
         }
 
@@ -127,6 +126,10 @@ namespace Yemma.Movement.StateMachine.States
                 // Movimento aéreo reduzido
                 Vector2 reducedInput = movementInput * 0.6f; // 60% do movimento normal
                 controller.ApplyMovement(reducedInput);
+            }
+            if (dash)
+            {
+                DashTowardsJumpPad();
             }
 
             // Aplica gravidade adicional mais forte APENAS quando está no ar
