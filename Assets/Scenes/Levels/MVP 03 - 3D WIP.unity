@@ -9703,43 +9703,6 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
---- !u!84 &84360704
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_IsAlphaChannelOptional: 0
-  serializedVersion: 6
-  m_Width: 3840
-  m_Height: 2160
-  m_AntiAliasing: 1
-  m_MipCount: -1
-  m_DepthStencilFormat: 90
-  m_ColorFormat: 48
-  m_MipMap: 1
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_UseDynamicScaleExplicit: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_EnableRandomWrite: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
-  m_ShadowSamplingMode: 2
 --- !u!43 &94093151
 Mesh:
   m_ObjectHideFlags: 0
@@ -11748,7 +11711,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 2049
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 84360704}
+  m_TargetTexture: {fileID: 1336331010}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -26917,6 +26880,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PickableItemInteractableBehaviour
   isPickable: 1
+  keyId: 
 --- !u!54 &328373923
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -45418,6 +45382,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PickableItemInteractableBehaviour
   isPickable: 1
+  keyId: 
 --- !u!1 &756837158
 GameObject:
   m_ObjectHideFlags: 0
@@ -69895,6 +69860,43 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!84 &1336331010
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 6
+  m_Width: 3840
+  m_Height: 2160
+  m_AntiAliasing: 1
+  m_MipCount: -1
+  m_DepthStencilFormat: 90
+  m_ColorFormat: 48
+  m_MipMap: 1
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_UseDynamicScaleExplicit: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_EnableRandomWrite: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
+  m_ShadowSamplingMode: 2
 --- !u!43 &1340189312
 Mesh:
   m_ObjectHideFlags: 0
@@ -71848,7 +71850,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 2
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -107174,7 +107176,7 @@ PrefabInstance:
     - target: {fileID: -7946091053068653348, guid: e0c58b45b81cc8249a2b7caead6dd7ac, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: ea5ad44f47ed8d047be896760572dbab, type: 2}
+      objectReference: {fileID: 2100000, guid: 7012b58a7fa1a8c45ba4fd1d5e6ff023, type: 2}
     - target: {fileID: -7918335002988649766, guid: e0c58b45b81cc8249a2b7caead6dd7ac, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -107206,6 +107208,10 @@ PrefabInstance:
     - target: {fileID: -7146521406498821007, guid: e0c58b45b81cc8249a2b7caead6dd7ac, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -7029948723529949830, guid: e0c58b45b81cc8249a2b7caead6dd7ac, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7029948723529949830, guid: e0c58b45b81cc8249a2b7caead6dd7ac, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -107386,6 +107392,10 @@ PrefabInstance:
     - target: {fileID: 3842188868792711882, guid: e0c58b45b81cc8249a2b7caead6dd7ac, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 5148817236446094103, guid: e0c58b45b81cc8249a2b7caead6dd7ac, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5148817236446094103, guid: e0c58b45b81cc8249a2b7caead6dd7ac, type: 3}
       propertyPath: m_StaticEditorFlags
