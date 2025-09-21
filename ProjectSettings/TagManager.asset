@@ -8,6 +8,7 @@ TagManager:
   - Pickable
   - PickupPlaceFull
   - Interactable
+  - Hitable
   layers:
   - Default
   - TransparentFX

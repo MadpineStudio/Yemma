@@ -27,37 +27,45 @@ namespace Yemma.Movement.StateMachine.States
         public override void UpdateLogic()
         {
             base.UpdateLogic();
+            if (IsGrounded())
+            {
 
-            // Transição para PrepareJump se há input de jump
-            if (GetJumpInput() && IsGrounded())
-            {
-                TransitionToPrepareJump();
-                return;
-            }
-            if (GetInteractInput() && IsGrounded())
-            {
-                if (controller.HasClosestPickable())
+                // Transição para PrepareJump se há input de jump
+                if (GetJumpInput())
                 {
-                    TransitionToPickUpItem();
+                    TransitionToPrepareJump();
                     return;
                 }
-                else
+                if (GetAtackInput())
                 {
-                    controller.Interact();
+                    TransitionToAtack();
+                    return;
                 }
-            }
-            // Transição para Crouch se detecta obstáculo
-            if (controller.ShouldCrouch() && IsGrounded())
-            {
-                TransitionToCrouch();
-                return;
-            }
+                if (GetInteractInput())
+                {
+                    if (controller.HasClosestPickable())
+                    {
+                        TransitionToPickUpItem();
+                        return;
+                    }
+                    else
+                    {
+                        controller.Interact();
+                    }
+                }
+                // Transição para Crouch se detecta obstáculo
+                if (controller.ShouldCrouch())
+                {
+                    TransitionToCrouch();
+                    return;
+                }
 
-            // Transição para Walk se há input de movimento
-            if (HasMovementInput() && IsGrounded())
-            {
-                TransitionToWalk();
-                return;
+                // Transição para Walk se há input de movimento
+                if (HasMovementInput())
+                {
+                    TransitionToWalk();
+                    return;
+                }
             }
 
             // Transição para Fall se não está no chão
@@ -68,7 +76,7 @@ namespace Yemma.Movement.StateMachine.States
         }
         public override void HandleInteractionLogic()
         {
-             if (GetInteractInput() && IsGrounded())
+            if (GetInteractInput() && IsGrounded())
             {
                 if (controller.HasClosestPickable())
                 {
@@ -161,6 +169,11 @@ namespace Yemma.Movement.StateMachine.States
         {
             var crouchState = new YemmaCrouchState(controller, inputManager, stateMachine);
             stateMachine.ChangeState(crouchState);
+        }
+        private void TransitionToAtack()
+        {
+             var atackState = new YemmaAtackingState(controller, inputManager, stateMachine);
+            stateMachine.ChangeState(atackState);
         }
     }
 }

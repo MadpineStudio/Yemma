@@ -101,6 +101,10 @@ namespace Yemma.Movement.StateMachine.States
         {
             return inputManager.inputActions.YemmaKeyboard.Interact.WasPressedThisFrame();
         }
+        protected bool GetAtackInput()
+        {
+            return inputManager.inputActions.YemmaKeyboard.Atack.WasPressedThisFrame();
+        }
 
         /// <summary>
         /// Verifica se o botão de jump foi solto

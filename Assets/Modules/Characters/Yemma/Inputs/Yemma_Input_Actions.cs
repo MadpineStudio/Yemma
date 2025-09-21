@@ -136,6 +136,15 @@ public partial class @Yemma_Input_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Atack"",
+                    ""type"": ""Button"",
+                    ""id"": ""f84f1431-e9cc-4e4d-baff-5022d8e07718"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -336,6 +345,28 @@ public partial class @Yemma_Input_Actions: IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""63d12e15-c530-4af2-825a-b2ff6aa1953c"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Atack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ceebee72-9382-44b4-98ea-888e91dd866b"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Atack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -349,6 +380,7 @@ public partial class @Yemma_Input_Actions: IInputActionCollection2, IDisposable
         m_YemmaKeyboard_Roll = m_YemmaKeyboard.FindAction("Roll", throwIfNotFound: true);
         m_YemmaKeyboard_Glide = m_YemmaKeyboard.FindAction("Glide", throwIfNotFound: true);
         m_YemmaKeyboard_Interact = m_YemmaKeyboard.FindAction("Interact", throwIfNotFound: true);
+        m_YemmaKeyboard_Atack = m_YemmaKeyboard.FindAction("Atack", throwIfNotFound: true);
     }
 
     ~@Yemma_Input_Actions()
@@ -434,6 +466,7 @@ public partial class @Yemma_Input_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_YemmaKeyboard_Roll;
     private readonly InputAction m_YemmaKeyboard_Glide;
     private readonly InputAction m_YemmaKeyboard_Interact;
+    private readonly InputAction m_YemmaKeyboard_Atack;
     /// <summary>
     /// Provides access to input actions defined in input action map "YemmaKeyboard".
     /// </summary>
@@ -465,6 +498,10 @@ public partial class @Yemma_Input_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "YemmaKeyboard/Interact".
         /// </summary>
         public InputAction @Interact => m_Wrapper.m_YemmaKeyboard_Interact;
+        /// <summary>
+        /// Provides access to the underlying input action "YemmaKeyboard/Atack".
+        /// </summary>
+        public InputAction @Atack => m_Wrapper.m_YemmaKeyboard_Atack;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -506,6 +543,9 @@ public partial class @Yemma_Input_Actions: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @Atack.started += instance.OnAtack;
+            @Atack.performed += instance.OnAtack;
+            @Atack.canceled += instance.OnAtack;
         }
 
         /// <summary>
@@ -532,6 +572,9 @@ public partial class @Yemma_Input_Actions: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @Atack.started -= instance.OnAtack;
+            @Atack.performed -= instance.OnAtack;
+            @Atack.canceled -= instance.OnAtack;
         }
 
         /// <summary>
@@ -607,5 +650,12 @@ public partial class @Yemma_Input_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnInteract(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Atack" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnAtack(InputAction.CallbackContext context);
     }
 }

@@ -58,6 +58,8 @@ namespace Yemma.Movement.Data
         private AnimationStateConfig edgeClimbConfig = new AnimationStateConfig();
         [SerializeField, Space(5)]
         private AnimationStateConfig pickUpItemConfig = new AnimationStateConfig();
+        [SerializeField, Space(5)]
+        private AnimationStateConfig atackingConfig = new AnimationStateConfig();
         /// <summary>
         /// Obtém a configuração para um tipo de animação específico
         /// </summary>
@@ -93,6 +95,8 @@ namespace Yemma.Movement.Data
                     return edgeClimbConfig;
                 case YemmaAnimationController.YemmaAnimations.Collect:
                     return pickUpItemConfig;
+                case YemmaAnimationController.YemmaAnimations.Atack:
+                    return atackingConfig;
                 default:
                     Debug.LogWarning($"Configuração não encontrada para: {animationType}");
                     return null;
@@ -152,6 +156,7 @@ namespace Yemma.Movement.Data
             walkSimpleConfig = new AnimationStateConfig { blendTime = 0.2f, allowInput = true, canBeInterrupted = true };
             walkCrouchConfig = new AnimationStateConfig { blendTime = 0.25f, allowInput = true, canBeInterrupted = true };
             landingConfig = new AnimationStateConfig { blendTime = 0.15f, allowInput = false, canBeInterrupted = true }; // Mudou para interruptível
+           atackingConfig = new AnimationStateConfig { blendTime = 0.15f, allowInput = false, canBeInterrupted = true }; // Mudou para interruptível
 
             Debug.Log("✅ Valores padrão definidos!");
         }
