@@ -92,7 +92,7 @@ Material:
     - _ParallaxMaxLayers: 20
     - _ParallaxMinLayers: 5
     - _ParallaxStrength: 0.1
-    - _ReflectionDistortion: 0.0096
+    - _ReflectionDistortion: 0
     - _RoughnessStrength: 0.114
     - _WaveSpeed: 1
     m_Colors:
