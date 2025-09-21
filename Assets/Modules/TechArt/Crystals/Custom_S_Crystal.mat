@@ -69,8 +69,8 @@ Material:
     - _CracksStrength: 1
     - _Depth: 0.836
     - _DepthScale: 1.479
-    - _FresnelBias: 1
-    - _FresnelIntensity: 1.034
+    - _FresnelBias: 0.229
+    - _FresnelIntensity: 2
     - _FresnelPower: 5
     - _GradientCenter: 0.5
     - _GradientPower: 1
