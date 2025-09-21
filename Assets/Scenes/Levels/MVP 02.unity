@@ -25674,6 +25674,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PickableItemInteractableBehaviour
   isPickable: 1
+  keyId: 
 --- !u!54 &328373923
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -43369,6 +43370,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PickableItemInteractableBehaviour
   isPickable: 1
+  keyId: 
 --- !u!1 &756837158
 GameObject:
   m_ObjectHideFlags: 0
@@ -112519,7 +112521,7 @@ MonoBehaviour:
   TargetOffset: {x: 0, y: 0, z: 0}
   TrackerSettings:
     BindingMode: 4
-    PositionDamping: {x: 0.2, y: 1, z: 1}
+    PositionDamping: {x: 0, y: 0, z: 0}
     AngularDampingMode: 0
     RotationDamping: {x: 1, y: 1, z: 1}
     QuaternionDamping: 1
@@ -120443,3 +120445,4 @@ SceneRoots:
   - {fileID: 1994719503}
   - {fileID: 1776258700}
   - {fileID: 1337307896}
+  - {fileID: 224623515}

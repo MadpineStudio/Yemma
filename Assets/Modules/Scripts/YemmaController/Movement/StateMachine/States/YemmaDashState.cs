@@ -14,11 +14,13 @@ namespace Yemma.Movement.StateMachine.States
         private Vector3 endPosition;
         private Vector3 controlPoint;
         private float dashProgress = 0f;
+        private float dashDelay = 0f;
         private bool dashCompleted = false;
         private bool dash = false;
         private LayerMask layerMask;
         private List<Collider> colliders;
         private GameObject currentClosest = null;
+        private GameObject lastJumpedClosest = null;
         private AnimationCurve dashCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
 
         public YemmaDashState(YemmaMovementController controller, InputManager inputManager, YemmaMovementStateMachine stateMachine, Transform target, float speed, Vector3 controlPoint, AnimationCurve curve)
@@ -69,10 +71,11 @@ namespace Yemma.Movement.StateMachine.States
         {
             base.HandleInput();
             Debug.Log(GetJumpInput());
-            if ((GetJumpInput() && currentClosest != null) || dash)
+            if ((GetJumpInput() && currentClosest != null && dashDelay >= 0.5f) || dash)
             {
+                if (!dash) startPosition = controller.transform.position;
                 dash = true;
-                if (startPosition == Vector3.zero) startPosition = controller.transform.position;
+                lastJumpedClosest = currentClosest;
                 DashTowardsJumpPad();
             }
         }
@@ -80,7 +83,7 @@ namespace Yemma.Movement.StateMachine.States
         public override void UpdateLogic()
         {
             base.UpdateLogic();
-
+            dashDelay += Time.deltaTime;
             // NOVA LÓGICA: Verifica se pode agarrar uma edge durante a queda
             if (controller.IsInEdgeGrabRange() && controller.Velocity.y <= 0)
             {
@@ -162,18 +165,21 @@ namespace Yemma.Movement.StateMachine.States
                     oldDot = dot;
                     currentClosest = collider.gameObject;
                 }
+                if (currentClosest == lastJumpedClosest) currentClosest = null;
                 if (currentClosest != null) Debug.Log(currentClosest.name);
 
             });
         }
         private void DashTowardsJumpPad()
         {
-            if (currentClosest == null) return;
+            if (currentClosest == null || !dash) return;
             controller.Rigidbody.isKinematic = true;
             Transform yemmaTransform = controller.transform;
             yemmaTransform.position = Vector3.Lerp(startPosition, currentClosest.transform.position, dashProgress);
-            dashProgress += Time.fixedDeltaTime * 5;
-            if ((currentClosest.transform.position - yemmaTransform.position).magnitude < 0.07f) dashCompleted = true;
+            controller.Rigidbody.position = yemmaTransform.position;
+            Vector3 positionDiference = currentClosest.transform.position - yemmaTransform.position;
+            dashProgress += Time.fixedDeltaTime * 6.33f / Mathf.Min(positionDiference.magnitude, 1f);
+            if (positionDiference.magnitude < 0.07f) dashCompleted = true;
         }
 
         private void ExitDash()
@@ -182,7 +188,7 @@ namespace Yemma.Movement.StateMachine.States
             if (dash)
             {
                 dash = false;
-                startPosition = Vector3.zero;
+                dashDelay = 0;
                 Jump();
             }
             else
