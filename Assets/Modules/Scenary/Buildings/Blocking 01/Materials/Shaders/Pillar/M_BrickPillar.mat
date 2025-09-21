@@ -41,12 +41,20 @@ Material:
         m_Texture: {fileID: 2800000, guid: 8966cef7b7c845545983594aeed8b1a6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Normal:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _RM_AO_H:
         m_Texture: {fileID: 2800000, guid: 09f959c5f14c88240b6f635ec88ceb7a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_6ab50eca5b7d4e3d8d316069d553e81f_Texture_1_Texture2D:
         m_Texture: {fileID: 2800000, guid: 0466b115f934ff44d9907d4d6752c99f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_920adba1b03740778cee6595b718229a_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 0c620bbfb69648340bc7fcf7d2a3ad95, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -64,10 +72,13 @@ Material:
     m_Ints: []
     m_Floats:
     - _AO: 1
+    - _Metalic: 0
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Smoothness: 0.295
     - _Tile: 10
-    m_Colors: []
+    m_Colors:
+    - _Color: {r: 0, g: 0, b: 0, a: 0}
+    - _Specular: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
