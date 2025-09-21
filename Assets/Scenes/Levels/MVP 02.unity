@@ -2313,6 +2313,79 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!1001 &18778253
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1337307896}
+    m_Modifications:
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 17.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -57
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5938323268172665712, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_Name
+      value: IlusoryPlatform 8
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+--- !u!4 &18778254 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+  m_PrefabInstance: {fileID: 18778253}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &18778255 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3388358818010220773, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+  m_PrefabInstance: {fileID: 18778253}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1de77ff19c2fdf640930821686ac2ecd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IlusoryPlatformBehaviour
 --- !u!43 &18921799
 Mesh:
   m_ObjectHideFlags: 0
@@ -32925,6 +32998,79 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!1001 &556439409
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1337307896}
+    m_Modifications:
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 17.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -62
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5938323268172665712, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_Name
+      value: IlusoryPlatform 7
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+--- !u!4 &556439410 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+  m_PrefabInstance: {fileID: 556439409}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &556439411 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3388358818010220773, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+  m_PrefabInstance: {fileID: 556439409}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1de77ff19c2fdf640930821686ac2ecd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IlusoryPlatformBehaviour
 --- !u!1 &570700240
 GameObject:
   m_ObjectHideFlags: 0
@@ -33280,6 +33426,152 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1994719503}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &572814188
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1337307896}
+    m_Modifications:
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 17.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -67
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5938323268172665712, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_Name
+      value: IlusoryPlatform 6
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+--- !u!4 &572814189 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+  m_PrefabInstance: {fileID: 572814188}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &572814190 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3388358818010220773, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+  m_PrefabInstance: {fileID: 572814188}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1de77ff19c2fdf640930821686ac2ecd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IlusoryPlatformBehaviour
+--- !u!1001 &590565718
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1337307896}
+    m_Modifications:
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 12.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -62
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5938323268172665712, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_Name
+      value: IlusoryPlatform 4
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+--- !u!4 &590565719 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+  m_PrefabInstance: {fileID: 590565718}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &590565720 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3388358818010220773, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+  m_PrefabInstance: {fileID: 590565718}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1de77ff19c2fdf640930821686ac2ecd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IlusoryPlatformBehaviour
 --- !u!43 &595032534
 Mesh:
   m_ObjectHideFlags: 0
@@ -53319,6 +53611,22 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!114 &946575667 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3388358818010220773, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+  m_PrefabInstance: {fileID: 7473177142888147599}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1de77ff19c2fdf640930821686ac2ecd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IlusoryPlatformBehaviour
+--- !u!4 &946575671 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+  m_PrefabInstance: {fileID: 7473177142888147599}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &950708875
 GameObject:
   m_ObjectHideFlags: 0
@@ -69837,6 +70145,69 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!1 &1337307894
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1337307896}
+  - component: {fileID: 1337307895}
+  m_Layer: 6
+  m_Name: IlusoryPlatformManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1337307895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1337307894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fbbdbd27c721174cbea6e718861bdde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IlusoryPlatformManager
+  platforms:
+  - {fileID: 946575667}
+  - {fileID: 1724597713}
+  - {fileID: 1466531325}
+  - {fileID: 1456986976}
+  - {fileID: 590565720}
+  - {fileID: 1444733434}
+  - {fileID: 572814190}
+  - {fileID: 556439411}
+  - {fileID: 18778255}
+--- !u!4 &1337307896
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1337307894}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 946575671}
+  - {fileID: 1724597712}
+  - {fileID: 1466531324}
+  - {fileID: 1456986975}
+  - {fileID: 590565719}
+  - {fileID: 1444733433}
+  - {fileID: 572814189}
+  - {fileID: 556439410}
+  - {fileID: 18778254}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1338181306
 Mesh:
   m_ObjectHideFlags: 0
@@ -72171,6 +72542,79 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 2.4
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1001 &1444733432
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1337307896}
+    m_Modifications:
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 12.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -57
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5938323268172665712, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_Name
+      value: IlusoryPlatform 5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+--- !u!4 &1444733433 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+  m_PrefabInstance: {fileID: 1444733432}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1444733434 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3388358818010220773, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+  m_PrefabInstance: {fileID: 1444733432}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1de77ff19c2fdf640930821686ac2ecd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IlusoryPlatformBehaviour
 --- !u!43 &1448335279
 Mesh:
   m_ObjectHideFlags: 0
@@ -72349,6 +72793,79 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!1001 &1456986974
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1337307896}
+    m_Modifications:
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 12.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -67
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5938323268172665712, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_Name
+      value: IlusoryPlatform 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+--- !u!4 &1456986975 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+  m_PrefabInstance: {fileID: 1456986974}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1456986976 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3388358818010220773, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+  m_PrefabInstance: {fileID: 1456986974}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1de77ff19c2fdf640930821686ac2ecd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IlusoryPlatformBehaviour
 --- !u!1 &1463178074
 GameObject:
   m_ObjectHideFlags: 0
@@ -73025,6 +73542,79 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1994719503}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1466531323
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1337307896}
+    m_Modifications:
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -57
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5938323268172665712, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_Name
+      value: IlusoryPlatform 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+--- !u!4 &1466531324 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+  m_PrefabInstance: {fileID: 1466531323}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1466531325 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3388358818010220773, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+  m_PrefabInstance: {fileID: 1466531323}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1de77ff19c2fdf640930821686ac2ecd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IlusoryPlatformBehaviour
 --- !u!1 &1469333820 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5278928976470821033, guid: 2e920a6ee5313524499d83412774a045, type: 3}
@@ -101304,6 +101894,79 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!1001 &1724597711
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1337307896}
+    m_Modifications:
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -62
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5938323268172665712, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_Name
+      value: IlusoryPlatform 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+--- !u!4 &1724597712 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+  m_PrefabInstance: {fileID: 1724597711}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1724597713 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3388358818010220773, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+  m_PrefabInstance: {fileID: 1724597711}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1de77ff19c2fdf640930821686ac2ecd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IlusoryPlatformBehaviour
 --- !u!43 &1726594212
 Mesh:
   m_ObjectHideFlags: 0
@@ -102776,6 +103439,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4175780100068406153, guid: 3a0e443ea356f9c4887d5bbd2f47f4ed, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5819208072476008025, guid: 3a0e443ea356f9c4887d5bbd2f47f4ed, type: 3}
+      propertyPath: enableStateDebugging
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7435579345748925965, guid: 3a0e443ea356f9c4887d5bbd2f47f4ed, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8479433880365164525, guid: 3a0e443ea356f9c4887d5bbd2f47f4ed, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -119690,6 +120365,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1279752689}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &7473177142888147599
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1337307896}
+    m_Modifications:
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -67
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1677496580547892469, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5938323268172665712, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
+      propertyPath: m_Name
+      value: IlusoryPlatform 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a588e848efd80874099a15dd5a470a5d, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -119710,4 +120442,4 @@ SceneRoots:
   - {fileID: 846310986}
   - {fileID: 1994719503}
   - {fileID: 1776258700}
-  - {fileID: 224623515}
+  - {fileID: 1337307896}
