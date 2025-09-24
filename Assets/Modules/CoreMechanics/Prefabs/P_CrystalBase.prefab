@@ -237,31 +237,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1ad874182b15de044b27274d154ad4b6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.530024
+      value: 17.75
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1ad874182b15de044b27274d154ad4b6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.83
+      value: -1.8399999
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1ad874182b15de044b27274d154ad4b6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -11.594893
+      value: -23.02
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1ad874182b15de044b27274d154ad4b6, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1ad874182b15de044b27274d154ad4b6, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1ad874182b15de044b27274d154ad4b6, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1ad874182b15de044b27274d154ad4b6, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1ad874182b15de044b27274d154ad4b6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -269,12 +269,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1ad874182b15de044b27274d154ad4b6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1ad874182b15de044b27274d154ad4b6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 1ad874182b15de044b27274d154ad4b6, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 26821ebe14ba8b64ea1fd6bb379e42af, type: 2}
     - target: {fileID: -6101703829916744325, guid: 1ad874182b15de044b27274d154ad4b6, type: 3}
       propertyPath: m_Layer
       value: 9
@@ -291,6 +295,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 7831690610911492875, guid: 1ad874182b15de044b27274d154ad4b6, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 26821ebe14ba8b64ea1fd6bb379e42af, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -303,19 +311,11 @@ PrefabInstance:
       addedObject: {fileID: 4169262955096278387}
     - targetCorrespondingSourceObject: {fileID: -1696288965652729168, guid: 1ad874182b15de044b27274d154ad4b6, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3510728489151742991}
-    - targetCorrespondingSourceObject: {fileID: -1696288965652729168, guid: 1ad874182b15de044b27274d154ad4b6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 768757034970299976}
+      addedObject: {fileID: 1923779403024452455}
   m_SourcePrefab: {fileID: 100100000, guid: 1ad874182b15de044b27274d154ad4b6, type: 3}
 --- !u!4 &2351774713520143734 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -9109593029843826833, guid: 1ad874182b15de044b27274d154ad4b6, type: 3}
-  m_PrefabInstance: {fileID: 2393407853941881369}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2538275429141655192 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -9075083313751599999, guid: 1ad874182b15de044b27274d154ad4b6, type: 3}
   m_PrefabInstance: {fileID: 2393407853941881369}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &5278928976470821033 stripped
@@ -344,7 +344,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 2.4
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3510728489151742991
+--- !u!114 &1923779403024452455
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -353,47 +353,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 5278928976470821033}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5643fff173a0c84387b69612743f0c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 3df84c011ab4ac74280008667cc2ecbb, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CoreMechanics.Mechanics.Monolito
+  m_EditorClassIdentifier: Assembly-CSharp::CoreMechanics.Mechanics.MonolitoInteractableAlternative
+  isPickable: 0
+  canInteract: 1
+  alignPlayerToObject: 1
+  debugInteraction: 1
   crystalLightPath: {fileID: 5249167230546814271}
-  objetosParaAtivar:
-  - {fileID: 0}
-  OnDetectado:
-    m_PersistentCalls:
-      m_Calls: []
-  velocidadeRotacao: 50
-  suavidadeRotacao: 10
+  objectsToActivate: []
   distanciaRaycast: 50
   layersDeteccao:
     serializedVersion: 2
     m_Bits: 512
   lineRenderer: {fileID: 5170896431801409323}
-  velocidadeAlinhamento: 2
-  modelo3D: {fileID: 2538275429141655192}
-  anguloMaximoDesalinhamento: 113.2
   comprimentoLaserPadrao: 5
-  incrementoRotacao: 15
-  tempoEntrePasso: 0.3
-  limitePitch: 60
-  limiteYaw: 180
---- !u!114 &768757034970299976
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5278928976470821033}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9996f13b09838e48ad2e5a56db45150, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CoreMechanics.Mechanics.MonolitoInteractable
-  isPickable: 0
-  interactionDistance: 1.8
-  interactionPrompt: "Pressione E para interagir com o Mon\xF3lito"
-  canInteract: 1
-  alignPlayerToObject: 1
-  alignmentSpeed: 5
-  monolito: {fileID: 0}
-  debugInteraction: 1
+  rotationAmount: 45
+  rotationCooldown: 0.3
+  pitchLimit: 60
+  yawLimit: 180

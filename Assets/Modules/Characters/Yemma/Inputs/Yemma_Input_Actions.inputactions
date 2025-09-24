@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "Yemma_Input_Actions",
     "maps": [
         {
@@ -45,6 +46,15 @@
                     "name": "Interact",
                     "type": "Button",
                     "id": "2e5ce540-80d0-4485-a865-b71bb3a6c549",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Atack",
+                    "type": "Button",
+                    "id": "f84f1431-e9cc-4e4d-baff-5022d8e07718",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -247,6 +257,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "63d12e15-c530-4af2-825a-b2ff6aa1953c",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Atack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ceebee72-9382-44b4-98ea-888e91dd866b",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Atack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

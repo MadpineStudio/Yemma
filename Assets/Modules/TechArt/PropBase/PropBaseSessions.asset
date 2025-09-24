@@ -1,0 +1,98 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: PropBaseSessions
+  m_EditorClassIdentifier: Assembly-CSharp-Editor:PropBase.Editor:PropBaseSessionData
+  sessions:
+  - sessionName: Default Session
+    baseTexture: {fileID: 0}
+    baseColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    baseUV: {x: 1, y: 1, z: 0, w: 0}
+    useLayerMask: 0
+    layerMask: {fileID: 0}
+    layer01:
+      useLayer: 0
+      texture: {fileID: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
+      intensity: 1
+      uv: {x: 1, y: 1, z: 0, w: 0}
+      usePBR: 1
+      normal: {fileID: 0}
+      normalScale: 1
+      metallic: 0
+      smoothness: 0.5
+      emission: {r: 0, g: 0, b: 0, a: 1}
+      emissionIntensity: 1
+      useMatCap: 0
+      matCapTexture: {fileID: 0}
+      matCapIntensity: 1
+      matCapContrast: 1
+      matCapSaturation: 1
+      matCapRotation: 0
+    layer02:
+      useLayer: 0
+      texture: {fileID: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
+      intensity: 1
+      uv: {x: 1, y: 1, z: 0, w: 0}
+      usePBR: 1
+      normal: {fileID: 0}
+      normalScale: 1
+      metallic: 0
+      smoothness: 0.5
+      emission: {r: 0, g: 0, b: 0, a: 1}
+      emissionIntensity: 1
+      useMatCap: 0
+      matCapTexture: {fileID: 0}
+      matCapIntensity: 1
+      matCapContrast: 1
+      matCapSaturation: 1
+      matCapRotation: 0
+    layer03:
+      useLayer: 0
+      texture: {fileID: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
+      intensity: 1
+      uv: {x: 1, y: 1, z: 0, w: 0}
+      usePBR: 1
+      normal: {fileID: 0}
+      normalScale: 1
+      metallic: 0
+      smoothness: 0.5
+      emission: {r: 0, g: 0, b: 0, a: 1}
+      emissionIntensity: 1
+      useMatCap: 0
+      matCapTexture: {fileID: 0}
+      matCapIntensity: 1
+      matCapContrast: 1
+      matCapSaturation: 1
+      matCapRotation: 0
+    layer04:
+      useLayer: 0
+      texture: {fileID: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
+      intensity: 1
+      uv: {x: 1, y: 1, z: 0, w: 0}
+      usePBR: 1
+      normal: {fileID: 0}
+      normalScale: 1
+      metallic: 0
+      smoothness: 0.5
+      emission: {r: 0, g: 0, b: 0, a: 1}
+      emissionIntensity: 1
+      useMatCap: 0
+      matCapTexture: {fileID: 0}
+      matCapIntensity: 1
+      matCapContrast: 1
+      matCapSaturation: 1
+      matCapRotation: 0
+  selectedSessionIndex: 0
