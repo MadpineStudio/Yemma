@@ -1,0 +1,149 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MainPropBase
+  m_Shader: {fileID: 4800000, guid: 65917ac19c78063429e45729244669df, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - _LAYER01USEPBR_ON
+  - _LAYER02USEPBR_ON
+  - _LAYER03USEASAO_ON
+  - _LAYER03USEPBR_ON
+  - _LAYER04USEPBR_ON
+  - _USELAYERMASK_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _Layer01MatCapTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Layer01Normal:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Layer01Texture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Layer02MatCapTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Layer02Normal:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Layer02Texture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Layer03MatCapTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Layer03Normal:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Layer03Texture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Layer04MatCapTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Layer04Normal:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Layer04Texture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LayerMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Layer01EmissionIntensity: 1
+    - _Layer01Intensity: 1
+    - _Layer01MatCapContrast: 1
+    - _Layer01MatCapIntensity: 1
+    - _Layer01MatCapRotation: 0
+    - _Layer01MatCapSaturation: 1
+    - _Layer01Metallic: 0
+    - _Layer01NormalScale: 1
+    - _Layer01Smoothness: 0.5
+    - _Layer01UseMatCap: 0
+    - _Layer01UsePBR: 1
+    - _Layer02EmissionIntensity: 1
+    - _Layer02Intensity: 1
+    - _Layer02MatCapContrast: 1
+    - _Layer02MatCapIntensity: 1
+    - _Layer02MatCapRotation: 0
+    - _Layer02MatCapSaturation: 1
+    - _Layer02Metallic: 0
+    - _Layer02NormalScale: 1
+    - _Layer02Smoothness: 0.5
+    - _Layer02UseMatCap: 0
+    - _Layer02UsePBR: 1
+    - _Layer03EmissionIntensity: 1
+    - _Layer03Intensity: 1
+    - _Layer03MatCapContrast: 1
+    - _Layer03MatCapIntensity: 1
+    - _Layer03MatCapRotation: 0
+    - _Layer03MatCapSaturation: 1
+    - _Layer03Metallic: 0
+    - _Layer03NormalScale: 1
+    - _Layer03Smoothness: 0.5
+    - _Layer03UseMatCap: 0
+    - _Layer03UsePBR: 1
+    - _Layer04EmissionIntensity: 1
+    - _Layer04Intensity: 1
+    - _Layer04MatCapContrast: 1
+    - _Layer04MatCapIntensity: 1
+    - _Layer04MatCapRotation: 0
+    - _Layer04MatCapSaturation: 1
+    - _Layer04Metallic: 0
+    - _Layer04NormalScale: 1
+    - _Layer04Smoothness: 0.5
+    - _Layer04UseMatCap: 0
+    - _Layer04UsePBR: 1
+    - _UseLayer01: 0
+    - _UseLayer02: 0
+    - _UseLayer03: 0
+    - _UseLayer04: 0
+    - _UseLayerMask: 1
+    m_Colors:
+    - _Layer01Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Layer01Emission: {r: 0, g: 0, b: 0, a: 0}
+    - _Layer01UV: {r: 1, g: 1, b: 0, a: 0}
+    - _Layer02Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Layer02Emission: {r: 0, g: 0, b: 0, a: 0}
+    - _Layer02UV: {r: 1, g: 1, b: 0, a: 0}
+    - _Layer03Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Layer03Emission: {r: 0, g: 0, b: 0, a: 0}
+    - _Layer03UV: {r: 1, g: 1, b: 0, a: 0}
+    - _Layer04Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Layer04Emission: {r: 0, g: 0, b: 0, a: 0}
+    - _Layer04UV: {r: 1, g: 1, b: 0, a: 0}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: AnaliticEyes 2
+  m_Shader: {fileID: 4800000, guid: 9939d6f34c73d264c8ac203d5b4be31c, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _IrisTexture:
+        m_Texture: {fileID: 2800000, guid: 7bfa55a36481e10408ab0ddf2f4f2117, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Layer1Mask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Layer1Texture:
+        m_Texture: {fileID: 2800000, guid: 2b606059c99437444b888b293d3c7b66, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Layer2Mask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Layer2Texture:
+        m_Texture: {fileID: 2800000, guid: 8b2a35f8d2fe9124d9145ad1f761b256, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Layer3Mask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Layer3Texture:
+        m_Texture: {fileID: 2800000, guid: 739522ce3f4285640b3ff8d20d6d69e8, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 94546e3577de69546b4ef79a52c29668, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _PupilTexture:
+        m_Texture: {fileID: 2800000, guid: 94546e3577de69546b4ef79a52c29668, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _InvertSphere: 1
+    - _Layer1Blend: 0
+    - _Layer1FresnelIntensity: 0
+    - _Layer1FresnelPower: 1
+    - _Layer1Invert: 0.892
+    - _Layer1Opacity: 1
+    - _Layer1Parallax: -0.1
+    - _Layer1Radius: 0.03
+    - _Layer1Scale: 0.88
+    - _Layer2Blend: 4
+    - _Layer2FresnelIntensity: 0
+    - _Layer2FresnelPower: 1
+    - _Layer2Invert: 0
+    - _Layer2Opacity: 1
+    - _Layer2Parallax: -0.1
+    - _Layer2Radius: 0.03
+    - _Layer2Scale: 1.54
+    - _Layer3Blend: 4
+    - _Layer3FresnelIntensity: 0
+    - _Layer3FresnelPower: 1
+    - _Layer3Invert: 0
+    - _Layer3Opacity: 0.085
+    - _Layer3Parallax: 0
+    - _Layer3Radius: 0.09
+    - _Layer3Scale: 1
+    - _ProjectionType: 0
+    - _RotationAngle: 0
+    - _SphereRadius: 0.34
+    - _TextureScale: 0.98
+    m_Colors:
+    - _BackgroundColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Layer1Offset: {r: 0, g: 0, b: 0, a: 0}
+    - _Layer1Scale: {r: 1.76, g: 1, b: 1, a: 0}
+    - _Layer1SphereOffset: {r: 0, g: 0, b: 0.05, a: 0}
+    - _Layer1SphereScale: {r: 1.14, g: 1.62, b: 0.46, a: 0}
+    - _Layer2Offset: {r: 0, g: 0, b: 0, a: 0}
+    - _Layer2Scale: {r: 1.14, g: 1.22, b: 1, a: 0}
+    - _Layer2SphereOffset: {r: 0, g: 0, b: 0.035, a: 0}
+    - _Layer2SphereScale: {r: -0.82, g: -1, b: 0.74, a: 0}
+    - _Layer3Offset: {r: 0, g: 0, b: 0, a: 0}
+    - _Layer3Scale: {r: 1.14, g: 1.22, b: 1, a: 0}
+    - _Layer3SphereOffset: {r: 0, g: 0, b: 0.02, a: 0}
+    - _Layer3SphereScale: {r: -0.82, g: -1, b: 0.74, a: 0}
+    - _SphereOffset: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

@@ -1,0 +1,260 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: PropPlatform
+  m_Shader: {fileID: 4800000, guid: 65917ac19c78063429e45729244669df, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - _LAYER02USEPBR_ON
+  - _LAYER04USEPBR_ON
+  - _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+  - _SPECULAR_SETUP
+  - _USELAYER01_ON
+  - _USELAYERMASK_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses:
+  - MOTIONVECTORS
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BaseMap:
+        m_Texture: {fileID: 2800000, guid: 85607451a6338aa4eae35d12b4ed8d5d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BaseTexture:
+        m_Texture: {fileID: 2800000, guid: 138958a6f44a80b4d87aa645a916a1aa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Layer01MatCapTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Layer01Normal:
+        m_Texture: {fileID: 2800000, guid: c2c0a016b044cf24cba32f5db508d06a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Layer01Texture:
+        m_Texture: {fileID: 2800000, guid: f7fea7b8c2c33b741b362732459f2a9d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Layer02MatCapTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Layer02Normal:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Layer02Texture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Layer03MatCapTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Layer03Normal:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Layer03Texture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Layer04MatCapTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Layer04Normal:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Layer04Texture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LayerMask:
+        m_Texture: {fileID: 2800000, guid: 8f084efe07cbf994cbe12724be612000, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 85607451a6338aa4eae35d12b4ed8d5d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AddPrecomputedVelocity: 0
+    - _AlphaClip: 0
+    - _AlphaToMask: 0
+    - _Blend: 0
+    - _BlendModePreserveSpecular: 1
+    - _BumpScale: 1
+    - _ClearCoatMask: 0
+    - _ClearCoatSmoothness: 0
+    - _Cull: 2
+    - _Cutoff: 0.5
+    - _DetailAlbedoMapScale: 1
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 0
+    - _DstBlendAlpha: 0
+    - _EnvironmentReflections: 1
+    - _GlossMapScale: 0
+    - _Glossiness: 0
+    - _GlossyReflections: 0
+    - _Layer01EmissionIntensity: 1
+    - _Layer01Intensity: 0
+    - _Layer01MatCapContrast: 1
+    - _Layer01MatCapIntensity: 1
+    - _Layer01MatCapRotation: 0
+    - _Layer01MatCapSaturation: 1
+    - _Layer01Metallic: 0
+    - _Layer01NormalScale: 1.289
+    - _Layer01Smoothness: 0
+    - _Layer01UseMatCap: 0
+    - _Layer01UsePBR: 0
+    - _Layer02EmissionIntensity: 1
+    - _Layer02Intensity: 1
+    - _Layer02MatCapContrast: 1
+    - _Layer02MatCapIntensity: 1
+    - _Layer02MatCapRotation: 0
+    - _Layer02MatCapSaturation: 1
+    - _Layer02Metallic: 0
+    - _Layer02NormalScale: 1
+    - _Layer02Smoothness: 0.5
+    - _Layer02UseMatCap: 0
+    - _Layer02UsePBR: 1
+    - _Layer03EmissionIntensity: 1
+    - _Layer03Intensity: 1.074
+    - _Layer03MatCapContrast: 1
+    - _Layer03MatCapIntensity: 1
+    - _Layer03MatCapRotation: 0
+    - _Layer03MatCapSaturation: 1
+    - _Layer03Metallic: 0
+    - _Layer03NormalScale: 1
+    - _Layer03Smoothness: 0.5
+    - _Layer03UseMatCap: 0
+    - _Layer03UsePBR: 0
+    - _Layer04EmissionIntensity: 1
+    - _Layer04Intensity: 1
+    - _Layer04MatCapContrast: 1
+    - _Layer04MatCapIntensity: 1
+    - _Layer04MatCapRotation: 0
+    - _Layer04MatCapSaturation: 1
+    - _Layer04Metallic: 0
+    - _Layer04NormalScale: 1
+    - _Layer04Smoothness: 0.5
+    - _Layer04UseMatCap: 0
+    - _Layer04UsePBR: 1
+    - _Metallic: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.005
+    - _QueueOffset: 0
+    - _ReceiveShadows: 1
+    - _Smoothness: 0
+    - _SmoothnessTextureChannel: 1
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _SrcBlendAlpha: 1
+    - _Surface: 0
+    - _UseLayer01: 1
+    - _UseLayer02: 0
+    - _UseLayer03: 0
+    - _UseLayer04: 0
+    - _UseLayerMask: 1
+    - _WorkflowMode: 0
+    - _XRMotionVectorsPass: 1
+    - _ZWrite: 1
+    m_Colors:
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseUV: {r: 2, g: 2, b: 0, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Layer01Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Layer01Emission: {r: 0, g: 0, b: 0, a: 0}
+    - _Layer01UV: {r: 2, g: 2, b: 0, a: 0}
+    - _Layer02Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Layer02Emission: {r: 0, g: 0, b: 0, a: 0}
+    - _Layer02UV: {r: 1, g: 1, b: 0, a: 0}
+    - _Layer03Color: {r: 0.54088044, g: 0.54088044, b: 0.54088044, a: 1}
+    - _Layer03Emission: {r: 0, g: 0, b: 0, a: 0}
+    - _Layer03UV: {r: 1, g: 1, b: 0, a: 0}
+    - _Layer04Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Layer04Emission: {r: 0, g: 0, b: 0, a: 0}
+    - _Layer04UV: {r: 1, g: 1, b: 0, a: 0}
+    - _SpecColor: {r: 0, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
+--- !u!114 &935753712282953238
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Editor::UnityEditor.Rendering.Universal.AssetVersion
+  version: 10
