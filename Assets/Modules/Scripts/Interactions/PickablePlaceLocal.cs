@@ -11,9 +11,9 @@ public class AudioClips
 }
 public class PickablePlaceLocal : InteractableBehaviour
 {
-    [SerializeField] private string keyId;
-    [SerializeField] private Transform itemLocationPivot;
-    [SerializeField] private List<GameObject> unlockableItens = new();
+    [SerializeField] protected string keyId;
+    [SerializeField] protected Transform itemLocationPivot;
+    [SerializeField] protected List<GameObject> unlockableItens = new();
     [SerializeField] private List<AudioClips> audioClips;
     [SerializeField] private AudioSource audioSource;
     public PickableItemInteractableBehaviour pickableItem = null;
@@ -53,7 +53,7 @@ public class PickablePlaceLocal : InteractableBehaviour
             pickableItem.transform.localScale = new Vector3(1f / pivotScale.x, 1f / pivotScale.y, 1f / pivotScale.z);
             pickableItem.transform.position = itemLocationPivot.position;
             pickableItem.transform.rotation = itemLocationPivot.rotation;
-            if (pickableItem.keyId == keyId) EnableItens(true);
+            
         }
 
     }
