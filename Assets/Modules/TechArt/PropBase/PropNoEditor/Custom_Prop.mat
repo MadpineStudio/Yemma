@@ -11,8 +11,10 @@ Material:
   m_Shader: {fileID: 4800000, guid: ddde7275b037cf440ab987b605cb768f, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
+  m_ValidKeywords:
+  - USE_LAYER_R
+  m_InvalidKeywords:
+  - USE_LAYERR
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -24,14 +26,18 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 138958a6f44a80b4d87aa645a916a1aa, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _DetailNormalMap:
-        m_Texture: {fileID: 2800000, guid: 7e7987f1eda2a6c46bb19cf4d0eea4e7, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5530517031c86b44ab18dfd92717e401, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _LayerA_Map:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LayerA_NormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LayerA_PhysicsMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -39,44 +45,71 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _LayerB_NormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LayerB_PhysicsMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _LayerG_Map:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _LayerG_NormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LayerG_PhysicsMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _LayerR_Map:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 138958a6f44a80b4d87aa645a916a1aa, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _MaskMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _NormalMap:
+    - _LayerR_NormalMap:
         m_Texture: {fileID: 2800000, guid: c2c0a016b044cf24cba32f5db508d06a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _PhysicsMap:
+    - _LayerR_PhysicsMap:
         m_Texture: {fileID: 2800000, guid: 8f084efe07cbf994cbe12724be612000, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MaskMap:
+        m_Texture: {fileID: 2800000, guid: da52ef4e97e2d5a46883df873f680b0a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 2800000, guid: 9e70882ec048419479c3483bf52fe988, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _PhysicsMap:
+        m_Texture: {fileID: 2800000, guid: 9ca4f55a82ebb5c4aa4034df9e6ff1c1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Cutoff: 0.5
-    - _DetailNormalStrength: 2
-    - _MetalAdd: 0.537
-    - _NormalStrength: 0.38
-    - _RoughAdd: -0.116
+    - _BaseSpecular: 0.04
+    - _LayerASpecular: 0.04
+    - _LayerBSpecular: 0.04
+    - _LayerGSpecular: 0.04
+    - _LayerRSpecular: 0.04
+    - _MetalAdd: 0
+    - _NormalStrength: 2
+    - _RoughAdd: 0
+    - _UseLayerA: 0
+    - _UseLayerB: 0
+    - _UseLayerG: 0
+    - _UseLayerR: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Cor: {r: 1, g: 1, b: 1, a: 1}
-    - _DetailOffset: {r: 0, g: 0, b: 0, a: 0}
-    - _DetailTiling: {r: 1, g: 1, b: 0, a: 0}
-    - _EmissiveColor: {r: 1, g: 1, b: 1, a: 0}
-    - _LayerAColor: {r: 1, g: 0.9456716, b: 0, a: 1}
-    - _LayerBColor: {r: 0, g: 0, b: 1, a: 1}
-    - _LayerGColor: {r: 0, g: 1, b: 0, a: 1}
-    - _LayerRColor: {r: 1, g: 0, b: 0, a: 1}
+    - _LayerAColor: {r: 1, g: 1, b: 1, a: 1}
+    - _LayerBColor: {r: 1, g: 1, b: 1, a: 1}
+    - _LayerGColor: {r: 1, g: 0.72641504, b: 0.72641504, a: 1}
+    - _LayerRColor: {r: 1, g: 1, b: 1, a: 1}
     - _Offset: {r: 0, g: 0, b: 0, a: 0}
-    - _Tiling: {r: 20, g: 30, b: 0, a: 0}
+    - _Tiling: {r: 50, g: 50, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
