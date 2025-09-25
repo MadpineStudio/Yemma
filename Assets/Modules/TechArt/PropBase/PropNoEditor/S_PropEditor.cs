@@ -120,8 +120,11 @@ public class S_PropEditor : ShaderGUI
             DrawTexturePropertyCompact($"_{prefix}_PhysicsMap", "Physics");
             EditorGUILayout.EndVertical();
             
-            // Reflectance control
+            // Reflectance and Tiling controls
+            EditorGUILayout.BeginVertical("box");
             DrawProperty($"_{prefix}Specular", "Reflectance");
+            DrawProperty($"_{prefix}Tiling", "Tiling");
+            EditorGUILayout.EndVertical();
             
             EditorGUI.indentLevel--;
         }
