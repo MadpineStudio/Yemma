@@ -38,6 +38,13 @@ Shader "Custom/S_skybox"
         _StarDensity("Star Density", Range(0.1, 10)) = 1
         _StarBrightness("Star Brightness", Range(0, 3)) = 0.8
         _StarTwinkle("Star Twinkle", Range(0, 1)) = 0.2
+        
+        [Header(Layer 05  Planet)]
+        _PlanetTexture("Planet Texture", 2D) = "white" {}
+        [HDR] _PlanetColor("Planet Color", Color) = (1, 1, 1, 1)
+        _PlanetRotation("Planet Rotation", Range(0, 360)) = 0
+        _PlanetZoom("Planet Zoom", Float) = 1.0
+        _PlanetDistortion("Planet Distortion XY", Vector) = (1, 1, 0, 0)
     }
 
     SubShader
@@ -67,6 +74,8 @@ Shader "Custom/S_skybox"
 
             TEXTURE2D(_LayerTexture);
             SAMPLER(sampler_LayerTexture);
+            TEXTURE2D(_PlanetTexture);
+            SAMPLER(sampler_PlanetTexture);
 
             CBUFFER_START(UnityPerMaterial)
                 float4 _LayerTexture_ST;
@@ -96,6 +105,13 @@ Shader "Custom/S_skybox"
                 float _StarDensity;
                 float _StarBrightness;
                 float _StarTwinkle;
+                
+                // Planet properties
+                float4 _PlanetTexture_ST;
+                half4 _PlanetColor;
+                float _PlanetRotation;
+                float _PlanetZoom;
+                float4 _PlanetDistortion;
             CBUFFER_END
 
             // High quality procedural star generation
@@ -255,6 +271,60 @@ Shader "Custom/S_skybox"
                 return uv;
             }
 
+            // Convert 3D direction to equirectangular UV with rotation, zoom and distortion for planet
+            float2 DirectionToPlanetUV(float3 dir, float rotationDegrees, float zoom, float4 distortion)
+            {
+                // Apply Y-axis rotation (horizontal rotation) - rotates the entire sky space
+                float radY = radians(rotationDegrees);
+                float cosRotY = cos(radY);
+                float sinRotY = sin(radY);
+                
+                float3 rotatedDir;
+                rotatedDir.x = dir.x * cosRotY - dir.z * sinRotY;
+                rotatedDir.y = dir.y;
+                rotatedDir.z = dir.x * sinRotY + dir.z * cosRotY;
+                
+                // Apply X-axis rotation (pitch/height) using distortion.z - rotates the entire sky space
+                float radX = radians(distortion.z);
+                float cosRotX = cos(radX);
+                float sinRotX = sin(radX);
+                
+                float3 finalDir;
+                finalDir.x = rotatedDir.x;
+                finalDir.y = rotatedDir.y * cosRotX - rotatedDir.z * sinRotX;
+                finalDir.z = rotatedDir.y * sinRotX + rotatedDir.z * cosRotX;
+                
+                // Convert to equirectangular coordinates
+                float phi = atan2(finalDir.z, finalDir.x);
+                float theta = acos(clamp(finalDir.y, -1.0, 1.0));
+                
+                float2 uv;
+                uv.x = phi / (2.0 * PI) + 0.5;
+                uv.y = theta / PI;
+                
+                // Apply distortion XY (stretching the texture itself)
+                uv *= distortion.xy;
+                
+                // Apply zoom (scaling the texture around 0.5,0.5 center)
+                float2 centeredUV = uv - 0.5;
+                centeredUV /= zoom;
+                uv = centeredUV + 0.5;
+                
+                return uv;
+            }
+            
+            // Render planet layer like other layers
+            half4 RenderLayerPlanet(float3 dir, float rotationDegrees, float zoom, float4 distortion, half4 color)
+            {
+                // Get equirectangular UV with planet-specific function
+                float2 uv = DirectionToPlanetUV(dir, rotationDegrees, zoom, distortion);
+                
+                // Sample planet texture
+                half4 planetSample = SAMPLE_TEXTURE2D(_PlanetTexture, sampler_PlanetTexture, uv);
+                
+                return planetSample * color;
+            }
+
             Varyings vert(Attributes IN)
             {
                 Varyings OUT;
@@ -313,6 +383,10 @@ Shader "Custom/S_skybox"
                 finalColor += e2 * _Layer02Color.rgb * _Layer02Color.a;
                 finalColor += e3 * _Layer03Color.rgb * _Layer03Color.a;
                 finalColor += e4 * _Layer04Color.rgb * _Layer04Color.a;
+                
+                // Add planet additively (Layer 05)
+                half4 planet = RenderLayerPlanet(dir, _PlanetRotation, _PlanetZoom, _PlanetDistortion, _PlanetColor);
+                finalColor += planet.rgb * planet.a;
                 
                 return half4(finalColor, 1.0);
             }

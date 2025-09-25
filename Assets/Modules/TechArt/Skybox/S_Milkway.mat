@@ -27,6 +27,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 388421491c19f5f41ac56165ddb20faa, type: 3}
         m_Scale: {x: 4, y: 4}
         m_Offset: {x: 0, y: 0}
+    - _PlanetTexture:
+        m_Texture: {fileID: 2800000, guid: ffde5701204eaa349854a1a80f3e386b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
     - _EnableGradient: 1
@@ -38,6 +42,9 @@ Material:
     - _Layer02Rotation: 0
     - _Layer03Rotation: 78
     - _Layer04Rotation: 0
+    - _PlanetRotation: 195
+    - _PlanetZoom: -0.14
+    - _SkyPitch: 0
     - _StarBrightness: 3
     - _StarDensity: 7.08
     - _StarTwinkle: 1
@@ -52,5 +59,8 @@ Material:
     - _Layer03Tiling: {r: 1, g: 2, b: 0, a: 0}
     - _Layer04Color: {r: 0, g: 0, b: 0, a: 1}
     - _Layer04Tiling: {r: 8, g: 8, b: 0, a: 0}
+    - _PlanetColor: {r: 0.5943395, g: 0.85051787, b: 1, a: 1}
+    - _PlanetDistortion: {r: 1.87, g: 1, b: -26.67, a: 0}
+    - _PlanetOffset: {r: 0.26, g: -0.44, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

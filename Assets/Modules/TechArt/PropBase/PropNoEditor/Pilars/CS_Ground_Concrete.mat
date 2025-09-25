@@ -125,7 +125,7 @@ Material:
     - _LayerGSpecular: 0.04
     - _LayerGTiling: 1
     - _LayerRSpecular: 0
-    - _LayerRTiling: 4.48
+    - _LayerRTiling: 1.46
     - _MetalAdd: 0
     - _Metallic: 0.336
     - _NormalScale: 1
