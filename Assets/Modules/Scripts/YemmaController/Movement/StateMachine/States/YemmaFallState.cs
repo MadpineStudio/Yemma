@@ -23,11 +23,28 @@ namespace Yemma.Movement.StateMachine.States
         {
             base.Enter();
             
+            // CORREÇÃO SIMPLES: Desabilita as molas durante a queda
+            if (controller.MovementProfile.springProfile != null)
+            {
+                controller.MovementProfile.springProfile.enableSpringForce = false;
+            }
+            
             // Muda para animação de fall
             controller.ChangeAnimation(YemmaAnimationController.YemmaAnimations.Fall);
             
             fallTimer = 0f;
             canLand = false;
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+            
+            // CORREÇÃO SIMPLES: Reabilita as molas quando sair do estado de queda
+            if (controller.MovementProfile.springProfile != null)
+            {
+                controller.MovementProfile.springProfile.enableSpringForce = true;
+            }
         }
 
         public override void UpdateLogic()
@@ -60,8 +77,8 @@ namespace Yemma.Movement.StateMachine.States
 
         public override void UpdatePhysics()
         {
-            // Não aplica sistema de molas durante a queda para não interferir na física
-            // base.UpdatePhysics(); // Removido para desabilitar as molas
+            // Agora pode chamar a base pois o sistema de molas já verifica se está no chão
+            base.UpdatePhysics();
             
             // Permite movimento horizontal limitado no ar
             Vector2 movementInput = GetMovementInput();

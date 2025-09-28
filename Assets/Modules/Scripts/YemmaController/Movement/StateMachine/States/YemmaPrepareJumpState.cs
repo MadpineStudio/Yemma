@@ -21,6 +21,13 @@ namespace Yemma.Movement.StateMachine.States
         public override void Enter()
         {
             base.Enter();
+            
+            // CORREÇÃO SIMPLES: Desabilita as molas durante preparação do pulo
+            if (controller.MovementProfile.springProfile != null)
+            {
+                controller.MovementProfile.springProfile.enableSpringForce = false;
+            }
+            
             controller.ChangeAnimation(YemmaAnimationController.YemmaAnimations.JumpPrepare);
             prepareTimer = 0f;
             
@@ -30,6 +37,17 @@ namespace Yemma.Movement.StateMachine.States
             // velocity.z = 0f;
             // // Mantém velocity.y para não interferir na física vertical
             // controller.Rigidbody.linearVelocity = velocity;
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+            
+            // CORREÇÃO SIMPLES: Reabilita as molas quando sair da preparação
+            if (controller.MovementProfile.springProfile != null)
+            {
+                controller.MovementProfile.springProfile.enableSpringForce = true;
+            }
         }
 
         public override void UpdateLogic()
@@ -47,7 +65,8 @@ namespace Yemma.Movement.StateMachine.States
 
         public override void UpdatePhysics()
         {
-            // Não aplica sistema de molas durante preparação do pulo
+            // Agora pode chamar a base pois o sistema de molas já verifica se está no chão
+            base.UpdatePhysics();
             
             // Permite movimento horizontal limitado durante preparação
             Vector2 movementInput = GetMovementInput();

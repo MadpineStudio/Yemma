@@ -26,6 +26,12 @@ namespace Yemma.Movement.StateMachine.States
             // Reseta o coyote time
             coyoteTimeCounter = coyoteTime;
 
+            // CORREÇÃO SIMPLES: Desabilita as molas durante o pulo
+            if (controller.MovementProfile.springProfile != null)
+            {
+                controller.MovementProfile.springProfile.enableSpringForce = false;
+            }
+
             // Muda para animação de jump
             controller.ChangeAnimation(YemmaAnimationController.YemmaAnimations.Jump);
             
@@ -33,10 +39,21 @@ namespace Yemma.Movement.StateMachine.States
             ExecuteJump();
         }
 
+        public override void Exit()
+        {
+            base.Exit();
+            
+            // CORREÇÃO SIMPLES: Reabilita as molas quando sair do estado de pulo
+            if (controller.MovementProfile.springProfile != null)
+            {
+                controller.MovementProfile.springProfile.enableSpringForce = true;
+            }
+        }
+
         public override void UpdatePhysics()
         {
-            // Não aplica sistema de molas durante o pulo para não interferir na física
-            // NÃO chama base.UpdatePhysics() para evitar as molas
+            // Agora pode chamar a base pois o sistema de molas já verifica se está no chão
+            base.UpdatePhysics();
         }
 
         private void ExecuteJump()
