@@ -47,7 +47,7 @@ namespace Yemma.Movement.StateMachine.States
 
         public override void UpdatePhysics()
         {
-            base.UpdatePhysics();
+            // Não aplica sistema de molas durante preparação do pulo
             
             // Permite movimento horizontal limitado durante preparação
             Vector2 movementInput = GetMovementInput();

@@ -34,15 +34,8 @@ namespace Yemma.Movement.Editor
         private SerializedProperty showDebugRaysProp;
         private SerializedProperty debugRayColorProp;
 
-        // Ground Damping System
-        private SerializedProperty enableGroundDampingProp;
-        private SerializedProperty desiredGroundDistanceProp;
-        private SerializedProperty springForceProp;
-        private SerializedProperty springDampingProp;
-        private SerializedProperty maxDampingForceProp;
-        private SerializedProperty dampingToleranceProp;
-        private SerializedProperty showDampingDebugProp;
-        private SerializedProperty dampingDebugColorProp;
+        // Spring Force System
+        private SerializedProperty springProfileProp;
 
         private bool showBasicSettings = true;
         private bool showRotationSettings = true;
@@ -51,7 +44,7 @@ namespace Yemma.Movement.Editor
         private bool showStateSettings = true;
         private bool showAdvancedSettings = false;
         private bool showDebugSettings = false;
-        private bool showDampingSettings = true;
+        private bool showSpringSettings = true;
 
         private void OnEnable()
         {
@@ -91,15 +84,8 @@ namespace Yemma.Movement.Editor
             showDebugRaysProp = serializedObject.FindProperty("showDebugRays");
             debugRayColorProp = serializedObject.FindProperty("debugRayColor");
 
-            // Ground Damping System
-            enableGroundDampingProp = serializedObject.FindProperty("enableGroundDamping");
-            desiredGroundDistanceProp = serializedObject.FindProperty("desiredGroundDistance");
-            springForceProp = serializedObject.FindProperty("springForce");
-            springDampingProp = serializedObject.FindProperty("springDamping");
-            maxDampingForceProp = serializedObject.FindProperty("maxDampingForce");
-            dampingToleranceProp = serializedObject.FindProperty("dampingTolerance");
-            showDampingDebugProp = serializedObject.FindProperty("showDampingDebug");
-            dampingDebugColorProp = serializedObject.FindProperty("dampingDebugColor");
+            // Spring Force System
+            springProfileProp = serializedObject.FindProperty("springProfile");
         }
 
         public override void OnInspectorGUI()
@@ -188,38 +174,11 @@ namespace Yemma.Movement.Editor
             }
             EditorGUILayout.EndFoldoutHeaderGroup();
 
-            // Ground Damping System
-            showDampingSettings = EditorGUILayout.BeginFoldoutHeaderGroup(showDampingSettings, "Ground Damping System");
-            if (showDampingSettings)
+            // Spring Force System
+            showSpringSettings = EditorGUILayout.BeginFoldoutHeaderGroup(showSpringSettings, "Spring Force System");
+            if (showSpringSettings)
             {
-                EditorGUILayout.PropertyField(enableGroundDampingProp, new GUIContent("Enable Ground Damping", "Ativar sistema de amortecimento do solo"));
-                
-                if (enableGroundDampingProp.boolValue)
-                {
-                    EditorGUI.indentLevel++;
-                    EditorGUILayout.PropertyField(desiredGroundDistanceProp, new GUIContent("Desired Ground Distance", "Distância desejada do player ao chão"));
-                    EditorGUILayout.PropertyField(springForceProp, new GUIContent("Spring Force", "Força do spring (rigidez do amortecimento)"));
-                    EditorGUILayout.PropertyField(springDampingProp, new GUIContent("Spring Damping", "Amortecimento do spring (reduz oscilações)"));
-                    EditorGUILayout.PropertyField(maxDampingForceProp, new GUIContent("Max Damping Force", "Força máxima que pode ser aplicada pelo amortecimento"));
-                    EditorGUILayout.PropertyField(dampingToleranceProp, new GUIContent("Damping Tolerance", "Tolerância para considerar na distância correta"));
-                    
-                    EditorGUILayout.Space();
-                    EditorGUILayout.LabelField("Debug Settings:", EditorStyles.miniLabel);
-                    EditorGUILayout.PropertyField(showDampingDebugProp, new GUIContent("Show Damping Debug", "Mostrar debug do sistema de amortecimento"));
-                    if (showDampingDebugProp.boolValue)
-                    {
-                        EditorGUILayout.PropertyField(dampingDebugColorProp, new GUIContent("Debug Color", "Cor do debug de amortecimento"));
-                    }
-                    EditorGUI.indentLevel--;
-                    
-                    // Visual feedback
-                    EditorGUILayout.Space();
-                    EditorGUILayout.HelpBox("O sistema de mola mantém o player a uma distância fixa do solo com amortecimento suave.", MessageType.Info);
-                }
-                else
-                {
-                    EditorGUILayout.HelpBox("Sistema de amortecimento desativado. Marque 'Enable Ground Damping' para ativar.", MessageType.Warning);
-                }
+                EditorGUILayout.PropertyField(springProfileProp);
             }
             EditorGUILayout.EndFoldoutHeaderGroup();
 

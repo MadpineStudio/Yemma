@@ -60,7 +60,8 @@ namespace Yemma.Movement.StateMachine.States
 
         public override void UpdatePhysics()
         {
-            base.UpdatePhysics();
+            // Não aplica sistema de molas durante a queda para não interferir na física
+            // base.UpdatePhysics(); // Removido para desabilitar as molas
             
             // Permite movimento horizontal limitado no ar
             Vector2 movementInput = GetMovementInput();

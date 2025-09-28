@@ -48,7 +48,7 @@ Material:
     - _RotationAngle: 0
     - _SphereRadius: 0
     m_Colors:
-    - _BackgroundColor: {r: 0.5411178, g: 0.55265665, b: 0.6037736, a: 1}
+    - _BackgroundColor: {r: 0.8679245, g: 0.83701384, b: 0.78877413, a: 1}
     - _Layer1Offset: {r: 0, g: 0, b: 0, a: 0}
     - _Layer1SphereOffset: {r: -0.5, g: 16.17, b: 0.15, a: 0}
     - _Layer1SphereScale: {r: 1.28, g: 1.56, b: 0.72, a: 0}

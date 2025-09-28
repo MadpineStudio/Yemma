@@ -319,14 +319,23 @@ namespace Yemma.Movement.Core
         /// </summary>
         public void ApplyGroundDamping()
         {
-            if (movementProfile != null && movementProfile.enableGroundDamping)
-            {
-                Vector3 dampingForce = movementPhysics.CalculateGroundDampingForce();
-                if (dampingForce != Vector3.zero)
-                {
-                    playerRigidbody.AddForce(dampingForce, ForceMode.Force);
-                }
-            }
+            // Sistema de spring removido - use SpringForce component separadamente
+        }
+
+        /// <summary>
+        /// Aplica sistema de molas
+        /// </summary>
+        public void ApplySpringForce()
+        {
+            movementPhysics.ApplySpringForce(playerRigidbody);
+        }
+
+        /// <summary>
+        /// Debug visual do sistema de molas
+        /// </summary>
+        public void DrawSpringDebugGizmos()
+        {
+            movementPhysics.DrawSpringDebugGizmos();
         }
 
         /// <summary>
@@ -518,36 +527,7 @@ namespace Yemma.Movement.Core
                 }
             }
 
-            // Debug do sistema de amortecimento
-            if (movementProfile.showDampingDebug && Application.isPlaying && movementPhysics != null)
-            {
-                var dampingInfo = movementPhysics.GetDampingDebugInfo();
-
-                if (dampingInfo.isGrounded)
-                {
-                    Vector3 playerPos = yemmaTransform.position;
-
-                    // Desenha linha da distância atual
-                    Gizmos.color = Color.red;
-                    Gizmos.DrawLine(playerPos, dampingInfo.groundPoint);
-
-                    // Desenha distância desejada
-                    Vector3 desiredPos = dampingInfo.groundPoint + Vector3.up * dampingInfo.desiredDistance;
-                    Gizmos.color = movementProfile.dampingDebugColor;
-                    Gizmos.DrawWireSphere(desiredPos, 0.15f);
-
-                    // Desenha força aplicada
-                    if (dampingInfo.currentForce.magnitude > 0.1f)
-                    {
-                        Gizmos.color = dampingInfo.currentForce.y > 0 ? Color.green : Color.red;
-                        Gizmos.DrawRay(playerPos, dampingInfo.currentForce.normalized * 0.5f);
-                    }
-
-                    // Desenha normal do terreno
-                    Gizmos.color = Color.yellow;
-                    Gizmos.DrawRay(dampingInfo.groundPoint, dampingInfo.groundNormal * 0.3f);
-                }
-            }
+            // Debug do sistema de amortecimento removido - use SpringForce component separadamente
 
             // Debug do sistema de edge detection
             if (showEdgeDebugGizmos && Application.isPlaying)
@@ -595,6 +575,9 @@ namespace Yemma.Movement.Core
                     }
                 }
             }
+
+            // Debug do sistema de molas
+            DrawSpringDebugGizmos();
         }
     }
 }

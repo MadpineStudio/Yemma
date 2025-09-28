@@ -46,7 +46,8 @@ namespace Yemma.Movement.StateMachine.States
 
         public virtual void UpdatePhysics()
         {
-            // Base implementation - pode ser sobrescrita
+            // Aplica sistema de molas automaticamente
+            controller.ApplySpringForce();
         }
 
         /// <summary>

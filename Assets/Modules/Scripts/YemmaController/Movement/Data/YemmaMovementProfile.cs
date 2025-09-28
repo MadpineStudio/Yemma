@@ -68,38 +68,11 @@ namespace Yemma.Movement.Data
         public float airDrag = 2f;
         
         [Tooltip("Força gravitacional adicional")]
-        [Range(0f, 20f)]
         public float additionalGravity = 0f;
 
-        [Header("Ground Damping System")]
-        [SerializeField]
-        [Tooltip("Ativar sistema de amortecimento do solo")]
-        public bool enableGroundDamping = true;
-        
-        [SerializeField]
-        [Tooltip("Distância desejada do player ao chão")]
-        [Range(0.1f, 2f)]
-        public float desiredGroundDistance = 0.5f;
-        
-        [SerializeField]
-        [Tooltip("Força do spring (rigidez do amortecimento)")]
-        [Range(10f, 1000f)]
-        public float springForce = 300f;
-        
-        [SerializeField]
-        [Tooltip("Amortecimento do spring (reduz oscilações)")]
-        [Range(1f, 50f)]
-        public float springDamping = 20f;
-        
-        [SerializeField]
-        [Tooltip("Força máxima que pode ser aplicada pelo amortecimento")]
-        [Range(10f, 100f)]
-        public float maxDampingForce = 50f;
-        
-        [SerializeField]
-        [Tooltip("Tolerância para considerar na distância correta")]
-        [Range(0.01f, 0.2f)]
-        public float dampingTolerance = 0.05f;
+        [Header("Spring Force System")]
+        [Tooltip("Configurações do sistema de molas")]
+        public SpringForceProfile springProfile;
 
         [Header("State Transition")]
         [Tooltip("Threshold mínimo de input para transição Idle -> Walk")]
@@ -130,14 +103,6 @@ namespace Yemma.Movement.Data
         [SerializeField]
         [Tooltip("Cor dos raios de debug")]
         public Color debugRayColor = Color.green;
-        
-        [SerializeField]
-        [Tooltip("Mostrar debug do sistema de amortecimento")]
-        public bool showDampingDebug = true;
-        
-        [SerializeField]
-        [Tooltip("Cor do debug de amortecimento")]
-        public Color dampingDebugColor = Color.cyan;
 
         // Propriedades calculadas
         public float InputThreshold => movementInputThreshold;
@@ -215,7 +180,7 @@ namespace Yemma.Movement.Data
             {
                 deceleration = acceleration;
             }
-            
+
             // Força atualização do Inspector
             #if UNITY_EDITOR
             UnityEditor.EditorUtility.SetDirty(this);

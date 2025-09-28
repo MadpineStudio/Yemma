@@ -178,83 +178,59 @@ namespace Yemma
         }
 
         /// <summary>
-        /// Calcula e aplica força de amortecimento para manter distância fixa do solo
+        /// Aplica sistema de molas para manter distância do chão
         /// </summary>
-        public Vector3 CalculateGroundDampingForce()
+        public void ApplySpringForce(Rigidbody rb)
         {
-            if (!Profile.enableGroundDamping) return Vector3.zero;
-
-            Vector3 rayStart = controller.Transform.position + Profile.groundCheckOffset;
+            if (Profile.springProfile == null || !Profile.springProfile.enableSpringForce) return;
             
-            if (Physics.Raycast(rayStart, Vector3.down, out RaycastHit hit, Profile.groundCheckDistance * 3f, Profile.groundLayers))
+            var spring = Profile.springProfile;
+            Vector3 raycastOrigin = controller.Transform.position + spring.raycastOffset;
+            
+            if (Physics.Raycast(raycastOrigin, Vector3.down, out RaycastHit hit, spring.raycastDistance, spring.groundMask))
             {
-                float currentDistance = hit.distance - Profile.groundCheckOffset.y;
-                float desiredDistance = Profile.desiredGroundDistance;
-                float distanceError = desiredDistance - currentDistance;
-
-                // Se está muito próximo da distância desejada, não aplicar força
-                if (Mathf.Abs(distanceError) < Profile.dampingTolerance)
-                    return Vector3.zero;
-
-                // Calcula velocidade vertical atual
-                Vector3 currentVelocity = controller.Velocity;
-                float verticalVelocity = currentVelocity.y;
-
-                // Força do spring: F = k * x (Lei de Hooke)
-                float springForce = Profile.springForce * distanceError;
-
-                // Força de amortecimento: F = -c * v (reduz oscilações)
-                float dampingForce = -Profile.springDamping * verticalVelocity;
-
-                // Força total
+                float currentDistance = hit.distance;
+                float displacement = currentDistance - spring.restLength;
+                
+                // F = -kx - cv (Lei de Hooke com amortecimento)
+                float springForce = -spring.springConstant * displacement;
+                float dampingForce = -spring.dampingConstant * rb.linearVelocity.y;
                 float totalForce = springForce + dampingForce;
-
-                // Limita a força máxima
-                totalForce = Mathf.Clamp(totalForce, -Profile.maxDampingForce, Profile.maxDampingForce);
-
-                return Vector3.up * totalForce;
+                
+                rb.AddForce(Vector3.up * totalForce);
             }
-
-            return Vector3.zero;
         }
 
         /// <summary>
-        /// Obtém informações de debug do sistema de amortecimento
+        /// Debug visual do sistema de molas (Gizmos)
         /// </summary>
-        public GroundDampingDebugInfo GetDampingDebugInfo()
+        public void DrawSpringDebugGizmos()
         {
-            var debugInfo = new GroundDampingDebugInfo();
-            
-            if (!Profile.enableGroundDamping) return debugInfo;
+            if (Profile.springProfile == null || !Profile.springProfile.showSpringDebug) return;
 
-            Vector3 rayStart = controller.Transform.position + Profile.groundCheckOffset;
+            var spring = Profile.springProfile;
+            Vector3 raycastOrigin = controller.Transform.position + spring.raycastOffset;
             
-            if (Physics.Raycast(rayStart, Vector3.down, out RaycastHit hit, Profile.groundCheckDistance * 3f, Profile.groundLayers))
+            // Linha do raycast
+            Gizmos.color = Color.red;
+            Gizmos.DrawRay(raycastOrigin, Vector3.down * spring.raycastDistance);
+            
+            // Posição do raycast offset
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawSphere(raycastOrigin, 0.05f);
+            
+            if (Physics.Raycast(raycastOrigin, Vector3.down, out RaycastHit hit, spring.raycastDistance, spring.groundMask))
             {
-                debugInfo.isGrounded = true;
-                debugInfo.currentDistance = hit.distance - Profile.groundCheckOffset.y;
-                debugInfo.desiredDistance = Profile.desiredGroundDistance;
-                debugInfo.distanceError = debugInfo.desiredDistance - debugInfo.currentDistance;
-                debugInfo.currentForce = CalculateGroundDampingForce();
-                debugInfo.groundPoint = hit.point;
-                debugInfo.groundNormal = hit.normal;
+                // Ponto de contato no chão
+                Gizmos.color = Color.blue;
+                Gizmos.DrawSphere(hit.point, 0.1f);
+                
+                // Altura da posição de repouso
+                Vector3 restPosition = hit.point + Vector3.up * spring.restLength;
+                Gizmos.color = spring.enableSpringForce ? Color.green : Color.gray;
+                Gizmos.DrawSphere(restPosition, 0.15f);
+                Gizmos.DrawLine(hit.point, restPosition);
             }
-
-            return debugInfo;
         }
-    }
-
-    /// <summary>
-    /// Estrutura para informações de debug do sistema de amortecimento
-    /// </summary>
-    public struct GroundDampingDebugInfo
-    {
-        public bool isGrounded;
-        public float currentDistance;
-        public float desiredDistance;
-        public float distanceError;
-        public Vector3 currentForce;
-        public Vector3 groundPoint;
-        public Vector3 groundNormal;
     }
 }

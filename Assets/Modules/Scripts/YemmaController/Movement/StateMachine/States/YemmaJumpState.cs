@@ -28,7 +28,19 @@ namespace Yemma.Movement.StateMachine.States
 
             // Muda para animação de jump
             controller.ChangeAnimation(YemmaAnimationController.YemmaAnimations.Jump);
+            
+            // CORREÇÃO: Aplica a força de pulo imediatamente ao entrar no estado
+            ExecuteJump();
+        }
 
+        public override void UpdatePhysics()
+        {
+            // Não aplica sistema de molas durante o pulo para não interferir na física
+            // NÃO chama base.UpdatePhysics() para evitar as molas
+        }
+
+        private void ExecuteJump()
+        {
             // Aplica força de pulo se ainda estiver no chão ou dentro do coyote time
             if (IsGrounded() || coyoteTimeCounter > 0f)
             {
@@ -73,43 +85,19 @@ namespace Yemma.Movement.StateMachine.States
             }
         }
 
-        public override void UpdatePhysics()
-        {
-            base.UpdatePhysics();
-
-            // Permite movimento horizontal limitado no ar
-            Vector2 movementInput = GetMovementInput();
-            if (movementInput.magnitude > 0.01f)
-            {
-                // Movimento aéreo reduzido
-                Vector2 reducedInput = movementInput * 0.6f; // 60% do movimento normal
-                controller.ApplyMovement(reducedInput);
-            }
-
-            // Aplica gravidade adicional mais forte APENAS quando está no ar
-            if (!IsGrounded())
-            {
-                float additionalGravity = 15f; // Gravidade base adicional
-
-                // Se o profile tem gravidade configurada, usa ela, senão usa a padrão
-                if (controller.MovementProfile != null && controller.MovementProfile.additionalGravity > 0f)
-                {
-                    additionalGravity = controller.MovementProfile.additionalGravity;
-                }
-
-                // Aplica gravidade extra mais forte durante o jump (mesma intensidade do Fall)
-                Vector3 extraGravity = Vector3.down * additionalGravity * 1.5f; // 50% mais gravidade que o configurado
-                controller.Rigidbody.AddForce(extraGravity, ForceMode.Acceleration);
-            }
-        }
-
         /// <summary>
         /// Aplica a força de pulo
         /// </summary>
         private void ApplyJumpForce()
         {
-            // Força a velocidade vertical para o valor do pulo, garantindo consistência
+            // Reseta a velocidade vertical primeiro para garantir pulo consistente
+            Vector3 velocity = controller.Rigidbody.linearVelocity;
+            velocity.y = 0f; // Zera a velocidade Y atual
+            controller.Rigidbody.linearVelocity = velocity;
+            
+            // Aplica força de pulo
             controller.Rigidbody.AddForce(new Vector3(0, controller.MovementProfile.jumpForce, 0), ForceMode.Impulse);
+            
 
 
             // Vector3 velocity = controller.Rigidbody.linearVelocity;
