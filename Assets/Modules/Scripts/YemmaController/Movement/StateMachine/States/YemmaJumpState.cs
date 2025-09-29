@@ -34,15 +34,20 @@ namespace Yemma.Movement.StateMachine.States
 
             // Muda para animação de jump
             controller.ChangeAnimation(YemmaAnimationController.YemmaAnimations.Jump);
-            
-            // CORREÇÃO: Aplica a força de pulo imediatamente ao entrar no estado
-            ExecuteJump();
+
+            Vector3 velocity = controller.Rigidbody.linearVelocity;
+            velocity.y = 0f; // Zera a velocidade Y atual
+            controller.Rigidbody.linearVelocity = velocity;
+
+            // Aplica força de pulo
+            controller.Rigidbody.AddForce(new Vector3(0, controller.MovementProfile.jumpForce, 0), ForceMode.Impulse);
+                hasJumped = true;
         }
 
         public override void Exit()
         {
             base.Exit();
-            
+
             // CORREÇÃO SIMPLES: Reabilita as molas quando sair do estado de pulo
             if (controller.MovementProfile.springProfile != null)
             {
@@ -62,7 +67,6 @@ namespace Yemma.Movement.StateMachine.States
             if (IsGrounded() || coyoteTimeCounter > 0f)
             {
                 ApplyJumpForce();
-                hasJumped = true;
             }
         }
 
@@ -90,16 +94,17 @@ namespace Yemma.Movement.StateMachine.States
             }
 
             // Transição para Fall se a velocidade vertical for negativa ou muito baixa
-            if (hasJumped && controller.Velocity.y <= 0.5f) // Mudou de 0f para 0.5f para transição mais suave
-            {
-                TransitionToFall();
-            }
+            // if (hasJumped && controller.Velocity.y <= 0.5f) // Mudou de 0f para 0.5f para transição mais suave
+            // {
+            //     TransitionToFall();
+            // }
 
             // Se ainda não pulou mas está no ar (caiu), vai direto para Fall
-            if (!hasJumped && !IsGrounded() && coyoteTimeCounter <= 0f)
+            if ((!IsGrounded() && coyoteTimeCounter <= 0f) || IsGrounded())
             {
                 TransitionToFall();
             }
+            
         }
 
         /// <summary>
@@ -111,10 +116,10 @@ namespace Yemma.Movement.StateMachine.States
             Vector3 velocity = controller.Rigidbody.linearVelocity;
             velocity.y = 0f; // Zera a velocidade Y atual
             controller.Rigidbody.linearVelocity = velocity;
-            
+
             // Aplica força de pulo
             controller.Rigidbody.AddForce(new Vector3(0, controller.MovementProfile.jumpForce, 0), ForceMode.Impulse);
-            
+
 
 
             // Vector3 velocity = controller.Rigidbody.linearVelocity;
