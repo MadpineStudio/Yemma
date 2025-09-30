@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e8895e60f0b1434faa7a106845b6da4, type: 3}
+  m_Name: YemmaSettings
+  m_EditorClassIdentifier: Assembly-CSharp::YemmaSettings
+  walkSpeed: 10
+  runSpeed: 6
+  acceleration: 10
+  deceleration: 13
+  inputThreshold: 0.87
+  jumpForce: 80
+  rotationSpeed: 5
+  coyoteTime: 0.2
+  groundCheckDistance: 0.78
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  enableSpringForce: 1
+  springConstant: 5000
+  dampingConstant: 250
+  restLength: 0.78
+  springRaycastDistance: 1.14
+  springRaycastOffset: {x: 0, y: 0.68, z: 0}
+  climbDetectionDistance: 1
+  climbableLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  climbRaycastOffset: {x: 0, y: 1.36, z: 0}
+  climbableTag: Climbable
+  hangDistance: 0.4
+  hangDepth: 2
+  minHangTime: 0.5
+  alignmentSpeed: 75
+  showGroundCheck: 0
+  showSpringForce: 1
+  showClimbDetection: 1
+  groundCheckColor: {r: 1, g: 0, b: 0, a: 1}
+  groundedColor: {r: 0, g: 1, b: 0, a: 1}
+  springRayColor: {r: 1, g: 0, b: 0, a: 1}
+  springHitColor: {r: 0, g: 0, b: 1, a: 1}
+  springRestColor: {r: 0, g: 1, b: 0, a: 1}
+  climbRayColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  climbHitColor: {r: 1, g: 0.6470588, b: 0, a: 1}
