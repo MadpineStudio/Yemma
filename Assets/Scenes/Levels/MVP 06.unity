@@ -3886,7 +3886,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 112
@@ -10276,5 +10276,5 @@ SceneRoots:
   - {fileID: 306485245}
   - {fileID: 1777161614}
   - {fileID: 1075348663}
-  - {fileID: 684645253}
   - {fileID: 142755476}
+  - {fileID: 684645253}
