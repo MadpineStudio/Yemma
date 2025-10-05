@@ -17,7 +17,7 @@ MonoBehaviour:
   acceleration: 10
   deceleration: 13
   inputThreshold: 0.87
-  jumpForce: 80
+  jumpForce: 120
   rotationSpeed: 5
   coyoteTime: 0.2
   groundCheckDistance: 0.78
@@ -34,7 +34,7 @@ MonoBehaviour:
   climbableLayer:
     serializedVersion: 2
     m_Bits: 64
-  climbRaycastOffset: {x: 0, y: 1.36, z: 0}
+  climbRaycastOffset: {x: 0, y: 1.72, z: 0}
   climbableTag: Climbable
   hangDistance: 0.4
   hangDepth: 2
