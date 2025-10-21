@@ -38,11 +38,11 @@ Material:
     - _GradientIntensity: 0.43
     - _GradientOffset: 0.155
     - _GradientPower: 0.13
-    - _Layer01Rotation: 36
-    - _Layer02Rotation: 0
-    - _Layer03Rotation: 78
+    - _Layer01Rotation: 0
+    - _Layer02Rotation: 154
+    - _Layer03Rotation: 107
     - _Layer04Rotation: 0
-    - _PlanetRotation: 195
+    - _PlanetRotation: 186
     - _PlanetZoom: -0.14
     - _SkyPitch: 0
     - _StarBrightness: 3
@@ -51,11 +51,11 @@ Material:
     m_Colors:
     - _GradientBottom: {r: 0, g: 0.24882352, b: 0.6520595, a: 1}
     - _GradientTop: {r: 0, g: 0.003951405, b: 0.09433961, a: 1}
-    - _Layer01Color: {r: 0.00027688415, g: 0.0057125697, b: 0.012578547, a: 1}
+    - _Layer01Color: {r: 0.012578547, g: 0.005068221, b: 0, a: 1}
     - _Layer01Tiling: {r: 1, g: 1, b: 0, a: 0}
     - _Layer02Color: {r: 0.0012459914, g: 0.01710572, b: 0.01886791, a: 1}
     - _Layer02Tiling: {r: 1, g: 1, b: 0, a: 0}
-    - _Layer03Color: {r: 0, g: 0.004192851, b: 0.012578547, a: 1}
+    - _Layer03Color: {r: 0, g: 0.0065348772, b: 0.03773582, a: 1}
     - _Layer03Tiling: {r: 1, g: 2, b: 0, a: 0}
     - _Layer04Color: {r: 0, g: 0, b: 0, a: 1}
     - _Layer04Tiling: {r: 8, g: 8, b: 0, a: 0}
