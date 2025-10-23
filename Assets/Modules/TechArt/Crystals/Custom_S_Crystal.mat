@@ -45,7 +45,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 6d9f460ea11849a4e8889c608917d8de, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Scale: {x: 4, y: 4}
         m_Offset: {x: 0, y: 0}
     - _NormalLayer:
         m_Texture: {fileID: 2800000, guid: cf4214e50fe14d34a9103f5ac27a2019, type: 3}
@@ -101,7 +101,7 @@ Material:
     - _EffectColor: {r: 0.17295581, g: 1, b: 0.9693255, a: 1}
     - _GradientColorBottom: {r: 0.39286417, g: 0.5869814, b: 0.654088, a: 1}
     - _GradientColorTop: {r: 1, g: 1, b: 1, a: 1}
-    - _IceTint: {r: 0.84719175, g: 0.9150943, b: 0.6863207, a: 1}
+    - _IceTint: {r: 0.7568857, g: 0.9137255, b: 0.6862745, a: 1}
     - _InnerColor: {r: 0.5, g: 0.5, b: 1, a: 1}
     - _Layer1Color: {r: 1, g: 1, b: 1, a: 1}
     - _Layer2Color: {r: 1, g: 1, b: 1, a: 1}
