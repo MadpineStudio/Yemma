@@ -51,7 +51,7 @@ Shader "Custom/S_skybox"
     {
         Tags { "RenderType" = "Background" "Queue" = "Background" "RenderPipeline" = "UniversalPipeline" }
         Cull Off ZWrite Off
-
+    
         Pass
         {
             HLSLPROGRAM
