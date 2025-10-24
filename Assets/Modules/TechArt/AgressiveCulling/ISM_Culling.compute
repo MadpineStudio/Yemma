@@ -1,0 +1,88 @@
+#pragma kernel CSMain
+
+struct InstanceData
+{
+    float4x4 matrix;
+    float4 customData;
+};
+
+RWStructuredBuffer<InstanceData> _InstanceDataBuffer;
+AppendStructuredBuffer<uint> _VisibleIDBuffer;
+RWBuffer<uint> _ArgsBuffer;
+
+int _InstanceCount;
+float4x4 _VPMatrix;
+float3 _CameraPosition;
+float _MaxDistance;
+float _InstanceRadius;
+int _EnableFrustumCulling;
+int _EnableDistanceCulling;
+
+// Planos do frustum (extraídos da VP matrix)
+float4 frustumPlanes[6];
+
+void ExtractFrustumPlanes(float4x4 vp)
+{
+    // Left
+    frustumPlanes[0] = float4(vp[0][3] + vp[0][0], vp[1][3] + vp[1][0], vp[2][3] + vp[2][0], vp[3][3] + vp[3][0]);
+    // Right
+    frustumPlanes[1] = float4(vp[0][3] - vp[0][0], vp[1][3] - vp[1][0], vp[2][3] - vp[2][0], vp[3][3] - vp[3][0]);
+    // Bottom
+    frustumPlanes[2] = float4(vp[0][3] + vp[0][1], vp[1][3] + vp[1][1], vp[2][3] + vp[2][1], vp[3][3] + vp[3][1]);
+    // Top
+    frustumPlanes[3] = float4(vp[0][3] - vp[0][1], vp[1][3] - vp[1][1], vp[2][3] - vp[2][1], vp[3][3] - vp[3][1]);
+    // Near
+    frustumPlanes[4] = float4(vp[0][3] + vp[0][2], vp[1][3] + vp[1][2], vp[2][3] + vp[2][2], vp[3][3] + vp[3][2]);
+    // Far
+    frustumPlanes[5] = float4(vp[0][3] - vp[0][2], vp[1][3] - vp[1][2], vp[2][3] - vp[2][2], vp[3][3] - vp[3][2]);
+    
+    // Normalizar
+    for (int i = 0; i < 6; i++)
+    {
+        frustumPlanes[i] /= length(frustumPlanes[i].xyz);
+    }
+}
+
+bool IsInFrustum(float3 position, float radius)
+{
+    for (int i = 0; i < 6; i++)
+    {
+        float dist = dot(frustumPlanes[i].xyz, position) + frustumPlanes[i].w;
+        if (dist < -radius)
+            return false;
+    }
+    return true;
+}
+
+[numthreads(64, 1, 1)]
+void CSMain(uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= (uint)_InstanceCount)
+        return;
+
+    InstanceData instance = _InstanceDataBuffer[id.x];
+    float3 position = float3(instance.matrix[0][3], instance.matrix[1][3], instance.matrix[2][3]);
+    
+    bool visible = true;
+
+    // Distance culling
+    if (_EnableDistanceCulling == 1)
+    {
+        float distance = length(position - _CameraPosition);
+        if (distance > _MaxDistance)
+            visible = false;
+    }
+
+    // Frustum culling
+    if (_EnableFrustumCulling == 1 && visible)
+    {
+        ExtractFrustumPlanes(_VPMatrix);
+        if (!IsInFrustum(position, _InstanceRadius))
+            visible = false;
+    }
+
+    if (visible)
+    {
+        _VisibleIDBuffer.Append(id.x);
+    }
+}
